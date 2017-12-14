@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>忙碌</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">忙碌</h1>
+        <div class="show-content">
+          <p>最近一段的主要主题大概就是忙碌了</p><p>最开始所谓的工作忙碌大部分都是因为职责属性在公司“陪着”别人加班，想那会还有时间手写一些小型测试工程。直到，直到接到要改YZ的bug的这个事起，假忙碌变成了真忙碌，现在的我，大概是项目组里真实事务最多的人了。是怎么回事呢？因为YZ的项目几乎已经是不可维护状态的了，所谓的几个bug只是表象，要想解决，只能从结构设计上出发，因为问题的根源出在设计的缺陷上，在没什么文档没什么注释没什么前台配合的状态下要重写，复杂度很高，而且有很多内容需要调试。也不知道老王是真不知道这个项目的状态还是出于项目经理的习惯，时间预留的不算太充足。</p><p>不过我倒是没什么怨气，因为老王的动机结果和我自己的动机是匹配的。有的时候，更多的外在压力能带来更多的进步。我是想静下来踏踏实实磨砺一下自己敲代码的能力的。而YZ项目正好是一个契机，一个面对复杂逻辑的契机，一个深度了解YZ项目设计的契机，也是一个踩坑抗雷，处理时间规划的契机。闲暇时间好好休息，上班时间好好把手头的项目做好。如果可能的话，考虑一下PHZ的通用设计，因为YZ的设计基因上的缺陷，在其他PHZ项目上也有。如果能顺利解决，后续其他PHZ项目多半也是我来负责，所以早起做好通用设计可以减少以后的工作量。</p><p>还有一个事情，今天加班时和LYY聊部署的事情时恰好聊到的，就是对于协同办公项目设计的支持的问题。最近项目组在整改部署流程，貌似尝试过几套方案，最终定下来的这种方式个人觉得是不太便捷的（可能LYY和CYX有其他考虑才选用这种方式）。今天聊天时讨论了一阵，后面YY感叹了一句对于协同办公而言，文件冲突是在所难免的事。的确是如此，因为牵扯到公用内容修改时很容易就带来冲突，现在项目组主要是CYX和我在维护后端，人数其实算很少的，但是依旧也有不少需要解决冲突的情况。后面我突然回想一下才发现，最近我处理的冲突文件貌似都是tablemanager和palyermanager这些，这几个类本身就是为了减少重复代码和规范流程设计出来的，但是其设计有一个很大缺陷就是有不多的几个方法，并没有做到业务脱离。basetable这种做到业务脱离的类，平时冲突就很少，而tableManager这几个，每次一添加新的玩法内容必然带来改动而容易导致冲突。把这件事情总结起来其实就是，在java中做通用设计时，如果是依赖具体业务的内容，可以通过抽象类来定制，在特定的子类中实现。这样，通过子类把业务抽离，再把业务划分给不同的人，可以一定程度上规范流程又避免修改冲突。这一块，后续把YZ搞完了，和CYX商量一下整改。</p><p>还有一个之前想到了问题却没有想到很好解决方案的事情也在这里记录一下。就是类似公司现在所遇到的，一个项目内容，需要做多个定制版本，这些版本有相同的也会存在一些不同的内容的情况。</p><p>我们当前采取的解决方案是做项目分支，一个版本一个分支，分支方法的便于部署，但是有一个问题就是很难做版本管理而且需要做很多重复性工作。比如改了某玩法的一个bug，在有十多个版本的情况下，可能就需要重复修改十多次。个人觉得这种方式可能不是最优解。所猜想的更优解是一套代码，通过设计来做版本区分。只是具体该如何做约定设计才能达到便于维护不容易出乱呢？这是需要好好考虑一下的。（把公用内容做成jar包的方式会否更好呢？这是一个思路）<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript几个常用对象篇</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">JavaScript几个常用对象篇</h1>
+        <div class="show-content">
+          <p>javascript对象<br></p><p>1.javascript中所有事物都是对象，另外javascript允许自定义对象。</p><p>2.对象有两种成员，一种是属性，通过object.a 语法访问；另外一种是方法，通过object.b() 语法访问。（如果方法也是对象，它是什么样的对象呢？就是Function对象，那么Function对象为什么需要“()”的后缀呢？ 经过测试得, 将一个函数对象赋值给一个变量，“()”的含义是执行其内容，而没有”()”时，是直接打印的函数体本身，也就意味着() 可能是代表着是一个执行方法，当函数对象调用这个方法时，可能就是按照 apply(myObject,myArray) 类似的方式执行，第一个参数标志位置，第二个参数标志执行时的参数）</p><p>3.javascript是面向对象的语言，但是JavaScript不会创建类。JavaScript是基于prototype的</p><p>4.Number</p><p>4.1所有JavaScript的数字均为64位（52位值，11位指数，1为sign）</p><p>4.2整数不使用小数点或指数计数法时，最多15位，小数的最大位数是17，但是<b>浮点运算并不是100%准确的 （ - -！ 这几个位是怎么得出来的来着~~~~~）</b></p><p>4.3JavaScript支持8进(0533)和16进制(0xFF)</p><blockquote>
+<p>var num = 16;</p>
+<p>num.toString(16);</p>
+<p>num.toString(8);</p>
+<p>num.toString(2); //这里才是常规数字最快的转2进制的办法~~~~~~~~（比查啥子网站都快)</p>
+</blockquote><p>4.4Infinity也分正负,也是number类型,NaN也是number，可以用isNaN来判定。</p><p>4.5可以通过 new Number(123)来创建一个与从number初始化池子里的数字不一样的object</p><p>4.6几个处理时可能用到的非常规方法</p><blockquote>
+<p>toExponential() //指数计数</p>
+<p>toFixed() //数字转字符串，可以指定小数点后的位数</p>
+<p>toPrecision() //可以把数字格式化成指定长度，不足的补0，多余的填0</p>
+<p>toString() //进制转换</p>
+<p>valueOf() //返回number对象</p>
+</blockquote><p>5.String</p><p>5.1支持  var a = “abc”; a[3] ; 这种写法来访问字符</p><p>5.2内置属性length</p><p>5.3常用方法</p><blockquote>
+<p>indexOf lastiIndexOf</p>
+<p>match</p>
+<p>replace</p>
+<p>toUpperCase toLowerCase</p>
+<p>split</p>
+<p>\ 插入转译字符，貌似好友一种 ${} 表示属性名的写法(这里好像是jQuery引入的,测试了一下，也是默认就有了)</p>
+</blockquote><p>5.4完整的如下：</p><blockquote>
+<p>String对象</p>
+<p>属性:</p>
+<p>length</p>
+<p>prototype</p>
+<p>constructor</p>
+<p>方法:</p>
+<p>charAt()</p>
+<p>charCodeAt()</p>
+<p>concat()</p>
+<p>fromCharCode()</p>
+<p>indexOf()</p>
+<p>lastIndexOf()</p>
+<p>match()</p>
+<p>replace()</p>
+<p>search()</p>
+<p>slice()</p>
+<p>split()</p>
+<p>substr()</p>
+<p>substring()</p>
+<p>toLowerCase()</p>
+<p>toUpperCase()</p>
+<p>valueOf()</p>
+</blockquote><p>6.Date</p><p>6.1初始化方法</p><blockquote>
+<p>new Date(); //当前时间</p>
+<p>new Date(milliseconds) //从1970.01.01 至今的毫秒数(),也就是Unix时间戳</p>
+<p>new Date(dateString)</p>
+<p>new Date(year,month,day,hour,minutes,seconds,milliseconds)//其中month是从0开始计算的</p>
+</blockquote><p>6.2日期比较支持 &gt; &lt; 等运算符 （如果要用对象的思维理解这里的实现就有点复杂了，可能需要参考c++重载运算符的实现机制）</p><p>7.Array</p><p>7.1初始化方法</p><blockquote>
+<p>var p = new Array(); p[0] =1;p[1]=2;</p>
+<p>var p = new Array(1,2);</p>
+<p>var p = [1,2];  (这里其实也有点重载运算符的意思)</p>
+</blockquote><p>7.2数组内容是泛类型的。内置了length属性，以及有indexOf方法获取索引</p><p>7.3这里有一个黑科技就是通过原型来自定义方法（原来prototype是这么用的）</p><blockquote>
+<p><b>Array.prototype.mycase=function(){</b></p>
+<p><b>for(i=0;i</b></p>
+<p><b>this[i]=this[i].toUpperCase();</b></p>
+<p><b>}</b></p>
+<p><b>}</b></p>
+<p><b>var p = [“a”,”b”];</b></p>
+<p><b>p.mycase();</b></p>
+<p><b>//prototype在这里可以理解成是一个全局的function对象的容器（应该是有作用空间的），将自定义的函数体可以放在这里，让后续对象可以访问到</b></p>
+</blockquote><p>8.Boolean</p><p>8.1如果Boolean无初始化值或者值为 0 -0 null undefined false NaN “” 时，值为false，</p><p>8.2所以需要判定为空时，如果判定的值为上述内容，可以直接用if(xx)这种语法，来默认强转</p><p>9.Math</p><p>9.1用于算数de（可参见<a href="http://www.runoob.com/jsref/jsref-obj-math.html" target="_blank">http://www.runoob.com/jsref/jsref-obj-math.html</a>）</p><p>9.2常用的几个</p><blockquote>
+<p>round //四舍五入</p>
+<p>random//0到1间的随机数,半闭半开，包含0不包含1  ,</p>
+</blockquote><p>如果是0-100随机整数呢</p><blockquote>
+<p>Math.round(Math.random()*100) //这里0和100的概率都只有0.5%,毕竟有101个数字</p>
+<p>Math.floor(Math.random()*101) //这个写法貌似就是均匀的</p>
+</blockquote><p>9.3Math还提供类似于PI这类的8个常量</p><blockquote>
+<p>Math.E</p>
+<p>Math.PI</p>
+<p>Math.SQRT2 //2的平方根 1.414那个  - -！ 有点不记得哪里需要用了</p>
+<p>Math.SQRT1_2</p>
+<p>Math.LN10</p>
+<p>Math.LN2</p>
+<p>Math.LOG2E   // - -！ 不要问我这几个大爷都是干什么的了，我不记得了额  。。。。</p>
+<p>RegEx</p>
+</blockquote><p>10.正则表达式对象</p><p>… … 这里可以blablabla写很多》。。。 (不过我不熟悉这块，暂时用不到就跳过哒</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

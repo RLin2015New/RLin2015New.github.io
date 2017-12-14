@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Effective Java中文版》-第1章、第2章</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《Effective Java中文版》-第1章、第2章</h1>
+        <div class="show-content">
+          <p>《Java编程思想》已基本过了一遍，在双十一的前后又买了几本Java进阶相关的书，大致方向是代码规范、并发、虚拟机以及敏捷开发。大方向是架构，手头的项目正是一个很好的实践，实践之余，先把Java的功底拔高再谋其他。</p><p>闲话少说，开始正题。</p><p>序言中提及了一个观点是，掌握一门语言需要掌握三个方面，语言的结构如何（语法）、如何命名想谈论的事物（词汇）、以及如何惯用和高效的方式来表达日常的事物（用法）。想想其实和学英语的方式大体相似。回归到Java上就是，Java核心是面向对象的，所以先探寻面向对象牵扯到的词汇（关键字），实现面向对象编程步骤的写法(语法定义)，以及如何更高效的组织这种思维结构下的写法（用法、框架）。本书解决的是第三种需求：习惯和高效的用法。采取的方式是归纳总结写对象各个环节的一些要点，指出怎么做、以及为什么。</p><p>本书大部分规则都是源于少数的几条基本原则。</p><p>  1.清晰性和简洁性最为重要：模块的用户永远也不应该被模块的行为所迷惑</p><p>  2.模块（Module）要尽可能小，但又不能太小</p><p>  3.代码应该被重用，而不是被拷贝</p><p>  4.模块之间的依赖性应该尽可能降到最小</p><p>  5.错误应该尽早被检测出来，最好是在编译时刻</p><p><br></p><p>本书是通过</p><p>  2.创建和销毁对象</p><p>  3.对于所有对象都通用的方法</p><p>  4.类和接口</p><p>  5.泛型 </p><p>  6.枚举和注解</p><p>  7.方法</p><p>  8.通用程序设计</p><p>  9.异常 </p><p>  10.并发</p><p>  11.序列化</p><p>十一个章节展开。</p><p><br></p><p>第2章 创建和销毁对象</p><p>1.考虑用静态工厂方法代替构造器</p><p>  优势在于可以构造含义更清晰的实例，不必每次都创建一个新对象，可以返回子类型对象</p><p>  服务提供者框架是指多个服务提供者实现一个服务，系统为服务提供者的客户端提供多个实现，并把他们从多个实现中解耦出来（JDBC就是一个典型代表）</p><p>缺点在于如果类不包含公开的的构造器，就不能被子类化（也就说这种情况下写静态工厂方法的同时还要写公开构造器）。其次它与静态方法没有任何定义上的区别（也就是说它本身就可能给人误导~）</p><p>2.多个构造器参数时要考虑用构建器。（与我写createTable时的优化不谋而合，只是我没有采取链式写法，直接用的JavaBean参数）。Builder模式的优势在于清晰，不足在于性能上其实没有构造器优秀，因为每次构造对象前需要构建一个构造器。是否要使用，依赖于可读性和性能间的权衡。</p><p>3.用私有构造器或枚举类型强化Singleton</p><p> 枚举是作者提出的单例的终极方案，相对于私有构造器，它不能通过反射修改（私有构造器方式下，可以通过AccessiableObject.setAccessible方法调用私有构造器。抵御方法是检测是创建第二个构造器时抛出异常）</p><p>4.构造器抛异常可以让类不能被实例化</p><p>5.避免创建不必要的对象。（如装箱对象等）</p><p>小对象的创建和回收动作是非常廉价的，特别是在现代JVM的实现上。所以是静态化还是采取创建对象的方式并没有一个绝对的答案，比较好的策略是权衡创建当前对象付出的性能代价与静态化它时提供的简洁性。当然，在大批量运算时，要尽量减少创建对象。而对于实现频次十分低的对象，则可以考虑是否值得付出内存静态化存储。</p><p>维持自己的对象池来避免创建对象并不是一种好的做法。</p><p>6.消除过期的对象引用</p><p>数组情况下可能存在过期引用不会被主动回收。</p><p>7.避免使用终结方法（finalize）</p><p>实际使用finalize的情况也很少，因为它是不确定回收的。</p><p>好的策略是，在要做终结时，写一个手动终结的方法手动调用，结合try-finally结构直接回收。在重写实现了finalize的方法时，记得要调用super.finalize()。或者把重写的实现了finalize方法的类，直接写成一个静态的对象。这样回收静态对象时，会触发内部的finalize保证回收。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

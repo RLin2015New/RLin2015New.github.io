@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS 中数据持久化的几种方式（读）</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">iOS 中数据持久化的几种方式（读）</h1>
+        <div class="show-content">
+          <p><a href="http://www.cocoachina.com/ios/20161115/18084.html" target="_blank">原文：ios中数据持久化的几种方式</a> 感谢博主的劳动，下面只是对原文的个人解读</p><p>关键词是  IOS + 持久化，既然是持久化，那么就是存储了，不同方式的区别只是在存储在哪里，以什么格式来存储了。</p><p>关于存储到哪里，这里不讨论，这里的方式都是本地持久化的方案，现在应该还有一个云存储是可以拓展的。</p><p>那么以什么格式存储呢？</p><p>1.自定义的文件格式，也就是文章中的 文件。</p><p>这种方式的核心是，你自己指定文件名字和格式，比如“abc.txt”，然后你自己指定数据格式，比如</p><blockquote>
+<p>NSDictionary *dictionary = [NSDictionary dictionaryWithObjectsAndKeys:@"798293@qq.com", @"email", @"787907@qq.com", @"emailDisplay", nil];<br></p>
+<p>[dictionary writeToFile:filePath atomically:YES];</p>
+</blockquote><p>这里的数据格式是由NSDictionary的原始格式以及它的writeToFile方法共同决定。（理论上这种方式可以实现任何文件的存储，个人推测后续的几种功能方法都是基于这个方法的直接写文件数据的方式实现的）</p><p>2.系统提供的支持对象持久化的方式</p><p>因为对象持久化牵扯到对象状态的保存，所以系统直接提供了解决方案，这个解决方案直接就是一个持久化办法。</p><p>3.系统提供的简单便捷的持久化方案，即NSUserDefaults。</p><p>其实质也是写文件，但是系统本身提供了一个.plist文件，这个方案其实就是在写这个文件。这个方案的一个限制是只支持一些特定类型的对象，如果有复杂对象，可以转化成NSData来持久化</p><p>4.以数据库文件格式持久化，代表是SQLite，实现了一个适用于ios的内嵌的小型数据库实现。让大家可以用操作数据库的模式来管理数据持久化。</p><p>5.CoreData，基于SQLite的对象持久化解决方案。比较完整的模拟了数据库的实现操作。（需要再深入一下）<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-泛型13【可深读】</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-泛型13【可深读】</h1>
+        <div class="show-content">
+          <p>标记可深度是因为这章节的内容考虑了很多结构化和设计方面的内容，通过深读该章节的内容可以接触到作者他们是如何思考结构化问题的。</p><p>1.泛型最初设计的目的是希望类或方法能够具备最广泛的表达能力</p><p>2.泛型的一种用途是简化复杂模型，有些时候我们类的名字会很长很变扭，工具类中编写的话会产生大量的类名代码，这时候用泛型表示可以省去很多代码（估计会有使用限制，因为用泛型的话就没法调用参数了）</p><p>3.泛型中存在擦除的概念，即在泛型代码内部，无法获得任何有关泛型参数类型的信息</p><p>4.反射机制可以认为是对于擦除机制的补偿，在泛型属性被擦除后依旧有办法做类型处理</p><p>5.泛型中的边界可以用extends来限定，或者用super来进行超配</p><p>6.自限定的类型。可以实现在父类中用特定的子类参数而不被自动转型。写法是 class A&lt;T extends A&lt;T&gt;&gt;{ ... }</p><p>7.潜在类型机制</p><p><br></p><p>第15章 泛型</p><p>15.1 与C++的比较</p><p>15.2 简单泛型</p><p>15.2.1 一个元组类库（用final 变量实现的，只允许修改一次）</p><p>15.2.2 一个堆栈类</p><p>15.2.3 RandomList</p><p>15.3 泛型接口</p><p>15.4 泛型方法</p><p>15.4.1 杠杆利用类型参数推断</p><p>15.4.2 可变参数与泛型方法</p><p>15.4.4 一个通用的Generator</p><p>15.4.5 简化元组的使用</p><p>15.4.6 一个Set实用工具</p><p>15.5 匿名内部类</p><p>15.6 构造复杂模型</p><p>15.7 擦除的神秘之处</p><p>15.7.1 C++的方式</p><p>15.7.2 迁移兼容性</p><p>15.7.3 擦除的问题</p><p>15.7.4 边界处的动作</p><p>15.8 擦除的补偿</p><p>15.9 边界</p><p>15.10 通配符</p><p>15.10.1 编译器有多聪明</p><p>15.10.2 逆变</p><p>15.10.3 无界通配符</p><p>15.10.4 捕获转换</p><p>15.11 问题</p><p>15.11.1 任何基本类型都不能作为类型参数</p><p>15.11.2 实现参数化接口</p><p>15.11.3 转型和警告</p><p>15.11.4 重载</p><p>15.11.5 基类劫持了接口</p><p>15.12 自限定的类型</p><p>15.12.1 古怪的循环泛型</p><p>15.12.2 自限定</p><p>15.12.3 参数协变</p><p>15.13 动态类型安全</p><p>15.14 异常</p><p>15.15 混型（思考。作者和我思考问题的维度是否一致？因为该处混型的译文看内容，我是不会把这个问题当做一种类型来处理，它更像是一种代码场景）</p><p>15.15.1 C++中的混型</p><p>15.15.2 与接口混合</p><p>15.15.3 使用装饰器模式</p><p>15.15.4 与动态代理混合</p><p>15.16 潜在类型机制</p><p>15.17 对缺乏潜在类型极致的补偿</p><p>15.17.1 反射</p><p>15.17.2 将一个方法应用于序列</p><p>15.17.3 当你并未碰巧拥有正确的接口时</p><p>15.17.4 用适配器仿真潜在类型机制</p><p>15.18 将函数对象用作策略</p><p>15.19 总结：转型真的如此之糟吗？</p><p>15.19.1 进阶读物</p><p>【 //TODO  detail reading  】<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

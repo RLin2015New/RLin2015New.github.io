@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CoreSimulator一探（2个月前，图片遗失</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">CoreSimulator一探（2个月前，图片遗失</h1>
+        <div class="show-content">
+          <p>在Xcode的projects中可以找到derived data路径，进而获取Xcode的数据路径（一般为 ~/Library/Developer/Xcode）<br></p><p>在数据路径下找到CoreSimulator路径，其下的Devices下有模拟器缓存信息，是以模拟器得UDID命名的（这个理论上就是和真机的文件路径一样的），其下有device.plist（这个应该就是UIDevice对象能读取到的部分信息吧）和data文件夹</p><p>device下的key有</p><p>udid</p><p>deviceType（机器型号）</p><p>name（机器名）</p><p>runtime（iOS版本号）</p><p>state（运行状态，不明确含义）</p><p>UIDevice包含了device.plist的信息</p><p>模拟器下路径为（并不一定能代表真机情况，真机是否为这样需要再验证）</p><p>资源库（注意此处为中文名，该模拟器的默认语言实际是英语，此处为xcode生成时引导的）</p><p>Containers</p><p>Documents</p><p>Downloads</p><p>Media</p><p>Root</p><p>tmp</p><p>var</p><p>资源库</p><p>存放的是系统控件的信息，系统控件能访问到的信息大多在这里面有一个对应。很多数据的存储采取的是sqlite，而很多配置项采取的是plist（😏，plist的信息可以直接修改的哟~），另外还有一个需要注意的是Logs文件夹也在这个目录下，而Logs中包含了asi的日志记录（也就意味因为某些原因，asi的日志被认为是系统级的日志，应该是这么理解吧~~~）（如果该日志文件能破解的，那么也就意味着可以获取到通过asi访问网络的记录~~~~ 这里是否意味着是一个信息泄露的一个切入口？）</p><p>Containers</p><p>应用容器，包含了Bundle，Data，Shared</p><p>Bundle中能找到外部app的安装包（？这个应该是叫安装包吧），可以通过查看内容找到程序中 主路径下所有的显示图片（不确定）和文本文件，包含logo，但不包含xcasset路径（被加密成Assets.car）下的图片（所以呀，以后图片还是不要放主路径下呀，不然被别人破得没边了）。这里有一个提示就是主路径下的资源文件是不安全的，重要信息和系统配置信息不要放这边，因为可以显示修改，破解成本太低了（包括图片，html，ttf，text等等）</p><p>Data中存放的就是对应app的沙箱路径，沙箱路径包含Documents，Library，tmp三个路径</p><p>其中Library下，有Caches和Preferences两个路径，</p><p>Caches中存有app的快照（对于能访问到这个路径的盆友，一个简单粗暴的装逼办法可以是，把常用的app的快照更换成指定图片，这样能保证某一个时刻切回屏幕时显示成自己指定的照片，但是个人推测快照更新的事件为程序进入后台，也就意味着这个B可能只能装几秒钟~（如果是已越狱的机器，额，能拿到主路径访问和修改权限的话，是有办法可以让这个B装得更持久的））</p><p>Preferences下，以plist方式存储的信息（也就是 userDefault方法存储的内容），这些信息严格意义上来讲也是不安全的（所以如果以后考虑持久化，即便是轻量级数据，如果是不能让用户轻易篡改的内容，最好别用userDefault存储明文存储）</p><p><a href="" target="_blank">（微博sdk的部分信息，不过是数据库的方式存储，奇特的是，貌似我只做了一个微博是否安装的判定，它就生成了这么多内容（虽然加起来就两百多K）。但是对比的看微信，就干净得多了）</a></p><p>（友盟的部分信息在这里能找到）</p><p>Documents</p><p>暂无内容</p><p>Downloads</p><p>暂无内容</p><p>Media</p><p>DCIM（digital camera in memory）路径下有照片（貌似是原始尺寸）</p><p>Downloads 暂无内容</p><p>iTunes_Control iTunes的 sqlitedb，-shm，-wal等格式</p><p>PhotoData 这个路径下存有多个版本的照片信息，以及照片的略缩图等（让我想起了前段时间看到的那个做相册伪装成计算器的app，用以保存一些不让别人看到的私密图片（你懂得 😏），如果是能拿到这个目录的权限，可以达成只修改相册略缩图等内容，来实现在相册里看到的目录照片和实际点进去内容不一致的功能（也算是一种变相伪装））</p><p>Root</p><p>。</p><p>tmp</p><p>。</p><p>var</p><p>。</p><p>最后是吐槽时间</p><p>额，这是两顿饭一次的看书机会，别浪费呀~~~ 尤其对于现在的你，两顿饭的分量有多重你知道的（😭 😭 ）</p><p>想起了简爱的那段名句</p><p>"你以为，因为我穷、低微、不美、矮小，我就没有灵魂没有心么？</p><p>你想错了！——我的灵魂跟你的一样，我的心也跟你的完全一样！</p><p>如果上帝赐予我财富和美貌，我会使你难于离开我，就像现在我难于离开你。</p><p>上帝没有这么做，而我们的灵魂是平等的，就仿佛我们两人穿过坟墓，站在上帝脚下，</p><p>彼此平等——本来就如此！”</p><p>我想表达的是，其实我并非如表现的那么麻木，我也有很多的念想。可是呀，人出生就是这样，没有太强的背书可以依靠，自己也并非所想的那么聪明。我拿到了这幅牌，想把它打好，必然要有所舍弃的。保持欲望，但是不要让欲望支配你的行动。~~~~</p><p>what are you talking about~~~</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

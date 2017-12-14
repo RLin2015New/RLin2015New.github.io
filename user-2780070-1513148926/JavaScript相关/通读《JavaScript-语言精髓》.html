@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通读《JavaScript 语言精髓》</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">通读《JavaScript 语言精髓》</h1>
+        <div class="show-content">
+          <p>《JavaScript语言精髓》，原文名是《JavaScript：The Good Parts》,the good parts的一词，与文中第一张以及最后附录里面的精华、糟粕概念遥相呼应。此书与其他语言书不一样的一个重要地方在于，它辩证的指出了语言中设计不合理的部分。</p><p>  此书阅读还算比较顺利，书中使用语法图（铁路图）来介绍语法定义，很是形象生动。且这本书很多内容，都是站在如何设计一项语法的角度讲解，很深入。</p><p>本书通过如下几个部分展开，</p><p> 第一章，概要分析JavaScript，为什么要用它以及它的优秀和毒瘤之处各是什么；</p><p> 第二章，通过语法图（1）介绍JavaScript的语法，包括空白、标识符、数字、字符串、语句、表达式、字面量和函数的概念；</p><p> 第三章，介绍JavaScript中的对象，包括对象字面量、如何检索、如何更新、引用特性、原型概念、如何反射、如何枚举（2）、如何删除属性、如何减少全局变量污染；</p><p> 第四章，介绍JavaScript中的函数，包括函数对象、函数字面量的写法、如何调用、参数、返回、异常、如何扩充类型的功能、递归函数、函数作用域、闭包概念、回调函数、模块概念、级联特性、柯里化实现、记忆实现；</p><p>第五章，介绍JavaScript中的类继承概念，包括伪类实现、对象说明符的写法、原型实现、函数化实现、部件实现</p><p> 第六章，介绍JavaScript中的数组（array-like），包括数组的字面量、数组长度、删除元素、数组的枚举、数组中容易混淆的地方，数组的自带方法，如何指定初始化数组</p><p>第七章，介绍JavaScript中的正则表达式，包括一个比较复杂的正则例子、正则表达式的结构说明、正则表达式的元素说明</p><p> 第八章，介绍JavaScript中的自带方法。包括Array的自带方法、Function的自带方法、Number的自带方法、Object的自带方法、RegExp的自带方法、String的自带方法</p><p> 第九章，介绍JavaScript的一种代码风格</p><p>第十章，介绍JavaScript中的设计的好的特性</p><p>附录A，毒瘤，介绍JavaScript中一些容易引发错误却又没法舍弃的特性</p><p>附录B，糟粕，介绍JavaScript中应该尽量避免使用的一些特性</p><p>附录C，介绍JSLint</p><p>附录D，JavaScript的语法图</p><p>附录E，JSON介绍</p><p>最后是全书索引。</p><p>写在最后。（自己瞎写的）</p><p><br></p><p><br></p><p><br></p><p><br></p><h1>全书深入：</h1><h2>第一章，概要分析JavaScript，为什么要用它以及它的优秀和毒瘤之处各是什么；<br>
+</h2><h3>为什么要用JavaScript呢?</h3><p>1.它是当前web浏览器的语言、2.JavaScript有极强的语言表达力。JavaScript的优秀想法包括1.函数、2弱类型、3动态对象、4富有表现力的对象字面量表示法，糟粕包括1.基于全局变量的编程模型。</p><p> 函数：JavaScript是第一个成为主流的Lambda语言。</p><p> 弱类型：弱类型相较于强类型是自由的，且类型错误并非是编程中的主要问题。</p><p> 对象字面量表示法：通过列出对象的组成部分，对象就能被创建。这种表示法是JSON的灵感来源。</p><p>动态对象：应该是指javascript可以动态的修改对象的属性值。</p><p>原型继承：是一个有争议的特性。因为对于很多人是陌生概念，但是确实很强大。</p><p>基于全局变量：所有编译单元的顶级变量会被撮合到全局变量（the global object）的公共命名空间中。这个特定容易引发冲突。可全局变量又是JavaScript的基础。</p><p><br></p><p><br></p><h2>第二章，通过语法图介绍JavaScript的语法，包括空白、标识符、数字、字符串、语句、表达式、字面量和函数的概念；<br>
+</h2><p>空白：//注释优于/**/注释，后者在遇到正则表达式时可能出现解析错误</p><p>标识符：关键字</p><p>数字：Number类型。在内部表示为64的浮点数，和Java的double数字类型一样。没有单独分离整数类型，所以1和1.0是相等的。（这部分的语法图比较有意思，层叠关系，语法图中所用到的规则也是可以通过语法图定义的）。NaN是一个数值(number类型)，不等于任何值，通过isNaN(x)判定。Infinity表示大于1.79769313486231570e+308的值。（JavaScript的number最大值）。</p><p>字符串：JavaScript是基于Unicode创建的，所有字符都是16位。可以通过\u指定字符编码。字符串有一个length属性。字符串是不可变的，但是可以通过操作符可以便捷创建新字符串。两个有完全相同字符且字符顺序也相同的字符串被认为是相同的字符串（严格等===）。（猜测这里的底层实现可能有类常量字符串池的概念）</p><p>假值：布尔判定被当做假（false）概念的值。1.false 2.null 3.undefined 4.空字符串' '(包括多个空字符情况) 5.数字0 6.数字NaN</p><p>表达式：留意运算符优先级问题</p><p>对象字面量：是一种可以方便按规格创建新对象的表示法（字面量的概念可以理解为是声明语法，即按照字面量的写法写就可以创建对应对象）</p><h2><br></h2><h2><br></h2><h2>第三章，介绍JavaScript中的对象，包括对象字面量、如何检索、如何更新、引用特性、原型概念、如何反射、如何枚举（2）、如何删除属性、如何减少全局变量污染；<br>
+</h2><p><b>JavaScript的简单数据类型有1.数字、2.字符串、3.布尔值、4.null，5.undefined。其他所有的值都是对象。</b>JavaScript中的对象是可变的键控集合（keyed collections）</p><p>对象字面量：var obj = {“key01”:value01,key02:value02...};</p><p>对象的检索：“obj.key”和ob[key]两种写法，推荐前者，其可读性更好。</p><p> var p1 = obj.key || "default" ;  //用||来填充默认值的一种写法</p><p> var p2 = obj &amp;&amp; obj.key ; //避免obj抛TypeError的一种写法(貌似也没有抛异常，只是返回undefined- -)</p><p>对象的更新：因为是动态对象，所以可以动态更新</p><p>对象的引用特性：<b>对象通过引用来传递。它们永远不会被复制。</b>（闭包是避免这种特性导致原值被篡改的一个解决方案）</p><p>原型概念：每个对象都链接到一个原型对象(Object.prototype)，并从其他继承属性。原型连接在更新时不起作用，但是在检索值时，如果对象没有此属性，那么就会尝试从原型中取属性值。如果想要的属性不存在于原型链中，那么返回undefined。（这是一个语法特性，可以利用该特定也需要考虑该特性是否会在特定情形造成一些奇怪bug）。这个向上传递的过程叫做委托（个人理解）。</p><p>反射概念：即确定有什么属性或方法，通过typeof就可以判定，避免是函数。另外一个方法是hasOwnProperty（不会检查原型链）</p><p>对象的枚举：挖掘原型的枚举，for-in；for是不挖掘原型的枚举。</p><p>删除：delete。不会触及原型对象。</p><p>减少全局变量污染：一个方案是只创建一个唯一的全局变量，js所需要的变量都通过唯一的全局变量成员属性来完成。（很赞的思路，配合特定的命名法，基本可以规避掉全局变量冲突问题）</p><p><br></p><p><br></p><h2>第四章，介绍JavaScript中的函数，包括函数对象、函数字面量的写法、如何调用、参数、返回、异常、如何扩充类型的功能、递归函数、函数作用域、闭包概念、回调函数、模块概念、级联特性、柯里化实现、记忆实现；<br>
+</h2><p><b>所谓编程，就是将一组需求分解成一组函数与数据结构的技能。</b>（前言中介绍本书目的时：“我将展示这门语言的组成部分，并且让逐步上手，学会如何组合各个部分”）</p><p>函数对象：对象是“名/值”对的集合并拥有一个连到原型对象的隐藏连接。函数是连接到Function.prototype的对象，创建时会附加两个隐藏属性：函数的上下文和实现函数行为的代码。</p><p>函数字面量：4个部分，function关键字、函数名、参数、实现语句。推荐写法：</p><p>var f = function(a,b){ ... }; //两个要点，一是var f=... 这种对象申明写法，二是末尾的;</p><p>函数的调用：JavaScript中有4种调用模式，主要区别在于对this参数初始化的方式上。(做了一个测定，貌似this是私有成员变量，无法在函数体外部访问到。this绑定对象的时机根据调用方法有所差异)</p><p> 方法调用模式：  a.funA();  //this到对象的绑定发生在调用的时候。</p><p> 函数调用模式： a(); //this被绑定到全局变量</p><p>构造器调用模式: new func() 的调用方式。<b>大写格式命名</b>的对象可以采取这种构造器函数的方式。</p><p>apply调用模式。 func.apply(this,params)。可以理解为是原型Function自带一个暴露在外的接口，传递一个this，一个参数数组。（有点像java里的invoke方法）</p><p>函数的参数：函数调用时，自动获得一个array-like的对象arguments。它并不是真正的数组，没有任何数组方法，但是有一个length属性。</p><p>返回：如果返回对象本身，就可以实现级连写法。</p><p>异常：exception对象格式为{name:aaa,message:bbb};</p><p>扩充类型的功能：因为原型的存在使得扩充类型功能成为可能。通用写法是</p><p>if(!this.prototype[name]){</p><p> this.prototype[name]=func ; }</p><p>递归函数：一种函数应用</p><p>作用域</p><p>闭包：闭包带来的一种情况是，内部函数拥有比外部函数更长的生命周期。闭包写法被用于模块化以及保护成员变量。一种写法是：</p><p>  var  f = (function(params){...  return {... }; })();</p><p>//思路是使用一个直接调用的，返回值为需要暴露内容的匿名函数。需要隐藏的内容放在匿名函数里，因为其生成后调用完毕就结束了，所以无法再次访问，而其生成的新的暴露接口则被记录。</p><p>回调函数：一种函数应用</p><p>模块：是一个提供接口却隐藏状态与实现的函数或对象。（利用的就是闭包的那种思路）。可以产生安全对象。</p><p>级联：a.fun1().fun2().fun3().... 类似的写法。是利用funx返回值为this的特性实现</p><p>柯里化：柯里化的意思是，把函数与传递的参数结合产生一个新的函数。通常是利用apply特性，所需要的新函数就是 return 原函数.apply(this,原参数);</p><p>记忆：将先前函数的结果记录在某个对象里，从而避免无谓的重复操作。（可以用于运算的一个思路，但是有局限性。这是一种类似于缓存的思路）</p><p><br></p><p><br></p><h2>第五章，介绍JavaScript中的类继承概念，包括伪类实现、对象说明符的写法、原型实现、函数化实现、部件实现<br>
+</h2><p>继承提供了两种有用的服务，一是代码重用，二是引入一套系统的规范。一个语言有没有继承不重要，重要的是有提供这两个服务的方式。</p><p>伪类实现：实现思路是，指定子对象的prototype为父对象，父对象通常是通过new方法创建。</p><p>对象说明符：通过json定义传递参数的方式，方便阅读也可以忽略参数顺序</p><p>原型：继承的一个思路</p><p>函数化构造器：可以方便实现差异化继承对象的方式</p><p>部件：一种设计思想</p><p><br></p><p><br></p><h2>第六章，介绍JavaScript中的数组（array-like），包括数组的字面量、数组长度、删除元素、数组的枚举、数组中容易混淆的地方，数组的自带方法，如何指定初始化数组<br>
+</h2><p>JavaScript中的数组并非是像C中那样的一段线性分配的内存，而是通过模拟array实现的。它比真正的数组要慢。</p><p>数组字面值：var p = [ ]; //方括号包含可能的多个类型值。（混类型）</p><p>长度：length，会被增大以容纳新元素，不会发生越界。length最大值为4294967295（0&lt;=length&lt;232-1）。手动设置length可以拓充或删减数组</p><p>删除：delete有效，但是delete会留空值。splice方法可以删减元素并修正长度，其实现是删除后置元素并重新插入。<b>对于大型数组效率不高</b>。</p><p>枚举：for-in无法保证数组顺序，for可以有效遍历</p><p>容易混淆的地方：属性名小且连续的整数是用数组，否则用对象。判定数组的方法是：</p><p>typeof value==='object' &amp;&amp; value.constructor===Array;(这个方法在识别不同窗口或帧里构造的数组时会失败，why？)</p><p>更有效的判定是：</p><p>Object.prototype.toString.apply(value)==='[Object Array]'; //貌似就是调用对象的toString方法</p><p>//<b>上述这种写法成功的避开了对象对于prototype的封装。</b>对象的原型并不能直接访问到，但是部分浏览器提供了<a href="http://www.jb51.net/article/80109.htm" target="_blank">非标准的访问器</a> ，这里的调用思路是，先获取要调用的方法，然后通过apply来执行。类似的，如果我们能获取到要执行的被封装方法，也可以用apply这种执行方式来突破封装。（这里比较有意思，可以研究下）</p><p>数组的方法：存储在Array.prototype里</p><p>数组指定初始值：自己写方法咯</p><p><br></p><p><br></p><h2>第七章，介绍JavaScript中的正则表达式，包括一个比较复杂的正则例子、正则表达式的结构说明、正则表达式的元素说明<br>
+</h2><p>JavaScript的语法借鉴Java，函数借鉴Scheme，原型借鉴Self，正则表达式则借鉴Perl。</p><p>JavaScript可处理正则表达式的默认方法有1.regexp.exec 2.regexp.test 3.string.match 4.string.replace 5.string.search 6string.split</p><p>JavsScript正则表达式必须写在一行。</p><p>这里不做详细介绍，因为这里对于正则表达式的介绍其实很少。稍微提几个以前不熟悉的概念，正则表达式分支（|）,正则表达式序列，正则表达式因子，正则表达式分组(\(\))，正则表达式字符集(-)</p><p><br></p><p><br></p><h2>第八章，介绍JavaScript中的自带方法。包括Array的自带方法、Function的自带方法、Number的自带方法、Object的自带方法、RegExp的自带方法、String的自带方法<br>
+</h2><h3>Array自带方法：</h3><p>array.contact(...) ;//组合产生新数组</p><p>array.join(sep);//通过sep拼接成字符串</p><p>array.pop(); //出栈末尾元素，即移除末尾元素并返回该元素</p><p>array.push(..);//入栈元素，放在最后</p><p>array.reverse();//反转i</p><p>array.shift();//移除第一个元素并返回</p><p>array.slice(start,end);//从array[start]复制到array[end],end可选</p><p>array.sort(comp);//通过comp方法排序。sort是不稳定的（即排序后相等值会发生位置改变）</p><p>array.splice(start,deleteCount,...);//从start开始，移除deleteCount个元素，并用后续元素替换</p><p>array.unshift(item...);//从array开头起插入item</p><h3>Function自带方法：</h3><p>function.apply(thisArg,argArray);//调用。可以利用该方法来突破prototype对于原型方法的限制（参见上文 数组类型判定的例子）</p><h3>Number自带方法：</h3><p>number.toExponential(fractionDigits);//把number转换成指数形式</p><p>number.toFixed(fractionDigits);//转换成十进制，后面值为精度</p><p>number.toPrecision(percision)</p><p>number.toString(radix);//默认radix为10进制，可以指定进制。</p><h3>Object自带方法：</h3><p>object.hasOwnProperty(name);//判定本身是否包含某属性，不检查原型</p><h3>RegExp自带方法：</h3><p>regexp.exec(string) ;//执行正则表达式检查并返回结果</p><p>regexp.test(string);//执行正则表达式最简单和快速的方法，结果只返回true和false。不要对该方法使用g标志</p><h3>String自带方法：</h3><p>string.charAt(pos);//某位置字符串（因为JavaScript中没有字符概念，都是串~）</p><p>string.charCodeAt(pos);//获取某位置的字符编码</p><p>string.contact(string);//拼接，和+类似</p><p>string.indexOf(searchString,position);//从position开始查找searchString，返回第一个找到的坐标</p><p>string.lastIndexOf(searchString,position);</p><p>string.localCompare(that);//一个比较方法，规则不明</p><p>string.match(regexp);//正则匹配，含g则返回数组</p><p>string.replace(searchValue,replaceValue);//替换方法，两个都是规则参数，第一个是正则表达式，如果要替换所有，需要正则写法(类似于"ssssf".replace(/s/g,"t");)</p><p>string.search(regexp);//返回找到的第一个匹配值，会忽略g标志</p><p>string.slice(start,end);//从start起拷贝到end，end默认值是length；如果end为负数，那么它会与length相加。end的值等于你想取的最后一个字符的位置+1。这个规则同样适用于string.substring和array.slice</p><p>string.split(sep,limit);//用sep分割成limit个字符的数组</p><p>string.substring(start,end);</p><p>string.toLocalLowerCase();//Local主要针对于土耳其语的特殊转换</p><p>string.toLocalUpperCase();</p><p>string.toLowerCase();</p><p>string.toUpperCase();</p><p>string.fromCharCode(char...);//根据一串编码返回一个字符串</p><p><br></p><p><br></p><h2>第九章，介绍JavaScript的一种代码风格<br>
+</h2><p><b>对于一个组织机构来说，软件的长远价值和代码库的质量成正比。</b></p><p>这里我们通常依赖于编译工具的代码格式化功能。有一点需要注意的是，要努力保持注释是最新的，且应该尽量避免写无用注释浪费别人的事件。</p><p><br></p><p><br></p><h2>第十章，介绍JavaScript中的设计的好的特性<br>
+</h2><p>特性有规定成本、设计成本和开发成本，还有测试成本和可靠性成本。</p><p>精简的JavaScript特性有：</p><p>函数是顶级对象</p><p> 基于原型集成的动态对象</p><p>对象字面量和数组字面量</p><p><br></p><p><br></p><h2>附录A，毒瘤，介绍JavaScript中一些容易引发错误却又没法舍弃的特性<br>
+</h2><p>全局变量：弊端在于难于管理和随处可以修改，而且容易造成冲突</p><p>作用域：类c语言一般有块作用于，JavaScript采用了代码块的语法，却并没有提供块级作用域。所以相较于其他类c语言，JavaScript中，预先声明好所有的变量名是好习惯。</p><p>自动插入分号：有时候不和时宜的插入分号。</p><p>保留字：不能被用在点语法中，必须用时可以用括号语法</p><p>Unicode：支持65536个字符，一堆字符时认为是两个字符</p><p>typeof：返回的是泛类型，所以有时候需要结合其他逻辑判定具体类型</p><p>parseInt：比较好的写法是 parseInt("08",10)，这种带进制的</p><p>浮点数：不能正确处理十进制小数，比如0.1+0.2!=0.3，因为数字类型只有一个。一个可选解决办法是，指定精度，然后换算成整数来处理</p><p>NaN：是Number，但是不等于任何值（包括它自己）</p><p>伪数组：并非结构上的数组，是语法实现的结果。所以效率上有所舍弃。另外特例中的特例是arguments，它是伪Array数组，只有length属性适用。</p><p>假值： undefined和NaN不是常量而是全局变量 - -！，居然可以修改。。。。 - -！</p><p>hasOwnProperty：作为一个避开for-in语句隐患的一个过滤器。</p><p>对象：JavaScript中对象都是基于原型链生成的。</p><p><br></p><p><br></p><h2>附录B，糟粕，介绍JavaScript中应该尽量避免使用的一些特性<br>
+</h2><p>==：更通用的可能是===</p><p>with语法</p><p>eval：该函数传递一个字符串给JavaScript编译器，并执行结果。有性能代价，需要谨慎使用。</p><p>continue：貌似性能不佳</p><p>switch穿越：分支不跳出的写法，不安全。</p><p>缺少快的语法：容易遗漏的问题</p><p>++--：容易产生复杂代码</p><p>位运算符：同Java，但是因为没有整数类型，处理时先会先换成整数，执行然后再换回来。效率有点低。而且容易误写</p><p>function语句对比function表达式：推荐function表达式。function语句在解析时会被提升。语法限定一个语句不允许以一个函数表达式开头（这里的意思应该是执行语句，而非申明）。解决办法是用括号包起来，（function(){}）</p><p>类型的包装对象：推荐使用字面量写法</p><p>new：避免使用，而且语法约定是有new的对象应该首字母大写命名</p><p>void：是一个运算符，接受一个运算数并发挥undefined。</p><p><br></p><p><br></p><h2>附录C，介绍JSLint</h2><p><br></p><p><br></p><h2>附录D，JavaScript的语法图<br>
+</h2><p><br></p><p><br></p><h2>附录E，JSON介绍</h2><p>JSON全名是 JavaScript对象表示法（JavaScript Object Notation，简称JSON），是一种轻量级的数据交换格式。</p><p>JSON有6种类型的值：对象、数组、字符串、数字、布尔值（true/false）和特殊值null。空白可以插到任何值前后也可以省略。</p><p>JSON对象是一个容纳 “名/值”对的无序集合。（大多数语言都有能直接映射的对象）</p><p>JSON数组是一个值的有序序列，它的值可以是任何类型的JSON值，包括数组和对象。（大多数语言中也有映射的数据类型）</p><p>JSON字符串被包围在一堆双引号之间。\被用于转义。JSON允许/字符被转义</p><p>JSON数字，整数的首位不允许为0.可以是整数、实数或科学计数</p><p>JavaScript可以用  eval("("+jsontext+")")来解析JSON，但是有安全隐患。推荐使用JSON.parse（这里还讲解了一些JavaScript的安全细节）</p><p>一个JSON解析器的实现。</p><p><br></p><p><br></p><p>（1）语法图规则<br></p><p>.从左边界延轨迹到右边界</p><p>.遇到的圆框是字面量，遇到的方块是规则和描述</p><p>.任何沿轨道能走通的序列都是有效</p><p>.任何不能走动的轨道序列都是非法的</p><p>.末端只有一个竖条的铁路图表示允许在任何一对符号中间插入空白。末端有两个竖条的铁路图则不允许。</p><h1>全书索引<br>
+</h1><p>可以很方便和快捷的通过关键字定位要查找内容。这是工具书一个不可忽视且需要学习使用的一个环节。</p><h1>写在最后：</h1><p>JavaScript是一门轻量级的语言，基于web浏览器的编译器运行。因为web浏览器的流行，让它像现在这样如火如荼。因为是轻量级，所以语法结构简单，而且其本身的特定是轻约束，编写自由度较高。当然，这也是导致我们实现复杂逻辑的阻碍所在。当前的主流是，复杂逻辑放在服务器端，前端只做简单逻辑处理。另外一个趋势是，js框架慢慢趋于成熟。而框架真是解决复杂问题的一种补救规则。</p><p>最后再做一点发散的狂想。JavaScript给我们提供了一种展示在浏览器端的“前端动态组织语言”，它被用于pc浏览器，移动端显示。这两个案例也真是“前端-后台”模型逻辑的一种体现。而“前端-后台”这种逻辑是可以被拓宽的。比如，我们可以把“前端”拓宽到任何的提供显示的硬件以及做表现的任何硬件，“后台”可以拓宽为任何和“前端”分离的任何复杂处理提供实体，比如“云”甚至于其他更庞大可想象的。</p><p>JavaScript是一个很好的语言范例。也是一个可以作为模板化学习语言的一个很好切入案例。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

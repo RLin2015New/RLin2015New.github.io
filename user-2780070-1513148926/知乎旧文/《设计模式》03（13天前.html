@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《设计模式》03（13天前</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《设计模式》03（13天前</h1>
+        <div class="show-content">
+          <p>其实每天是跑步、打游戏还是看书并不重要，重要的是你是什么样的人 ，你在想什么。所以，每天是跑步、打游戏还是看书提升自己很重要，因为正是每一天的坚持，将你塑造成什么样的人。<br></p><p>第5章 行为模式</p><p>不仅描述对象或类的模式，还描述他们之间的通信模式。</p><p>分为 行为类模式 和行为对象模式</p><p>行为类模式包含Template Method 以及 Interpreter模式，使用继承机制在类间分派行为。</p><p>行为对象模式使用对象复合而不是继承。不同行为对象模式的耦合度是不一样的。Mediator引入一个midiator对象来提供松耦合所需的间接性。Chain of Responsibility提供了更松的耦合。Observer保持对象间的依赖关系。其他的行为对象模式将行为封装再一个对象中并将请求指派给它。Strategy和Command、State、Visitor、Interator模式都是这样的。</p><p><b>Chain of Responsibility（职责链）-对象行为型模式</b></p><p>适用情况，有多个对象可以处理一个请iu，哪个对象处理该请求运行时刻自动确定。</p><p>其实这个模式最重要的就是 Handler类的结构。</p><p>Handler有一个处理请求的接口，可选实现后继者。Handler父类的处理接口在有后继者存在时是默认传递给后继者处理的。（ios的触控采用的就是这个模式，所以存在了一个分层的情况）。</p><p>今天先到这。</p><p><b>Command（命令模式）-对象行为型模式</b></p><p>重要的其实还是Command的这个父类结构，正是这个结构，莫名了执行命令的这个过程，所有继承这个结构的类，都具备了执行的操作。因为这样统一了，让撤销和重做变得可能。也让日志方便嵌入。所以windows系统底层就采取了这种设计。要说明的是，如果要采取这个结构，一定要统一贯彻，把所有要求的命令都包含进来。</p><p>结构其实很简单。 基类-》Excute（）方法。</p><p><b>Interpreter（解释器模式）-类行为模式</b></p><p>这个感觉有比较强的语言依赖性。另外，在c和oc下，感觉别名（typedef）运用合理的话，可以达到语法上相同的效果。</p><p>语言的简化语法应该是这个模式的体现之一。但是没有感受到他其他的好处和意图。如果只是说用别名的方式来简化逻辑，这应该好处有限。</p><p><b>Iterator（迭代器模式）-对象行为模式</b></p><p>这个模式现在已经在各种面向对象语言中广泛使用（oc中的取代用法是 foreach），这个模式的设计立场应该是从封装的角度来考虑。另外，把遍历这个常用行为的不同模式用方法封装起来也很遍历。</p><p>自己在做一些设计时，如果牵扯到一些集合类的自定义对象，也可以考虑添加类似模式。</p><p>实施的核心在于实现一个Iterator的基类。</p><p><b>Mediator(中介者)-对象行为型模式</b></p><p>这个就是，为了避免A和B发生过多的耦合，引入一个C，让A通过C的接口来和B发生关系~~~~这样子做在一定程度上让A和B的变化不会互相影响。</p><p>睡觉。</p><p>如果只是敷衍了事的看书和学习，那还不如不要看书和学习。</p><p><b>Memento(备忘录模式)-对象行为型模式</b></p><p>采用 管理员管理备忘录，备忘录备忘对象的时刻状态，对象有权限接触备忘录的管理模式，来实现 对于对象的备忘和恢复 （不知道虚拟机实现镜像是不是用的这个模式）</p><p><b>Observer（观察者模式）-对象行为型模式</b></p><p>subject持有观察者的引用，观察者继承特定的接口，然后有多种策略，可以让subject自动更新观察者 或者由客户 手动来调用。注意这里可能会牵扯到一个多线程状态的 问题 。（ios中广泛使用）</p><p><b>State（状态模式）-对象行为型模式</b></p><p>允许一个对象在其内部状态改变时改变他的行为。对象看起来似乎修改了它的类。</p><p>实现方式，为一个对象的状态抽离一个父类，不同状态共同的方法为接口。对象的不同状态实现为不同的子类。</p><p>这么做好处是，避免了大量的if-else。但是引入的一个问题是让不同状态间的关系不够紧凑了。</p><p><b>Strategy（策略模式）-对象行为型模式</b></p><p>核心其实就是把存在多种策略的接口抽离，用实现类的方式达成不同实现。这么做把策略封装，让策略间可以互相替换，减少了if-else。具体有两种实现方法，一种是把context中所有参数传递给策略，第二种是把context对象传递给策略。（这种模式多用于 算法类问题）</p><p><b>Template Method（模板方法）-类行为模式</b></p><p>定义一个操作中的算法骨架，而 将一些步骤延迟到子类中 。使得子类可以不改变一个算法的结构就可以重新定义该算法的某些特定步骤。（也是将变化抽离的思想）</p><p><b>Visitor（访问者模式）-对象行为模式</b></p><p>核心做的事情其实是把实现的操作方法封装成visitor，对象要进行操作时，申请visitor来访问。所以需要做两个事情，首先是对象要有接收visitor的接口。其次，visitor要针对不同类型的对象，实现不同访问方法。visitor针对固定对象增加新操作很简单。但是要增加关联对象很麻烦。（两种模式没太看懂）</p><p>讨论：看下来，其实大部分模式都是围绕封装和分布、耦合和解耦、复用这几个维度展开的/。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

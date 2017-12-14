@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>流水仗（非账）</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">流水仗（非账）</h1>
+        <div class="show-content">
+          <p>从今天开始，正式启动了ss的ios版本开发进度了。</p><p>中午时，在楼下一口气买了三根棒棒冰，研究了一下棒棒冰的正确吃法后就开始干活而了。</p><p>登录了一下tower，对了一下微信的聊天记录一看，麻球，开始预计是一个月时间做出第一版的，从7.8到现在，时间已经过了一半了。进度还一直停在服务器的初级版本上。apple账号前几天也开始弄了，可几番来回折腾审核，到现在也没下来。没时间管那么多了，先启动起来再说。</p><p>之前已经过了ios版的模块规划，第一个版本没有创作功能的话，内容是相对简单的，而且大部分涉及的功能之前也都有接触过。技术点主要是账号体系、登录、导航条、多格列表、图片相关、个人主页、邀请模块设计、支付、微信接入和qq接入、消息推送设计，再有一个就是考虑与后台的通讯模式。通讯的话采取短链接就可以了，ios的第一版暂时就不做本地缓存了吧。</p><p>服务器端方面，需要做的是，账号体现、登录、通讯、消息推送、书籍相关的存储设计、接入支持等。没有特别难的点。因为之前从其他几个app抓取过一点数据，所以到自己开发时，还是要考虑一下防止最简单的抓取的。书籍的话，采取xml硬盘存储，服务器加载至内存以提高访问效率。当前书籍相关的内容已经大部分都弄完了，可能还有几个字段需要调整的，另外还有一个比较麻烦的事情暂时没有考虑的那就是图片来源的问题。</p><p>这周的话，先弄ios版吧，争取在下周日前把ios初版弄出来。时间上还蛮紧迫的（以为你公司的YZ项目已经快把我玩坏了 - - ）</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

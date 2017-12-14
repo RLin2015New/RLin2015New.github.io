@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Effective Java中文版》-第11章</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《Effective Java中文版》-第11章</h1>
+        <div class="show-content">
+          <p>也是本书的终章。序列化。</p><p>对于序列化，平时直接接触的是比较少，做OC时牵涉到持续化存储时有用过，但是用OC写的。Java端，存储一般都是做数据库存储或者文件存储，接触过项目中涉及到对象存储的很少。</p><p>第11章 序列化</p><p>说序列化的意思是说java提供的对象序列化API，序列化核心解决的问题是将对象转化为字节流，通常之后的操作是进行传输或者持久化，再在需要用到的地方通过反向序列化来恢复对象，以达成这类“恢复对象场景”的需求。</p><p>第74条：谨慎地实现Serializable接口</p><p>序列化需要一定使用成本和较高的维护成本，且对于拓展有一定限制，使用前需要慎重考虑</p><p>第75条：考虑使用自定义的序列化形式</p><p>默认需要化形式会存在诸多“浪费”，如果要使用的话，可以根据自己需求定义所需形式</p><p>第76条：保护性地编写readObject方法</p><p>安全相关（没碰到业务场景，不大理解~~）</p><p>第77条：对于实例控制，枚举类型优先于readResolve</p><p>注意于transient的使用</p><p>第78条：考虑使用序列化代理代替序列化实例</p><p>从设计角度看，序列化代理的默认序列化形式是外围类最好的序列化形式。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

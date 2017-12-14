@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-多态06</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-多态06</h1>
+        <div class="show-content">
+          <p>1.多态的作用则是消除类型之间的耦合关系。</p><p>2.Java中除了static方法和final方法（private方法属于final方法）之外，其他所有的方法都是<a href="http://blog.csdn.net/sureyonder/article/details/5569617" target="_blank">后期绑定</a>。</p><p>绑定的概念是什么呢？等以后阅读虚拟机时，了解了函数的执行模式就知道了。</p><p>3.执行顺序：静态变量、静态方法、静态域，然后是构造函数，然后是全局变量和全局域，然后是方法体。构造函数的执行先父类后子类。而函数执行父类方法还是子类方法将由运行时识别的对象类型来决定。</p><p>所以如果写回收方法，要回收父类资源。需要使用super.xx的方法。</p><p>4.用继承表达行为间的差异，并用字段表达状态上的变化</p><p>5.所有转型都会得到检查，即便是强转</p><p><br></p><p>第8章 多态</p><p>8.1 再论向上转型</p><p>可参考下图：</p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-a8fa6fd2b2ecb2f4.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-height="432" data-width="642" data-image-slug="a8fa6fd2b2ecb2f4" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-a8fa6fd2b2ecb2f4.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div>
+</div><p>因为方法区中还是持有父类的方法地址，所以能保证找到。但是这种情况又是如何做类型识别的呢？（需要了解虚拟机的实现）</p><p>8.1.1 忘记对象类型<br></p><p>8.2 转机</p><p>8.2.1 方法调用绑定</p><p>Java中除static方法、final方法、private方法，其他方法都是后期绑定。<br></p><p>8.2.2 产生正确的行为</p><p>8.2.3 可拓展性</p><p>8.2.4 缺陷：“覆盖”私有方法</p><p>8.2.5 缺陷：域与静态方法</p><p>域访问操作（全局变量初始化可以认为是域操作。全局变量初始化分两个过程，一个是设置为0的过程，另外一个是用域代码初始化的过程）都将由编译器解析，因此不存在多态。<br></p><p>8.3 构造器和太多</p><p>8.3.1 构造器的调用顺序</p><p>先父类再子类（如果第一行没有手动调用父类构造器，编译器自动添加调用父类的默认构造器。貌似是这个逻辑）</p><p>8.3.2 继承与清理</p><p>清理可以使用super.xx回收父类资源。放在最后。</p><p>8.3.3 构造器内部的多台方法的行为</p><p>这里需要理解后期绑定的概念。也可以结合域访问操作不存在多态的概念。</p><p>8.4 协变返回类型</p><p>貌似还是动态绑定的概念（没理解这里和动态绑定的区别）</p><p>8.5 用继承进行设计</p><p>8.5.1 纯继承与拓展</p><p>8.5.2 向下转型与运行时类别识别。</p><p>8.6 总结。<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-操作符、控制执行流程、初始化与清理03</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-操作符、控制执行流程、初始化与清理03</h1>
+        <div class="show-content">
+          <p>1.如果对char、byte或者short类型的数值进行移位处理，在移位之前，他们会转换成int类型，并且得到的结果也是一个int类型的值。另外，<a href="http://blog.sina.com.cn/s/blog_6ca0f5eb0102vlha.html" target="_blank">int类型最多移动2^5=32次</a>，long最多移动2^6=64次。这样可以防止移位超过int型值所具有的位数(int是4字节32位)。（此处的翻译有比较严重歧义）</p><p>2.在java里，在一个控制表达式中，定义多个变量的能力只限于for循环适用。</p><p>3.如果已经定义了一个构造器，编译器就不会帮你自动创建默认构造器。</p><p>4.编译器做了一些幕后工作。它暗自把“所操作对象的引用”作为第一个参数传递给方法。</p><p>5.可以用this调用一个构造器，但是只允许防御构造器的最起始位置。</p><p>6.finalize()是在垃圾回收时执行的。但是问题在于一个对象的垃圾回收时机是不确定的，所以这里不能等同于析构，也最好也只做和内存回收相关或者检测性（验证终结条件，比如流是否关闭等）的操作。</p><p>7.垃圾回收器对提高了对象创建速度有明显效果。原因在于其“堆指针”移动的实现机制。分配内存就相当于移动堆指针到未分配的区域，所以效率很高。</p><p>8.<b>引用计数常用来说明垃圾收集的工作方式，但似乎从未被应用于任何一种Java虚拟机实现中。</b></p><p>9.在一些更快的模式中，垃圾回收器并非基于引引用计数技术。它们依据的思想是：对任何“活”的对象，一定呢给你最终追朔到其存活再堆栈或静态存储区之中的引用。这个引用链条可能会穿过数个对象层次。由此，如果从堆栈和静态存储区开始，遍历所有的引用，就能找到所有“活”的对象。如何处理找到的存活对象，取决于不同的Java虚拟机实现。有一种做法是 停止-复制（stop-and-copy），有一种优化是再没有新垃圾产生，就会转换（自适应）成标记-清扫（mark-and-sweep）。 （停止-复制 是否就是在内存有限时所表现出来的“卡顿”？）（更多小细节见page 91，以及JVM的相关知识）</p><p>10.初始化顺序。依次是，按照声明顺序的 1.静态对象，2.静态代码块，3.非静态的全局对象，4.构造函数 5.代码块</p><p>11.数组声明时不允许指定数组大小。这和之前讲过的引用的概念有关。声明时其实是声明了引用,分配栈空间，而数组实际大小是在堆空间里，此时没有分配堆内存，所以无法确定大小。</p><p>12.Java SE5 开始支持可变参数列表，写法是 public function ( Object ... args )</p><p><br></p><p>第3章 操作符</p><p>3.1 更简单的打印语句</p><p>用了一个静态导入，static import，后续深入</p><p><br></p><p>3.2使用Java操作符</p><p><br></p><p>3.3优先级</p><p><br></p><p>3.4赋值</p><p><br></p><p>3.5算数操作符</p><p><br></p><p>3.6自动递增和递减</p><p>C++ 囧</p><p><br></p><p>3.7关系操作符</p><p>3.7.1测试对象的等价性</p><p><br></p><p>3.8逻辑操作符</p><p>3.8.1短路</p><p><br></p><p>3.9直接常量</p><p>直的是 1 ;2l  ;3.0f 这一类</p><p><br></p><p>3.10按位操作符</p><p>&amp; | ^</p><p><br></p><p>3.11移位操作符</p><p>&lt;&lt;   &gt;&gt;，若符号为郑，则再高位插入0，若符号为负，则在高位插入1.Java中增加了一种”无符号“右移位操作符 &gt;&gt;&gt;，它使用0拓展</p><p><br></p><p>3.12三元操作符if-else</p><p><br></p><p>3.13字符串操作符+和+=</p><p><br></p><p>3.14使用操作符常犯的错误</p><p>Java编译器已经做了一些补救</p><p>3.15类型转换操作符</p><p>强制类型转换</p><p>3.15.1截尾和舍入</p><p>理解强转的实质就会明白大部分都是截尾</p><p>3.15.2提升</p><p>主要是运算时做自动提升</p><p><br></p><p>3.16Java没有sizeof</p><p>3.17操作符小结</p><p>3.18 总结</p><p><br></p><p>第4章 控制执行流程</p><p>4.1 true和false</p><p>4.2 if-else</p><p>4.3 迭代</p><p>4.3.1 do-while</p><p>4.3.2 for</p><p>4.3.3 逗号操作符</p><p>for里面的那个</p><p><br></p><p>4.4 Foreach语法</p><p>Java SE5 引入</p><p>4.5 return</p><p>4.6 break和 continue</p><p>4.7 臭名昭著的goto</p><p>4.8 switch</p><p>4.9 总结</p><p><br></p><p>第5章 初始化与清理</p><p>5.1 用构造器确保初始化</p><p>(囧 好像很久没用过这个东东了)</p><p>5.2 方法重载</p><p>5.2.1 区分充给你在方法</p><p>5.2.2 涉及基本类型的重载</p><p>自动装箱和类型转换可能带来歧义，所以最好是带一个区别参数</p><p>5.2.3 以返回值区分重载方法</p><p>通不过编译</p><p><br></p><p>5.3 默认构造器</p><p>无则默认，有则无默认</p><p>5.4 this关键字</p><p>5.4.1 再构造器中调用构造器</p><p>必须写在第一行</p><p>5.4.2 static的含义</p><p>static方法就是没有this的方法</p><p><br></p><p>5.5 清理：终结处理和垃圾回收</p><p>finalize()做终结处理，在垃圾回收前自动执行。但是垃圾回收是有不确定性的。</p><p>5.5.1 finalize的用途何在</p><p>对象可能不被垃圾回收，垃圾回收并不等于”析构’，垃圾回收只与内存有关。</p><p>5.5.2 你必须实施清理</p><p>指引入c和c++代码的情况。Java只能引入c和c++，但是这两者可以引入其他更多的语言</p><p>5.5.3 终结条件</p><p>5.5.4 垃圾回收器如何工作</p><p>可以看一下开始写的8、9条。这里很概括。引用计数技术只是解释原理时用的，真正的JVM垃圾回收是基于"对于任何'活'的对象，一定能最终追溯到其存活在堆栈或静态存储区之中的引用"这一理念。</p><p><br></p><p>5.6 成员初始化</p><p>5.6.1指定初始化</p><p><br></p><p>5.7构造器初始化</p><p>5.7.1初始化顺序</p><p>先静态对象和静态块，然后是全局对象，然后是构造函数</p><p>5.7.2 静态数据的初始化</p><p>5.7.3 显式的静态初始化</p><p>静态块</p><p>5.7.4 非静态实例初始化</p><p>也可以用块</p><p><br></p><p>5.8 数组初始化</p><p>int[] a1; int[] a2 = {1,2,3}; int[] a3 = new int[3];</p><p>5.8.1 可变参数列表</p><p>function(new Object[]{1,2,3}); //老式写法</p><p>5.9 枚举类型</p><p>5.10 总结</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

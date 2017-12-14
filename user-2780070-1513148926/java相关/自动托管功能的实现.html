@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>自动托管功能的实现</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">自动托管功能的实现</h1>
+        <div class="show-content">
+          <p>自动托管可以理解为是简易的自动机器人行为，核心点就是让系统能够安排【哪个用户】【什么时间】做【什么事情】。</p><p>结合当前的需求，设计思路是，</p><p>1.注册可托管的方法，托管方法指定代理检测类；</p><p>2.系统生成托管执行任务，每秒检测执行任务，根据任务本身的参数来确定执行时机</p><p>3.通过代理方法根据业务状态来确定执行哪个注册的托管方法</p><p><br></p><p>该思路是经过一次改版得出的，第一版的思路是，直接注册是就定义好执行托管方法的次序，可实践中发现很多时候哪个时间该执行哪个方法是没办法预先判定的，需要根据运行时的状态来处理。所以改版思路就是引入代理方法，通过代理方法根据运行时状态来确定应该执行哪个注册方法。</p><p>两个地方自认为是做得比较好的，第一个是整个基于反射的流程设计还算比较优雅，适用性较强。第二点是对于托管执行任务的检测的并发处理（尚未经线上环境运行检验）。并发处理的思路是首先是使用了支持并发的容器，其次引入了一个移除容器的概念，把废弃的任务不直接通过主容器移除而是放入移除容器中，在每次主容器执行完毕后再清理钓移除容器中的任务。</p><p><br></p><p>此次实践的思路是先做设计，然后再实现。早期设计时只做了流程设计，并没有分析模型，今天做完时发现注册方法部分代码冗余很多，又花了点时间重构了一下，以后做早期设计时，应该也做一下模型分析，以优化代码质量。</p><p>最终的相关代码结构如下：</p><p>DepositManager </p><p>DepositTableSupport  (I)</p><p>DepositMethodGroup  1-N   DepositRegisteredMethod</p><p>DepositTask</p><p><br></p><p>当前实现效果是，玩家离线10秒进入托管状态，托管后5秒进行操作，在新阶段开始时提示前端5秒倒计时，倒计时结束后进行下一个操作。</p><p><br></p><p>因为【做什么】是依赖于代理方法的，所以这里修改一下代理方法是可以实现【机器人】功能的。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

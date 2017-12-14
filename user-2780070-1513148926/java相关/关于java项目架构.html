@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于java项目架构</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">关于java项目架构</h1>
+        <div class="show-content">
+          <p>先容我来吐槽吐槽</p><p>在man咖啡看《系统架构设计师教程》的体验也是醉了，这么自由散漫且轻松的环境读一本这么严肃和需要集中注意力的书。不过效果还不错，这一章节读的很有感觉。</p><p>对于小孩子一直是蛮有喜欢逗乐之心，不过感受到旁桌那种一对父母带着一个熊孩子，让熊孩子在这咖啡桌上玩弄糕点，类似于过家家的游戏，我还是有点受不了... 可这亦无所谓呢，这是别人的自由。后面把心收回来好好看书了，现在熊孩子一家已经走了。</p><p>新公司虽然规模比较小，但是已然存活接近10年，项目架构什么的还是比较规范的（不过文档方面是不规范的）。最近在主推的架构结构大致是  ssh+maven+数据库+js+easyUI的体系。前端主要是用了easyUI（这块暂时不是太熟），有一个副总带头这块，没有美工和设计，基本需求和页面也是相关人员和几个大佬一起敲定。ssh的标准框架支撑整个服务器实现，这里因为已经是很成熟的集成，配置文件做了很好的分离设计，所以新建模块，基本上需要调整的配置文件很少。分层设计模式为</p><p> 前端------action/object</p><p>                      ------ service/serviceImp</p><p>                                 ---------dao/daoImp</p><p>                                     ------------pojo</p><p>                                         ----------------数据库</p><p>所以新模块，基本上需要配置的就是action，然后就是建立对应的表，再依层集成。另外，因为提供了很好的base基类，依赖注入等有很标准的实现（这一块其实也是基于ssh的标签）。公司标准化框架做的事情主要是依赖于这种分层设计，结合基类，提供一些统一功能（类似于对表操作做记录，统一主键，提供统一便捷的查询）。</p><p>另外通过过滤器等语言特性，提供了类似于加密等功能，还有一个应该是Q总自己实现的比较得意的功能块，数据库的autoUpdate（核心思路是，通过xml配置sql，通过版本号检测sql是否需要更新。这种做法，让数据库建表语句和项目结合在一起了，同时又能自动管理。很便捷！）</p><p><br></p><p>另外一个值得称道的是maven，可能是因为这是我第一次真正在公司项目中使用maven，被其功能震惊到了。</p><p>公司当前的架构基于maven主要做了几个事情，项目包依赖管理、模块开发管理、项目代码保密性管理（这里当然也有svn的功劳）</p><p>我以前接触和做的项目涉及协同开发主要是用svn，在第一个公司时，模块划分基本靠嘴和眼</p><p>（- -！），很不规范，而且一旦成员扩充，代码保密性没法保证，也容易出乱子。maven很好的解决了这个问题。而且因为从仓库取包，让成员很好的统一了依赖包的版本。对于新进成员（比如我 - -！），可以只给涉及到的几个模块功能，核心代码通过maven的jar包来实现。另外，因为本地仓库和指定，所以如果有多个项目时，jar包也无需重复下载。很是节省空间和方便。</p><p>吹了这么多，来说说使用的一些方法和要点吧。</p><p>首先，公司是通过 windows/system32/drvices/etc路径下的host文件  (应该是这个路径，纯靠记忆写出的）来实现局域网域名解析的（这里主要是为了方便正式部署）。通过局域网域名，在maven的用户setting文件中，我们就可以指定局域网仓库地址。（一般也会包含一些国内的maven仓库地址，因为纯靠maven官方国外的那些个仓库，真要卡巴得你死机得不要不要的）。地址指定好后，可以在建立的maven项目的pom.xml设定依赖包。这里有一个maven流弊的特性是maven项目可以存在父子依赖关系。也就意味着，我们可以建立一些通用maven项目下载通用maven包，然后让独立模块基于这些通用maven来配置，这样就可以实现不同模块独立的包管理。公司设计的框架有几个巧妙的地方，一般是通过maven的setting文件来配置最通用的类似于jdk或者插件信息这些，然后一个ver项目来统一管理基层包，一个pom项目来管理模块依赖关系，xx.core项目来管理实现，web.xx来管理jsp 。</p><p>做了很好的分离，据Q老大说，web.xx分离出来主要是因为easyui的版本问题，这里暂时不熟悉，等做到那块时再验证下。</p><p>基本就是这一些吧。感觉这是一套可复用性很强的，适合团队开发的框架。因为当前只接触了这个一个企业级的框架，不清楚其他公司是否是这么做。</p><p>这里做个猜想，无论其他公司用什么样的做法，有几个通用的点是，需要用maven或类似于maven的技术来做包依赖管理（这个是企业级开发的核心），需要用ssh或类似于ssh的框架来打通前端-后台-数据库，需要一个类似于Easyui的前端框架解决方案（也可以是通过专门的前端和美工人员来做这一块），需要一个类似于hibernate的技术来解决可能出现的数据库迁移的问题。</p><p>就这一些吧，暂时只是瞥见了一些内容以及听Q老大讲解过一次自己领悟的。等这段自己熟络了这套体系，正式做完手头的这个项目后再写一篇，回看下有什么理解错误或者新发现没。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

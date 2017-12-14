@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-访问权限控制04</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-访问权限控制04</h1>
+        <div class="show-content">
+          <p>1.先吐槽一下，虽然使用访问权限控制的相关内容已久，但是实际对于这些访问权限控制的使用更多的是基于惯性和模仿，是并未真正经过思索的。比如，现在动手写成员变量，基本就是private，写方法，基本就是public，是基于封装和接口的惯性写的。并没有去想想but why?大部分时候，我们都是基于封装的角度来解释，但是为什么要如此呢？读了此章，觉得访问权限控制的设计初衷至少有如下几个，避免文件冲突；在可能有客户端程序员的情境下，封装实现，让客户端程序员只关注需要关注的，只能修改被允许修改的（封装）；</p><p>2.按照惯例，package名称的第一部分是类的创建者的饭顺序的Internet域名。（所以才是com.sun..... ）</p><p>3.Java解释器的运行过程如下：首先，找出环境变量CLASSPATH。CLASSPATH包含一个或多个目录，用作查找.class文件的根目录。从根目录开始，解释器获取包的名称并将每个句点替换成反斜杠，以从CLASSPATH根中产生一个路径名称。得到的路径会与CLASSPATH中的各个不同的项相连接，解释器就在这些目录中查找与你所要创建的类名称相关的.class文件。（这里说得解释器运行过程是指哪个环节呢？编译？）</p><p>4.静态引入的简写方式（import static）</p><p>5.调试版和开发版的一种实现方式是，修改导入的package从调试版改成开发版。（没太理解这一块的优势是神马）</p><p>6.Java访问权限修饰词，public，protected，private，包访问权限（默认）</p><p>这一块一般会有一个面试题是关于各个控制词的可访问区间</p><p>public 是所有文件引入即可访问</p><p>protected 是只有子类文件可以访问</p><p>private 是只有在类内部可以访问</p><p>包访问权限 是在同一个package下的文件可以访问</p><p>第6章 访问权限控制</p><p>6.1包：库单元</p><p>6.1.1代码组织</p><p>当编译一个.java文件时，在.java中的每个类都会有一个输出文件，输出文件与.java中的每个类同名，只是多了一个.class后缀。</p><p>Java可运行程序时一组可以打包并亚索为一个JAR的.class文件。Java解释器负责这些文件的查找、装在和解释。</p><p>类库实际上是一组类文件。每个文件都有一个public类，以及任意数量的非public类。因此每个文件都有一个构建。</p><p>6.1.2创建独一无二的包名</p><p>package名称的第一部分是类的创建者的反顺序的Internet域名</p><p>6.1.3定制工具库</p><p>可以用静态import（import static）</p><p>6.1.4用import改变行为</p><p>调试版改成开发版</p><p>6.1.5对使用包的忠告<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

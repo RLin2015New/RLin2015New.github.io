@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Effective Java中文版》-第3、4、5章</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《Effective Java中文版》-第3、4、5章</h1>
+        <div class="show-content">
+          <p>第三章 对于所有对象都通用的方法</p><p>第8条：覆盖equals时请遵守通用约定（这一条值得深入）</p><p>包括自反性、对称性、传递性、一致性、非空性（<b>所有条目要求都可以演化成代码限定</b>）</p><p>第9条：覆盖equals时总要覆盖hashCode</p><p>否则会导致该类无法结合所有基于散列的集合正常运作。（hashCode的原理是做粗分类，而基于hash的集合原理上都是通过先比较hashCode分类再比较equals来优化速度的，如果不实现hashCode意味着比较hash的过程就会是false，重写的equals根本就不会有机会执行）</p><p>hash算法的优秀程度决定hash集合的效率，普通原则是尽可能均匀分布到所有散列值但具体情况要具体而言之。</p><p>第10条：始终要覆盖toString</p><p>原始toString是类名+@+散列码的无符号十六进制表示</p><p>第11条：谨慎地覆盖clone（clone有诸多问题，慎用）</p><p>Cloneable接口的含义是，如果类实现了Cloneable，那么Object的clone方法就返回该对象的逐域拷贝，否则就会抛出CloneNotSupportedException异常。</p><p>第12条：考虑实现Comparable接口</p><p>Java中所有值类，都已经实现了Comparable</p><p>Comparable是将对象与指定对象比较，如果小于、等于或大于时分别返回负数、0或正数。（所以到底是升序还是降序，是取决于排序方法而非比较方法。sort是默认升序排列）</p><p>Comparable最好保持和equals一样的一致性，否则会引起集合异常。</p><p><br></p><p>第4章 类和接口</p><p>第13条：使类和成员的可访问性最小化（这一章可读性很高）</p><p>核心是善用private、包级私有、protected、public</p><p>注意理解域的概念，也有有私有域、公有域、静态域、final域等概念。（<b>这里是本质的全代码都在域中的角度理解</b>）</p><p>第14条：在公有类中适用访问方法而非公有域</p><p>核心原则是保护数据，根据业务需求开放getter或setter，另外一个好处是，存在内部实现的可修改空间。</p><p>第15条：使可变性最小化（本章高可读性）</p><p>安全角度考虑，关注于成员的可变性，对于不可变的成员，尽量不要对外暴露setter。</p><p>不可变对象本质上是线程安全的，他们不要求同步。</p><p>第16条：复合优先于继承</p><p>继承打破了封装性，所以跨包界的继承是很危险的（<b>注意这里包界的概念和思想</b>）</p><p>第17条：要么为继承而设计，并提供文档说明，要么禁止继承</p><p>因为继承时会牵扯到代码和实现封装的问题</p><p>第18条：接口优于抽象类</p><p>接口的一个用于在于跨部门使用和设计（因为在A部门所需要的B部门实现CODE_A还没实现时就可以通过约定接口进行开发了）</p><p>接口要谨慎定义，因为后期修改很麻烦（这里的后期是指jar包发布后，发布后，代码就不受控制了）</p><p>第19条：接口只用于定义类型</p><p>这里想说的是，如果接口只用于定义接口，那么被称为常量接口，是对接口不当使用。</p><p>如果大量使用工具类到处的常量，可以使用静态导入（static import  1.5引入）</p><p>第20条：类层次优于标签类</p><p>这里的意思大概是，如果要引入类别标志参数，不妨考虑把类别标志参数代表的类型实现成不同的子类</p><p>第21条：用函数对象表示策略</p><p>策略模式的一种使用，通过使用静态内部类和静态成员变量来提供不同的策略实现。</p><p>第22条：优先考虑静态成员类</p><p>基于底层实现提供的优化策略</p><p><br></p><p>第5章 泛型</p><p>第23条：请不要在新代码中适用原生态类型</p><p>原生态类型只是为了支持旧代码存在</p><p>泛型的优势在于更安全和更清楚，怎么实现呢，通过编译时的类型检查</p><p>第24条：消除非受检警告</p><p>消除警告的最小颗粒是成员变量，消除时应该适用尽量小的颗粒以防止影响到其他需要警告的地方。</p><p>第25跳：列表优先于数组</p><p>列表做更严格的类型检查，数组则很多报错要等到运行时</p><p>第26条：优先考虑泛型</p><p>提供更通用实现</p><p>第27条：优先考虑泛型方法</p><p>一种写法 public static &lt;E&gt; Set&lt;E&gt; union(Set&lt;E&gt; s1,Set&lt;E&gt; s2)</p><p>第28条：利用有限制通配符来提升API的灵活性</p><p>Collection&lt;?&gt;  ,Collection&lt;? super E&gt; ,Collection&lt;? extends E&gt;  ,Collection&lt;T extends Comparable&lt;T&gt;     </p><p>(page 102)</p><p>第29条：优先考虑类型安全的异构容器</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

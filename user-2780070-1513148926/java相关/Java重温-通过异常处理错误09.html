@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-通过异常处理错误09</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-通过异常处理错误09</h1>
+        <div class="show-content">
+          <p>1.对于异常的处理，之前是没有好好思考的。以前的做法是，基本不自定义异常对象，把系统要求处理的异常记录日志，少量地方偶尔想起时会使用系统自带的异常。在hmd时在一些地方使用过一种粗暴的处理，就是在action结束时，捕获一次Exception，如果出错则提示前台出现出错。</p><p>之前这些习惯不好的地方在于 a.如果只是把异常记录到日志，那么线上环境出问题时只能通过日志来查询。而实际开发中，开发人员不一定能方便访问到线上日志，且日志内容一般会很大。这么做就会导致出现了问题，也捕获了异常，但是又定位不到异常信息。很糟糕</p><p>b.捕获一次Exception提示传前台的出现了错误，其实也是一个糟糕的处理。因为当时并没有记录日志，也没有把具体错误提示给前台。这样对用户虽然友好一些，但是出了问题，基本没法复查。</p><p>c.比较理想的方式应该是，操作日志和异常日志分离。异常日志记录异常编号以及错误信息，异常反馈前端错误编号。而且对于web项目，这种错误机制最好由底层框架直接实现，而开发时，只需要抛出异常就可以（这是最理想的，因为这样既能方便定位又便于查询且对用户还友好 写了一个基于struts2的简单框架模型 ，<a href="https://github.com/RLin2015New/SimpleThrowable" target="_blank">SimpleThrowable</a>）。 </p><p>2.Java使用异常来提供一致的错误报告模型。</p><p>3.C++的异常处理机制基于ADa，Java的异常处理则建立在C++的基础之上。</p><p>4.异常最重要的方面质疑就是如果发生问题，他们不允许程序沿着其正常的路径继续走下去</p><p>5.Throwable这个Java类被用来表示任何可以作为异常被抛出的类。Throwable对象分两种类型：Error用来表示编译时和系统错误（除特殊情况外不需要关心）；Exception是可以被抛出的基本类型，在Java类库、用户方法以及运行时故障中都可能抛出Exception型异常。</p><p>6.RuntimeException。有很多由Java虚拟机抛出的，基于RuntimeException的异常。他们不需要被捕获。如果RuntimeException没有被捕获而直达main()，那么在程序退出前将调用异常的printStackTrace()方法。</p><p>7.finally清理的资源包括：已经打开的文件或网络连接，在屏幕上画的图形等</p><p>8.对于C#而言，“仅从小程序来看，会认为异常说明能增加开发人员的效率并提高代码质量；但考察大项目时，结论就不同了-开发效率下降了，而代码质量只得到微不足道的提高，甚至毫无提高”。思考所处理的项目是否存在同样的问题。（我理解的异常的目的在于提高代码质量、方便定位问题）</p><p>9.一种可以参考的完整的文件流打开关闭写法</p><blockquote>
+<p>FileInputStream in;</p>
+<p>try {</p>
+<p>in = new FileInputStream(file);<br></p>
+<p>try {<br></p>
+<p>int size = in.available();<br></p>
+<p>byte[] buffer = new byte[size];<br></p>
+<p>in.read(buffer);<br></p>
+<p>str = new String(buffer, "GB2312");<br></p>
+<p>} catch (IOException e) {<br></p>
+<p>e.printStackTrace();<br></p>
+<p>} finally {<br></p>
+<p>try {<br></p>
+<p>in.close();<br></p>
+<p>} catch (IOException e) {<br></p>
+<p>e.printStackTrace();<br></p>
+<p>}<br></p>
+<p>}<br></p>
+<p>} catch (FileNotFoundException e1) {<br></p>
+<p>e1.printStackTrace();<br></p>
+<p><br></p>}</blockquote><p>代码格式贴过来不友好。核心其实在于，流对象打开时(in = new FileInputStream(file);)一层处理，这里只处理流对象抛出的错误。因为出错了流对象就无需关闭。然后在使用流对象的过程中做一层处理，这层处理中，在finally块中关闭流对象。（看起来不友好的地方在于关闭时也需要处理一层）。</p><p><br></p><p><br></p><p><br></p><p>第12章 通过异常处理错误</p><p>12.1 概念</p><p>12.2 基本异常</p><p>12.2.1. 异常参数</p><p>12.3 捕获异常</p><p>12.3.1 try块</p><p>12.3.2. 异常处理程序</p><p>12.4 创建自定义异常</p><p>12.4.1 异常与记录日志</p><p>12.5 异常说明</p><p>12.6 捕获所有异常</p><p>12.6.1 栈轨迹</p><p>12.6.2 重新抛出异常</p><p>12.6.3 异常链</p><p>12.7 Java标准异常</p><p>12.7.1 特例：RuntimeException</p><p>12.8 使用finally进行清理</p><p>12.8.1 finally用来做什么</p><p>12.8.3 缺憾：异常丢失</p><p>12.9 异常的限制</p><p>12.10 构造器</p><p>12.11 异常匹配</p><p>12.12 其他可选方式</p><p>12.12.1 历史</p><p>12.12.2 观点</p><p>12.12.3 把异常传递给控制台</p><p>12.13 异常使用指南</p><p>12.14 总结</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

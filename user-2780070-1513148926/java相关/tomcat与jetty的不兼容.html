@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tomcat与jetty的不兼容</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">tomcat与jetty的不兼容</h1>
+        <div class="show-content">
+          <p>踩了一个很恶心的坑。</p><p>在做牛友吧开发时，登陆服基于原架构使用了web容器，之前看到其内有用jettyServer相关的代码，所以这次做了一个尝试是，在原架构的基础上额外使用了JettyServer来简化处理。本地开发忘记什么原因使用jetty做中间件，一直也很顺利。测试服搭建时发现tomcat部署会有问题，当时也没有深究切换成jetty就可以了。直到今天准备搭建线上测试环境，运维那边不觉得搭建jetty会增加运营成本不同意使用jetty。没办法，谁让本人现在在公司没啥话语权，所以就改吧。</p><p>于是先在本地使用eclipse+tomcat调整了一下，就碰到一个工程名的问题处理完毕后就可以连通了。切换到测试环境，使用tomcat作为中间件直接部署，首先是因为定时器以及一个连接错误，十几秒种打印十几个G的错误日志；优化代码后查验启动信息，发现提示的是类找不到，于是乎追溯提示的路径找到对应的代码包，其后又出现了一个版本不对应造成的找不到，解决完毕后出现了终结级的错误：</p><p>javax.servlet.ServletException: Not running on Jetty, JSR-356 support unavailable</p><p>妹球~，tomcat容器和jetty包冲突。简略查了一下，貌似没有解决方案。</p><p>核心问题应该是启动过程中，没办法区别该使用tomcat提供的包还是jetty提供的包。冲突源头是jetty-all-9.2.14.v20151106.jar。</p><p>如果不引入该包，提示的错误则是jetty依赖的其他包中内部类找不到，核对了一下jar，对应文件是存在的，提示找不到的话应该是加载到了其他类去了。</p><p>本地环境中用tomcat+eclipse是可用的，也就意味着这个问题肯定是有解的，解决的关键在于让对应代码加载正确的jar。eclipse中不出问题，有可能是和其jar加载顺序与实际tomcat部署不一致。不熟悉底层，具体原因也没法推断。也不想耗费太多时间一组包一组包去遍历找寻“可能”存在的包解。所以就想着放弃掉tomcat的部署方式算了。即便不出现这个问题，我也是准备放弃掉tomcat的启动方式的。这里的tomcat启动是从旧框架中继承过来，到现在基本也只有登陆这块依赖于旧框架。旧框架代码混乱结构不清晰，是需要改善的。所以借着这个问题的契机来做这次调整吧。</p><p>只是作为一个从web开发出身的coder，处理起此类需要质疑tomcat本身的问题是觉得很不舒服的。</p><p>并未深入过jetty和tomcat的底层，但是别人的汇总信息来看大致比较是：</p><p>tomcat和jetty的实现机制不一样，tomcat较为复杂，jetty的较为简洁。</p><p>tomcat一般用于企业级部署，相对而言较为稳定。jetty则比较灵活。</p><p>作为中间件而言，两者对于开发者的差别貌似不大。只是很可惜不能互相兼容。对于轻量级的不需要做web映射的项目，更简易的方式是使用jettyServer通过jar的方式启动。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

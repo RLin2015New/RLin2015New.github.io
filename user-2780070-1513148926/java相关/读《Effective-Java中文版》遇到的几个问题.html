@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>读《Effective Java中文版》遇到的几个问题</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">读《Effective Java中文版》遇到的几个问题</h1>
+        <div class="show-content">
+          <p>读《Effective Java中文版》时遇到了几个问题</p><p>第一个专有名词的问题。没有很系统的读过优化类书籍，肯定是存在一些不熟悉的名词定义的，对于这类，不能着急，慢慢解析上下文来理解。这些名词的熟悉过程对于理解底层有帮助，而且后续读虚拟机等更底层的部分，牵扯到的名词会越来越多的，所以名词的积累挺重要的。</p><p>第二个问题是编码思想以及编码环境的差异。书中很多谈到的优化基于的理论依据是封装，而且它的封装程度其实是到了那种分块化代码不暴露的程度的。这种思想对于最顶级的开发、多人多公司协同开发而言是有必要的，但是为了达到这种程度级别，就需要给开发设计添加很多要求限制，这就目前的情况而言是没有必要的（想了下，还是没有完全的理由说服自己，后面几天还是继续重新研究下之前读过的几章，把这些准备舍弃掉的规则捡回来）</p><p>其实正是因为《EJ》是站在最顶级程序员以及最顶级公司的角度展开的，我们才更有必要理解透彻它传递的思想。不应该因为现在环境无需那么高的代码质量层级就忽略它们。</p><p>另外还有一点体悟是，其实对于代码的实质已经理解了，在知道虚拟机实现机制的情况下，其实只需要读一本Java的详解书籍，其他所有优化甚至于重构、规范类都可以扫读了。《EJ》所有优化的实质，抛开基于设计思想（类似于封装性、可读性）的优化，其实就是基于实现的优化（底层实现），在不熟悉底层前，没必要过多解析《EJ》。因为死记硬背所谓的优化条目是没有什么实质性意义的。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

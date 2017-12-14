@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-复用类05</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-复用类05</h1>
+        <div class="show-content">
+          <p>1.复用的方式有三种，组合、继承和代理</p><p>2.Java的一个特性是惰性初始化，即在使用对象之前初始化。所以一个好的写法是，在要使用时才申明对象。</p><p>3.由于Java没有析构函数的概念，所以手动销毁时要注意。一种可以借助的语法是finally。不要依赖于垃圾回收，因为垃圾回收的时机是不稳定的。</p><p>4.注意Java中的注解语法，如@Override是申明某个方法是重载方法</p><p>5.组合适用于想在新类中适用现有功能而非其接口的情况。继承通常从概念上讲，子类是父类的一个特例。</p><p>6.protected关键字，既然保证隐秘性，又不影响复用。</p><p>7.向上转型的由来。传统的类继承图是，将根置于页面的顶端，然后逐渐向下。所以叫向上转型。</p><p>8.final关键字，出于设计或效率的意图。可用于数据、方法和类。</p><p>描述数据时，修饰基本类型表示数值恒定，修饰对象表示引用恒定。运行运行时赋值（也就意味着空final）。final参数代表无法在方法中更改参数引用所指向的对象（也遵循基本类型和对象的划分）。</p><p>描述方法时，代表方法不允许出现继承类修改它的含义。（这样就意味着final和private混用无意义。因为private本身代表着无法被子类读取）</p><p>描述类时，表示不允许继承该类。</p><p>9.初始化时，总是先初始化基类的构造函数，然后初始化子类</p><p>10.程序开发时一个增量过程</p><p>第7章 复用类</p><p>7.1组合语法</p><p>7.2继承语法</p><p>7.2.1初始化基类</p><p>Java会自动在构造器中调用基类构造器来执行初始化。</p><p>手动调用的语法是supert(...)，必须在构造器首行</p><p>7.3代理</p><p>就是持有一个代理对象，然后接口方法和代理对象一致，接口方法的实现为直接调用代理对象的对应方法</p><p>7.4结合使用组合和继承</p><p>7.4.1确保正确清理</p><p>finally</p><p>7.4.2名称屏蔽</p><p>7.5在组合与继承之间选择</p><p>继承的子类是父类的一个子集，而组合没有必然的包含关系</p><p>7.6protected关键字</p><p>又能保证封装又允许子类重写</p><p>7.7向上转型</p><p>7.7.1为什么称为向上转型</p><p>7.7.2再论组合与继承</p><p>7.8final关键字</p><p>7.8.1final数据</p><p>7.8.2final方法</p><p>7.8.3final类</p><p>7.8.4关于final的忠告</p><p>少些final方法和类</p><p>7.9初始化及类的加载</p><p>7.9.1继承与初始化</p><p>先基类后子类</p><p>7.10总结</p><p>优先使用组合和代理，必要时才用继承。</p><p><b>程序开发时一个增量过程。</b></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

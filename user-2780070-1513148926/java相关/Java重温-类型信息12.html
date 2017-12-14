@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-类型信息12</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-类型信息12</h1>
+        <div class="show-content">
+          <p>这一章节部分是围绕RTTI（RunTime Type Information 运行时类型信息）展开的，运行时类型信息应该是泛指Class这一类标志类型的java信息。Java针对这一块提供了一个强大的工具就是反射。反射的引入，让动态编程变为了可能。</p><p>1.为什么要引入RTTI呢？因为对于一些编程问题，需要确切的了解变量类型才能高效处理。</p><p>2.常用的几个RTTI方法有Class.forName(name); c.getSuperclass(); a.newInstance();...</p><p>3.基本类型的包装器类有一个标准字段TYPE，等效于class； boolean.class == Boolean.TYPE...</p><p>4.泛化的Class引用写法是  Class&lt;?&gt; 或者 Class&lt;?  super Base&gt; (Base 和Base的子类) 或者 Class&lt;? extends Base&gt; 所有Base的子类。【这里慎用，有使用倾向】【这里的写法还是要关注下，想我上一次遇到这种使用场景时采取的是粗暴的 @SuppressWarning("rawtypes") ~~ 囧JIONG】</p><p>5.一种内部类的写法</p><p>class A{ ... }</p><p>class B extends A{ .... }</p><p>class C extends B{</p><p>  public static class E extends p..n.E&lt;T&gt;{ ... }</p><p>}</p><p>【核心在于同名，通过包名来做区分】</p><p>6.instanceof 和 Class 。区别在于判定子类时，instanceof可以通过，而Class因为识别出是子类，会与父类不等</p><p>7.Class类和java.lang.reflect类库一起对反射的概念进行了支持。反射和RTTI的区别在于，对RTTi而言，编译器在编译时打开和检查.class文件。而对于反射而言，.class文件在编译时是不可获取的，所以是在运行时打开和检查.class文件。</p><p>8.动态代理。Java中的Proxy有自带代理的实现。</p><p>9.空对象的概念。（可以理解为是一个静态子类）</p><p>比如 public static class NullPersion extends Person implements Null{ ... }</p><p>10.接口和类型信息。因为反射的存在，这里存在可留后门的空间。</p><p>比如操作系统发布了一些API，通过反射的方式可以探索出那些没有对外开放的（访问控制符限制掉的），并且可以调用执行，那些没有对外开放的可以作为解决一些问题的解决方案。没有任何方式可以组织反射到达并调用那些非公共访问权限的方法。但是，final域实际上在遭遇修改时是安全的。（虽然会接受修改操作，但是final域实际不会发生任何修改）。</p><p><br></p><p>第14章 类型信息</p><p>14.1 为什么需要RTTI</p><p>14.2 Class对象</p><p>14.3 类型转换前先做检查</p><p>14.3.1 使用类字面常量</p><p>14.3.2 动态的instanceof</p><p>14.3.3 递归计数</p><p>14.4 注册工厂</p><p>14.5instanceof与Class的等价性</p><p>14.6反射：运行时的类信息</p><p>14.6.1 类方法提取器</p><p>14.7 动态代理</p><p>14.8 空对象</p><p>14.9 接口与类型信息</p><p>14.10总结</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

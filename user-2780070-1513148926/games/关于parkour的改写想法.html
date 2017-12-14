@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于parkour的改写想法</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">关于parkour的改写想法</h1>
+        <div class="show-content">
+          <p>最近在跟wcs童鞋聊游戏方面的东东，他提议我们搞个轻量级的游戏运营一下试试。我负责代码部分他来负责运营。</p><p>我对于游戏开发并不算熟悉，以前有的经验是写游戏后台。我们是准备基于ios来做，我是有两个完整的ios项目经验的，对于各个环节还算熟悉。于是便想着试一下。</p><p>从0开始写的话成本太高，上周在网上找了一些免费源码整理了一下，也基于榜单做了一个粗略的筛选，最后商定还是从跑酷类开始。</p><p>今天稍微整理了一下现成的parkour代码，有一个基于Cocos2d-js的web跑酷还是比较完整的，完整代码获取不易，周末准备稍微看一下cocos2d-js教程并分析一下源码，想就基于这一份来做尝试了。</p><p>因为还不熟悉cocos2d-js，所以暂定两个大的实现方略。一是基于源码直接做一个容器，把源码放到web容器里面直接跑。这样做的改动最小。第二个方略是，基于源码逻辑做架构，重新做一个基于ios的oc parkour。个人对于oc和js都还算熟悉，这种方式虽然麻烦点，但是技术上应该不存在太大问题，无法预知的部分在于js端的cocos2d和基于oc的cocos2d转换会否有问题。</p><p>最近写项目对于架构设计颇有心得，这次也是一次不错的练习整理架构设计的机会。</p><p>暂时就是这个样子，这周日分析下看看。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

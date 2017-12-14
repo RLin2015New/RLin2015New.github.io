@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SQLiteExample（2个月前</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">SQLiteExample（2个月前</h1>
+        <div class="show-content">
+          <p>core data 综述，<br></p><p>可以理解为一个框架，提供了ios端快速的数据持久化的解决方案（如何解决的？sqlite3吧？），也提供了采用面向对象的方法来写sql（？是否正确）</p><p>如何实现的呢？：通过 那个协调类来实现</p><p>持久化的数据如何存储呢？貌似最底层是sqlite，所以是以db以及其配套文件的方式</p><p>另外一个点，貌似core date和图像数据有结合的地方</p><p>core data是如何使用的呢？</p><p>是以这个鸡毛格式存储的~~~</p><p>（<a href="http://blog.csdn.net/ysy441088327/article/details/8606019" target="_blank">iOS 通过CoreData实现数据持久化</a>这个比较全）</p><p>想起来了，这个鸡毛框架，在之前做颜图的时候是用过的。</p><p>是用来建本地数据库，来实现大批量数据持久化的。</p><p>首先是要建立 model文件，配置好本地数据库表的结构和关系</p><p>对应的也就是NSManagedObjectModel，是基于手动建立model文件配置生成的.xcdatamodelId文件生成的，该文件在项目打包时会编译成mood文件，所以初始化的方法可以是</p><p>（基于文件初始化的方法）</p><p>NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"momd"];</p><p>_managedObjectModel = [[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL];</p><p>使用时，有两个要点，一个是NSPersistentStoreCoordinator（持久化存储协调器），这个就是与sqlite打交道的类（可以理解为是封装了sqlite的类），它需要根据nsmanagedObjectModel来执行表结构的建立（推测应该是用到了大量的中间结构，这些中间结构是方便后续sql执行的，与表结构相关的，所以需要依赖于NSManagedObjectModel来初始化）</p><p>// Returns the URL to the application's Documents directory.</p><p>- (NSURL *)applicationDocumentsDirectory</p><p>{</p><p>return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];</p><p>}</p><p>//url拼接</p><p>NSURL *storeURL = [[self applicationDocumentsDirectory] URLByAppendingPathComponent:@"CoreDataBooks.CDBStore"];</p><p>/*</p><p>Set up the store.</p><p>For the sake of illustration, provide a pre-populated default store.</p><p>*/</p><p>//赶脚前面的url拼接只是一种科普型的写法，真正的采取下述方式就可以完成</p><p>NSFileManager *fileManager = [NSFileManager defaultManager];</p><p>// If the expected store doesn't exist, copy the default store.</p><p>//这里还假设了如果cbdstore文件不在指定的路径下，则把其内容拷贝过去的逻辑</p><p>if (![fileManager fileExistsAtPath:[storeURL path]]) {</p><p>NSURL *defaultStoreURL = [[NSBundle mainBundle] URLForResource:@"CoreDataBooks" withExtension:@"CDBStore"];</p><p>if (defaultStoreURL) {</p><p>[fileManager copyItemAtURL:defaultStoreURL toURL:storeURL error:NULL];</p><p>}</p><p>}</p><p>NSDictionary *options = @{NSMigratePersistentStoresAutomaticallyOption: @YES, NSInferMappingModelAutomaticallyOption: @YES};</p><p>_persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel: [self managedObjectModel]];</p><p>//核心就在于下面的几行，也就是persistentStoreCoordinator指定type，以及指定一个storeURL，这里的storeURL采取了上面的url拼接搞的，应该就是存储路径。</p><p>NSError *error;</p><p>if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:storeURL options:options error:&amp;error]) {</p><p>/*</p><p>Replace this implementation with code to handle the error appropriately.</p><p>abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.</p><p>Typical reasons for an error here include:</p><p>* The persistent store is not accessible;</p><p>* The schema for the persistent store is incompatible with current managed object model.</p><p>Check the error message to determine what the actual problem was.</p><p>If the persistent store is not accessible, there is typically something wrong with the file path. Often, a file URL is pointing into the application's resources directory instead of a writeable directory.</p><p>If you encounter schema incompatibility errors during development, you can reduce their frequency by:</p><p>* Simply deleting the existing store:</p><p>[[NSFileManager defaultManager] removeItemAtURL:storeURL error:nil]</p><p>* Performing automatic lightweight migration by passing the following dictionary as the options parameter:</p><p>@{NSMigratePersistentStoresAutomaticallyOption:@YES, NSInferMappingModelAutomaticallyOption:@YES}</p><p>Lightweight migration will only work for a limited set of schema changes; consult "Core Data Model Versioning and Data Migration Programming Guide" for details.</p><p>*/</p><p>NSLog(@"Unresolved error %@, %@", error, [error userInfo]);</p><p>abort();</p><p>}</p><p>第二个点是NSManagedObjectContext（对象上下文），貌似sql操作都是通过这个类来执行的，它需要根据nspersistentStoreCoordinator来初始化（自然，因为nspersistentStoreCoordinator初始化了表结构的中间内容，从某种意义来讲，Context的内容像是逻辑代码，而Coordinator的内容包含了个性化的表对象）</p><p>以上就是sqlite构建表结构基础的类。</p><p>实操时还有一个关键的nspredicate，是用来做sql语艺拼接的。</p><p>总结一下，这是一种基于mdod文件来完成的方式，mdod文件手动配置完成表结构的设定，然后NSPersistentStoreCoordinator根据mood文件来将表结构缓存化或对象化以方便后面的快速查询。执行时，nsmanagedObjectContext根据NSPersistentStoreCoordinator的上下文形成关联，然后结果是直接通过NSManagedObjectContext来执行查询。（不需要编译环节，因为整个查询逻辑都是基于对象化基础的，而Coordinator是对象化的基础，context则执行对象化查询的过程）</p><p>可以深入的点事，mdod文件的配置选项，另外，nspredicate前缀类的使用。</p><p>新建项目测试时，默认有选项 use core data，选定后会自动生成一个mdod的编译前文件。</p><p>沙箱内的存储结果是下面这个样子的：</p><p>测试代码：<a href="https://github.com/RLin2015New/SQLiteExample" target="_blank">GitHub - RLin2015New/SQLiteExample: SQLiteExample for simple</a></p><p>这算是我的第一个上传git的公开项目（Byme和颜图因为不公开，不算，撒花~~~~~~~~~~）</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

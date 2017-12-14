@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-字符串10</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-字符串10</h1>
+        <div class="show-content">
+          <p>1.不可变String</p><p>2.javap -c xxx.java（反编译代码指令）</p><p>3.如果要打印内存地址，考虑使用Object.toString()而非this。因为使用this打印实际也会调用toString，如果恰好使用toString那么会引发递归调用的错误</p><p>4.System.out.println() /format()支持的基本的格式化参数</p><p>5.格式化的进阶是基于正则表达式的使用。（这部分可以单独开一章，不在这里描述）</p><p>6.程序中的贪婪概念。代表着得到一个处理结果后还会去试图寻找更多的结果。（正则中的？，代表一个或多个，就是贪婪的）</p><p>7.Pattern和Matcher的使用</p><p>8.String方法中支持正则的有split，replace以及这两个方法的衍生方法</p><p>9.Scanner和StringTokenizer的使用（后者已废弃）</p><p>10.正则配合Scanner可以作为解析日志文件的一种方案（当然不是这么一句简单的话就可以了，要做解析，还要限定日志输出的格式，考虑特殊字符的问题）</p><p>11.System.out提供的格式化方法站在现在的视野角度看是有点鸡肋的，因为现在不确定System.out的格式化输出是否能方便的写入到对象中，否则只是传递到输出流中，打印到console中那么只能做教学或极其特殊的应用范畴（即便输出流到文件，那适用范围也很窄）</p><p><br></p><p>第13章</p><p>13.1 不可变String</p><p>13.2 重载“+”与StringBuilder</p><p>13.3无意识的递归</p><p>13.4String上的操作</p><p>13.5格式化输出</p><p>13.5.1 printf()</p><p>13.5.2 System.out.format()</p><p>13.5.3 Formatter类</p><p>13.5.4 格式化说明符</p><p>13.5.5 Formatter转换</p><p>13.5.6 String.format()</p><p>13.6 正则表达式</p><p>13.6.1 基础</p><p>13.6.2 创建正则表达式</p><p>13.6.3 量词</p><p>13.6.4 Pattern和Matcher</p><p>13.6.5 split()</p><p>13.6.6 替换操作</p><p>13.6.7 reset()</p><p>13.6.8 正则表达式与Java I/O</p><p>13.7 扫描输入</p><p>13.7.1 Scanner定界符</p><p>13.7.2 用正则表达式扫描</p><p>13.8 StringTokenizer（可以弃用）</p><p>13.9 总结</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

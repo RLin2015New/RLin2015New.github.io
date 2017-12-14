@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript跨域调用的一种方案配置</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">JavaScript跨域调用的一种方案配置</h1>
+        <div class="show-content">
+          <p><a href="http://www.cnblogs.com/2050/p/3191744.html" target="_blank">原文参考 </a></p><p>这里采用的是jsonp的方式，</p><p>场景为 请求端A，申请跨域调用 被请求端B 的一个action</p><p>请求端B的需要配置action以及编写对应逻辑，struts2下一种配置方式如下</p><blockquote>
+<p>1.貌似配置标签会被过滤，无法直接上源码了</p>
+<p>&lt;package name="" namespace="" extends="json-default"&gt;</p>
+<p>   &lt;action ...name ...method...&gt;</p>
+<p>      &lt;param name="callbackParameter"&gt;callback&lt;/param&gt;</p>
+<p>    &lt;/action&gt;</p>
+<p>&lt;/package&gt;</p>
+<p>需要注意的是，因为json-default拓展，需要struts2-json-plugin.jar的支持</p>
+<p>callbackParameter的名字不可换(应该是和ajax解析有关)<br></p>
+<p>callback需要和请求端设定的jsonp一致。</p>
+<p>2.action实现,用上述配置的话，action的返回内容可以通过action类中的callback变量传递</p>
+</blockquote><p>请求A端</p><blockquote>
+<p>$.ajax({<br></p>
+<p>  type : "get",</p>
+<p>  async : true,</p>
+<p>  url : localhost:8080/sshweb/testAction,</p>
+<p>  data : {'id',123},</p>
+<p>  dataType : "jsonp",</p>
+<p>// 返回时，参数的名字，会默认调用callbackfunction(callback)，需要对方指定一个该名字的返回值，否则调用时找不到参数就会出错</p>
+<p>jsonp : "callback",</p>
+<p>// 回调函数</p>
+<p>// jsonpCallback : pcallback</p>
+<p>}).done(function(data) {</p>
+<p>// 调用成功处理逻辑</p>
+<p>}).fail(function() {</p>
+<p>// 调用失败处理逻辑</p>
+<p>});</p>
+<p>//调用成功的情况的回调不用这种链式done的写法，通过指定jsonpCallback也可以。</p>
+</blockquote><p>跨域调用成功后，会自动执行一次jsonpCallback组装callback参数的方法</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

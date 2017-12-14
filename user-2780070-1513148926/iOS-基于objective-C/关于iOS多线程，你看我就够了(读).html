@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于iOS多线程，你看我就够了(读)</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">关于iOS多线程，你看我就够了(读)</h1>
+        <div class="show-content">
+          <p><a href="http://www.jianshu.com/p/0b0d9b1f1f19" target="_blank">原文地址：关于iOS多线程，你看我就够了</a> 感谢博主的劳动，下面是对于原文的一些解读和测试</p><p><br></p><blockquote>
+<p>#import &lt;pthread.h&gt;<br></p>
+<p>void*start(void*data){<br></p>
+<p>NSLog(@"pthread:%@",[NSThreadcurrentThread]);</p>
+<p>returnNULL;</p>
+<p>}</p>
+<p>-(void)run:(NSString*)string{</p>
+<p>NSLog(@"NSThread: %@",string);</p>
+<p>NSThread* thread = [NSThreadcurrentThread];</p>
+<p>NSLog(@"%@",[threadisMainThread]?@"MainThread":@"NotMainThread");</p>
+<p>[threadcancel];</p>
+<p>}</p>
+<p>-(void)doSomething:(NSString*)string{</p>
+<p>NSLog(@"doSomthings");</p>
+<p>}</p>
+<p><br></p>
+<p><br></p>
+<p>... //方法主体</p>
+<p><br></p>
+<p>NSLog(@"start testing =========================");<br></p>
+<p>//Pthreads</p>
+<p>/*</p>
+<p>POSIX threads,简称Pthreads，是线程的POSIX标准。在类UINX操作系统(UNIX、Linux、MacOS X等)中都使用Pthreads作为操作系统的线程。基于c语言实现，移植性很强。但是比较蛋疼的是需要手动处理线程的各种状态的转换，管理生命周期。</p>
+<p>*/</p>
+<p>pthread_tthread0;</p>
+<p>pthread_create(&amp;thread0,NULL,start,NULL);</p>
+<p>pthread_kill(thread0,0);</p>
+<p>//NSThread</p>
+<p>/*</p>
+<p>经过apple封装的面向对象的线程方法。但是它的生命周期也需要手动管理。</p>
+<p>Question1:如何确定@selector(run:)，run的参数类型呢？</p>
+<p>Question2:体会void *start(void *data)和-(void)run:(NSString*)string这两种函数定义的区别~~</p>
+<p>*/</p>
+<p>/*</p>
+<p>NSDateFormatter* formatter = [[NSDateFormatter alloc]init];</p>
+<p>[formatter setDateFormat:@"MMM dd,yyyy,HH:mm:ss"];</p>
+<p>NSDate* date0 = [formatter dateFromString:@"12 12,1989,12:03:12"];</p>
+<p>NSDate* date1 = [formatter dateFromString:@"12 12,1989,12:03:22"];</p>
+<p>NSTimeInterval interval = [date0 timeIntervalSinceDate:date1];</p>
+<p>*/</p>
+<p>//挂起主线程，单位是秒</p>
+<p>[NSThreadsleepForTimeInterval:1];</p>
+<p>NSThread*thread1 = [[NSThreadalloc]initWithTarget:selfselector:@selector(run:)object:nil];</p>
+<p>[thread1setName:@"Luke"];</p>
+<p>[thread1start];</p>
+<p>// [thread1 cancel];</p>
+<p>//GCD:Grand Central Dispatch</p>
+<p>/*</p>
+<p>它是apple为多核的并行运算提出的解决方案，会自动合理的利用更多CPU内核，会自动管理线程的生命周期。</p>
+<p>它也是用c语言的，但是因为使用了block，使用起来更方便。</p>
+<p>主要有任务和队列两个概念。</p>
+<p>任务:同步执行(sync)和异步执行(async)(Synchronized Asynchronous)</p>
+<p>同步任务和异步任务的主要区别在于会不会阻塞当前线程，直到block执行完毕。sync会阻塞当前线程直到block执行完毕，线程才会继续执行。而async操作时，当前线程会继续执行。</p>
+<p>队列：用于存放任务。一共有两种队列，串行队列和并行队列。</p>
+<p>放到串行队列中的任务，GCD会按照FIFO（先进先出）依次取出一个一个执行。放到并行队列中的任务，GCD也会按照FIFO顺序取出，但是他取出后就会放入到一个新的线程中执行，因为取出时间几乎可以忽略，所以看起来并行队列中的任务是同时开始执行的。但是，GCD会根据系统资源控制并行的数量，所以如果任务很多时，并不能保证所有任务都同时执行。</p>
+<p>*/</p>
+<p>dispatch_queue_tqueue0 =dispatch_get_main_queue();//主线程队列，并行还是串行呢？？？？？推测应该是并行</p>
+<p>dispatch_queue_tqueue1 =dispatch_queue_create("threadsTest.dispatch.syncQueue1",NULL);//注意是""而非是@""，因为是c语言</p>
+<p>dispatch_queue_tqueue2 =dispatch_queue_create("threadsTest.dispatch.syncQueue2",DISPATCH_QUEUE_SERIAL);//null和DISPATCH_QUEUE_SERIAL表示串行队列</p>
+<p>dispatch_queue_tqueue3 =dispatch_queue_create("threadsTest.dispatch.asyncQueue3",DISPATCH_QUEUE_CONCURRENT);//并行队列</p>
+<p>dispatch_queue_tqueue4 =dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT,0);//全局并行队列，并行任务一般都是加入到这个队列的。（应该是不会阻塞主线程的）</p>
+<p>NSLog(@"before sync");</p>
+<p>//dispatch_sync(queue0, ^{//引发问题的写法</p>
+<p>dispatch_sync(queue1, ^{</p>
+<p>//NSLog(@"sync %@",[NSThread currentThread]);</p>
+<p>NSLog(@"done sync");</p>
+<p>//return; //没有用，并不能结束这个串行线程</p>
+<p>//这里的问题是，sync把主线程挂起后，自己没有结束，所以导致block和后面的内容都不会执行了。因为主线程队列中已经有了主线程，所以block会用主线程来执行，所以主线程挂起后，几乎什么事情都没有做了。而且GCD没有提供显式结束串行任务的api，所以导致无法退出挂起，所以串行任务应该加在非主线程队列中。</p>
+<p>//加入非主线程队列中的逻辑是，挂起了非主线程队列中的其他线程，然后通过主线程执行block，执行完毕后唤醒非主线程队列中的其他线程</p>
+<p>});//同步任务</p>
+<p>NSLog(@"after sync");</p>
+<p>NSLog(@"async 0");</p>
+<p>dispatch_async(queue2, ^{//这里是正常的，往同步队列中放一个异步任务，会先建立一个线程执行，各走各的，使用当前异步线程执行block正常执行</p>
+<p>NSLog(@"async 1");</p>
+<p>//dispatch_sync(queue2, ^{//往同步队列中加入一个同步任务，因为是同步队列，已有有一个线程了，执行任务依托于原线程，挂起同步队列中其他所有的线程，也把异步线程挂起了，但是这里执行block需要用异步线程，因为线程挂起了，所以卡在这里了</p>
+<p>dispatch_sync(queue0, ^{//放到主线程中，异步线程的任务正常执行</p>
+<p>NSLog(@"async sync 2");</p>
+<p>});</p>
+<p>NSLog(@"async 3");</p>
+<p>});</p>
+<p>NSLog(@"async 4");</p>
+<p>//上面这里例子核心要理解的是，执行任务是需要线程的，同步队列如果队列中已经有线程，应该就不会创建新的线程，所以一旦出现线程挂起，就会阻塞。主线程队列中自动就有一个线程，所以不会额外创建新的线程。新建线程队列的话，首先会先创建一个线程。</p>
+<p>dispatch_sync(queue4, ^{</p>
+<p>NSLog(@"tssss");//这里因为加入的是异步队列，所以会创建一个新的线程来执行任务，即便阻塞主线程，任务也能顺利结束。</p>
+<p>});</p>
+<p>NSLog(@"tasks end ");</p>
+<p>//队列组,把所有队列放到一个队列组里，这样在所有任务执行完时，队列组可以通过一个方法来通知我们</p>
+<p>dispatch_group_tgroup =dispatch_group_create();</p>
+<p>dispatch_group_notify(group,dispatch_get_main_queue(), ^{</p>
+<p>NSLog(@"when nothings");</p>
+<p>});</p>
+<p>//其实看到这里就知道，对于GCD理解是需要注意的是，考虑清楚任务也就是block是由哪个线程来执行的(因为所有任务的执行都依托于线程)，而且什么时候回创建新线程</p>
+<p>//NSOperation和NSOperationQueue</p>
+<p>/*</p>
+<p>NSOperation只是一个抽象类(c or c++概念)，不能封装任务，但是它的两个子类，NSInvocationOperation和NSBlockOperation可以封装任务.它相较于GCD的好处应该在于可以取消中途任务</p>
+<p>*/</p>
+<p>NSInvocationOperation* opration = [[NSInvocationOperationalloc]initWithTarget:selfselector:@selector(doSomething:)object:nil];</p>
+<p>// [opration start];</p>
+<p>NSBlockOperation* blockOperation = [NSBlockOperationblockOperationWithBlock:^{</p>
+<p>NSLog(@"block %@",[NSThreadcurrentThread]);</p>
+<p>}];</p>
+<p>for(inti =0; i &lt;5; i++) {</p>
+<p>[blockOperationaddExecutionBlock:^{//并发，会利用空闲线程（比如主线程）或者创建新线程执行。</p>
+<p>NSLog(@"第%d次额外添加:%@",i,[NSThreadcurrentThread]);</p>
+<p>if( i ==4){</p>
+<p>[blockOperationcancel];</p>
+<p>}</p>
+<p>}];</p>
+<p>}</p>
+<p>[blockOperationstart];</p>
+<p>NSOperationQueue* operationQueue = [NSOperationQueuemainQueue];</p>
+<p>[operationQueueaddOperation:opration];//自动调用start</p>
+<p>[operationQueuesetMaxConcurrentOperationCount:1];//这样就成同步队列了</p>
+<p>//添加依赖</p>
+<p>NSBlockOperation* b1 = [NSBlockOperationblockOperationWithBlock:^{</p>
+<p>NSLog(@"block 1");</p>
+<p>[NSThreadsleepForTimeInterval:1.];</p>
+<p>}];</p>
+<p>NSBlockOperation* b2 = [NSBlockOperationblockOperationWithBlock:^{</p>
+<p>NSLog(@"block 2");</p>
+<p>[NSThreadsleepForTimeInterval:2.];</p>
+<p>}];</p>
+<p>NSBlockOperation* b3 = [NSBlockOperationblockOperationWithBlock:^{</p>
+<p>NSLog(@"block 3");</p>
+<p>[NSThreadsleepForTimeInterval:1.0];</p>
+<p>}];</p>
+<p>[b2addDependency:b1];</p>
+<p>[b3addDependency:b2];</p>
+<p>//[b1 start];</p>
+<p>//[b2 start];</p>
+<p>//[b3 start];//start下依赖状态也正常</p>
+<p>NSOperationQueue* bqueue = [[NSOperationQueuealloc]init];</p>
+<p>[bqueueaddOperations:@[b1,b2,b3]waitUntilFinished:NO];</p>
+<p>//线程同步问题</p>
+<p>//互斥锁，保证一次只有一个线程访问这个代码块</p>
+<p>@synchronized(self) {</p>
+<p>NSLog(@"aaa");</p>
+<p>}</p>
+<p>//同步执行，串行队列就可以搞定</p>
+<p>//延迟执行</p>
+<p>[selfperformSelector:@selector(run:)withObject:@"abc"afterDelay:3.];</p>
+<p>//GCD有dispatch_after</p>
+<p>dispatch_after(dispatch_time(DISPATCH_TIME_NOW,10),dispatch_get_main_queue(), ^{</p>
+<p>NSLog(@"主线程延迟10秒");</p>
+<p>});</p>
+<p>NSLog(@"dispatch_after是否会挂指定队列其他线程呢？答案是不会");</p>
+<p>//NSTimer</p>
+<p>[NSTimerscheduledTimerWithTimeInterval:10target:selfselector:@selector(run:)userInfo:@"efg"repeats:NO];</p>
+</blockquote>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

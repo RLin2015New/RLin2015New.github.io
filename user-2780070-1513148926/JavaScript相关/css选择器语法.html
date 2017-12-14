@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css选择器语法</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">css选择器语法</h1>
+        <div class="show-content">
+          <p>css选择器语法决定了css样式应用的对象范围，对于灵活便捷的书写样式至关重要。另外jQuery中，对象选择貌似是采取了css选择器语法的标准。所以了解这一块内容，对于使用jQuery很重要。</p><p>（从菜鸟教程和百度百科两个网站了解了这块内容，<a href="http://baike.baidu.com/link?url=64lFn-MqHcfzIPMGknfjPpN32hJ8Lnzv7bTjzaW3QDjmfBnBPSZx0wEocRNPI-HExJkNWtF5Goxbzr4-RHELSS3vpHYBFQM87DPKxKJ8qr4bFdlaPt5OZN7HkF8KGohE" target="_blank">百度百科</a>上的结构更清晰）</p><p>1.类别选择器</p><blockquote>
+<p>.类名      ,以一个“.xx”来标志，选择所有class为xx的html元素        </p>
+<p>     css范例：  .myClsss{ color:#FF0000; }        </p>
+<p>     jQuery范例：  {".myClass"}   （不确定是否需要""，从推断来看是需要的，等验证后再来解答）</p>
+</blockquote><p><br></p><p>2.标签选择器</p><blockquote>
+<p>标签名    ，直接以“标签名”来标志，选择所有当前标签元素</p>
+<p>    css范例：   p{ color:#00FF00; }</p>
+<p>    jQuery范例:    {"p"}    (不确定是否需要""）</p>
+</blockquote><p><br></p><p>3.ID选择器</p><blockquote>
+<p>#ID名  ，以“#+ID名”来标志选择所有 ID为“ID名”的元素</p>
+<p>  css范例： #selfId{ color:#FF0000; }</p>
+<p> jQuery范例：{“#selfId”}</p>
+</blockquote><p><br></p><p>4.后代选择器（？）</p><blockquote>
+<p>fahter son，以空格来标志father和son的后代关系 </p>
+<p>p1 p2 p3 表示 所有p1元素下的所有p2元素下的所有p3元素集合</p>
+<p>css范例：  .father .child{color:#00FF00;}</p>
+<p>jQuery范例: {"#myId .myClass"}    //id为myId元素下的所有class为myClass的元素集合</p>
+</blockquote><p><br></p><p>5.子选择器</p><blockquote>
+<p>father&gt;son ，以&gt;表示father的直系后代son的集合</p>
+<p>css范例：  #link &gt; a {color:blue;}   //所有id为link的元素的直系子元素a的颜色样式</p>
+<p>jQuery范例：{"div&gt;p"}  //不确定是否需要“”，想表示，所有div元素下的第一层p元素</p>
+</blockquote><p>子类选择器和后代选择器的区别在于，子类选择器只能选择到父子元素，后代选择器可以选择到爷孙元素</p><p>6.伪类选择器</p><blockquote>
+<p>a:link ，以“：”集合特定的关键字，表示特定的元素在特定条件下的样式变化</p>
+<p>几个范例：  a:link{ color:#FF0000;} a:visited ..  a:hover... input:focus ...</p>
+<p>这类选择器简化了页面动态样式的变化调整</p>
+</blockquote><p>7.通用选择器<br></p><blockquote>
+<p>以" * "来表示</p>
+<p>css样式，*{font-size:12px;} 所有元素的字体大小都是12px</p>
+<p>p *{color:#FF00000;} // p选择所有p类元素，空格表示子类选择器，*表示所有，综合起来就是 选择p的所有子类元素</p>
+</blockquote><p>8.群组选择器</p><blockquote>
+<p>以“，"来表示分隔</p>
+<p>css范例：  p,td,li{ color:#FF0000;} //选择所有p，td，li元素</p>
+</blockquote><p>9.相邻同胞选择器</p><blockquote>
+<p>用来选择一群组元素中特定位置的元素</p>
+<p>p1+p2 表示所有符合 p1紧接着p2的所有p2元素</p>
+<p>p1~p2 表示所有符合p1后面的p2（？待验证）</p>
+</blockquote><p>10.元素选择器（有浏览器版本要求）</p><p>几种表示方式来定义不同的属性相关的选择器</p><blockquote>
+<p>[attr] 选择所有有attr属性的元素</p>
+<p>[attr='aaa'] 选择所有attr属性值为aaa的元素</p>
+<p>[attr^='aaa'] 选择所有attr属性值以aaa开头的元素</p>
+<p>[attr$='aaa'] 选择所有attr属性值以aaa结束的元素</p>
+<p>[attr*='aaa'] 选择所有attr属性值包含aaa的元素</p>
+<p>[attr~='aaa'] 选择所有attr属性值中包含一个以空格分隔的词为aaa的元素，也就是说找attr的值是以”元素1+空格+...+aaa+...“这种格式的</p>
+<p>[attr|='aaa'] 选择所有attr属性值为aaa或以aaa-开头的所有元素</p>
+</blockquote><p><br></p><p>从这一点可以得出来，通过属性名的命名规则可以做到一些简化性的筛选和寻找元素。也就意味着属性值的设定最好有一定命名规则，比如规定以”开头格式+内容+结尾格式“这种标准，这样子就可以通过开头格式 和结尾格式达成快速筛选。</p><p><br></p><p>11.伪元素选择器（特定浏览器版本支持）</p><blockquote>
+<p>这类选择器是用来做补充选择的，需要放在选择器语法的最后</p>
+<p>css范例: div p:first-letter {font-size:20px;} //选择所有div里的p元素的首字母样式为xxx</p>
+</blockquote><p>这种语法通过特定关键字提供修改特定元素的元素内内容样式的方法</p><p><br></p><p>12.结构性伪类选择器（特定浏览器版本起支持）</p><blockquote>
+<p>通过结合 .myclss语法和 特定的标签，来达成筛选特定元素的效果</p>
+<p>这里的语法比较拗，类似于 :last-of-type :only-of-type</p>
+<p>使用范例：  .bos :only-of-type{color:#FF0000;} 可以看出，还是通过.myclss +特定标签来使用的</p>
+</blockquote><p>13.UI元素状态伪类选择器（特定浏览器支持）</p><blockquote>
+<p>通过结合  元素+特定的标签，来达成筛选特定元素下特定属性元素的效果</p>
+<p>和前面两个类似，关键字有</p>
+<p>:enabled :disabled :read-only 等</p>
+</blockquote><p><br></p><p>从上面几个伪选择器可以看出，较新的浏览器版本提供了 结合最基础选择器语法进行特定属性规则选择元素的方法。这里的属性规则，包含有特定行为（伪选择器）、特定内容（伪元素选择器）、特定规则（结构性伪选择器）、特定属性（UI元素选择伪选择器）</p><p><br></p><p>总体而言，基本语法简单，比较复杂的在于最新的那些个伪选择器。jQuery下还没怎么做验证和尝试，需要确认下上面提供的jQuery下的范例是否正确。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

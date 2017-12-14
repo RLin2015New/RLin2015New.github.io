@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS中的view controller调用方案（读）</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">iOS中的view controller调用方案（读）</h1>
+        <div class="show-content">
+          <p><a href="http://www.cocoachina.com/ios/20161115/18086.html" target="_blank">原文：IOS中的view controller掉用方案</a> 感谢博主的劳动，下面只是对原文的个人解读</p><p>核心解决的问题是，大型项目中，迫于把项目模块化的需求，让viewController彼此间完全解耦的方法。而模块化的基本要求是解除依赖。（不解除的话在彼此缺失的情况下没法编译通过）。</p><p><br></p><p>文章介绍了几种思路：</p><p> 1.采用系统提供的 openURL 来解决,也就是注册 URL Scheme。但是openURL设计初衷是进行应用间通讯，采取这个办法也就意味任何对openURL的调用都会触发钩子方法。</p><p>2.采用UIApplicationDelegate的钩子方法</p><p>3.采用FRDIntent库</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

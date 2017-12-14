@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery EasyUI泛读</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">jQuery EasyUI泛读</h1>
+        <div class="show-content">
+          <p>最近在看jQuery的EasyUI，当前公司也是用这个前端框架的。EasyUI的学习节奏和JavaScript等不一样，JavaScript一类因为是一门独立的语言，所以一般是从语法入手，先语法然后再了解一些特性、一些内置内容、一些包，基本就能有一个比较系统的认识。而EasyUI因为是一个框架，其实是由一系列的控件插件组成的，所以从教程学习时，直接就触碰到插件本身，读手册太过乏味，不读又会觉得莫名其妙，学起来麻烦一点。但其实只要打通的前置内容（JavaScript、JQuery、CSS、JSON以及一门后端语言），学习是没有障碍的。我碰到的难点主要在于前端经验太缺乏，对于前端内容虽然能想起来，但是熟练度不够，这也是这一段正在改善的。</p><p>学习思路是，先通读，整理一个泛读，保罗各组件的常用方法和范例，再来一个提升，整理各个组件的关系以及推理原理。废话少说，show you the code。</p><p>1.easyui是基于jQuery的框架，集成了各种用户界面插件。插件的实现，很多都是结合了jQuery完成控制，CSS处理样式，服务器端规定数据格式（通常是JSON），通过这三个点协同完成。</p><p>2.需要引入指定包</p><p>3.两种申明方法，一种是通过指定 class为特定的easyui类，结合指定属性设定来完成。第二种是通过jQuery语法，调用特定的函数来完成，这种函数，可以实现给一个元素添加类型控件（这一点自己实现也简单，就是添加class属性）。</p><p>范例：</p><p>&lt;div class="easyui-dialog" style="width:400px;height:200px"</p><p> data-options="title:'My Dialog',collapsible:true,iconCls:'icon-ok',onOpen:function(){}"&gt;dialog content.&lt;/div&gt;</p><p>或</p><p>&lt;input id="cc" style="width:200px" /&gt;</p><p>$("#cc").combobox({ url:...,required:true;valueField:'id',textField:'text'});</p><p>//这里有一个问题要考虑的是，第二种方法中，原控件原始类型种类是否有关系？（推测是，感觉要看easyui是以什么层级的元素来实现的，如果是以最底层的层级实现，那么就没有关系，因为所有元素最底层的层级应该是一样的；如果是以高层层级来实现，那么可能就有影响，待验证）</p><p>4.CRUD应用（CRUD-&gt; create+retrieve+update+delete）</p><p>常用控件：</p><p>datagrid,可以展示列表数据，也可以开启编辑模式</p><p>dialog,可以创建编辑窗口</p><p>form,可以提交表单数据</p><p>messager，显示操作信息</p><p>（搞清楚与后台的通讯格式后，实际应用是非常简单的，因为完全无需介入从后台获取数据载入控件的过程。自己实现的话，需要发送请求，获取数据后，还需要逐个控件来设置值，而用easyui控件，这三步直接通过一个url以及与后台约定返回格式就搞定）</p><p>5.jEasyUI拖放</p><p>5.1通过draggable()方法，可以给元素控件添加拖拽插件(注意这个控件不依赖于元素类型，也就意味着前面所想的那个基于最底层实现来写easyui插件是可行的，所以大概率可以无视控件的类型)</p><p>范例:</p><p>$("#dd").draggable();</p><p>两种可选的配置：</p><p>$("#dd").draggable({proxy:'clone'});   //注意，这里用的是用{}添加参数</p><p>或</p><p>$("#dd").draggable({proxy:function(source){</p><p>var p = $('&lt;div class="proxy"&gt;proxy&lt;/div&gt;');</p><p>p.appendTo('body');</p><p>return p;</p><p>}});</p><p>//这里两个注意点，一个是 $('&lt;div&gt;...&lt;/div&gt;')这种直接创建元素的写法</p><p>第二个是 appendTo('body')的写法以及这个操作放入body中的含义</p><p>5.2 draggable的更高级用法</p><p>$(".item").draggable({ </p><p>revert:true,</p><p>proxy:'clone',</p><p>onStartDrag:function(){</p><p>$(this).draggable('options').cursor='not-addlowed';</p><p>$(this).draggable('proxy').css('z-index',10);</p><p>},</p><p>onStopDrag:function(){</p><p>$(this).draggable('options').cursor='move';</p><p>} });</p><p>//这里有几个注意点，1.可以通过$(.item)这种写法来获取一类子元素,从而可以实现模拟事件。白天时我还在纠结怎么获取propertygrid的子元素，后面通过其他方法取巧实现，但是如果一定要获取,其实通过选择器就可以搞定，因为范围内的子元素的类型是可以获知的，写法类似于(这里的easyui-grid为乱写的，具体的明天测试一下)</p><p> $("#mypropertygrid.easyui-grid").blur(function(){alert("离开焦点";)});</p><p>或 $("#mypropertygrid.easyio-grid").bind('blur',function(){alert("离开焦点";)});</p><p>2.easyUI的控件参数貌似是通过 {a1:v1,a2:v2,a3:function(){}}这种JSON语法来搞的</p><p>3.控件获取自身属性的语法貌似是 $(this).draggable('option') 这种语法，获取的应该是一个属性对象，然后通过 $(this).draggable('option').cursor='not-allowed'这种手法就可以调整</p><p>4.类似的内置参数还有 onDragEnter,onDragLeave,onDrag （应该还有很多，更多的需要看一下后面的手册内容）</p><p><br></p><p>//虽然开始想吐槽easyUI教程设置不合理的，因为直接把几个最麻烦和完整的crud案例放在最前面，初看是云里雾里的，不过看到draggable这里，才知道编者也是用心良苦。先用完整案例示范用法，然后从最简单的draggable插件开始讲解。</p><p>//今天先到这里了，回家早睡~~~~~</p><p>未完待续...</p><p><br></p><p>6. jQuery EasyUI 菜单与按钮</p><p>这个目录下的几个常用类型有，</p><p>easyui-menu</p><p>easyui-linkbutton</p><p>easyui-menubutton</p><p>easyui-splitbutton</p><p>范例：</p><p>easyui-menu：</p><p>&lt;div id="mm" class="easyui-menu" style="width:120px;"&gt;</p><p>&lt;div onclick="javascript:alert('new')"&gt;New&lt;/div&gt;</p><p>&lt;div&gt;</p><p>&lt;span&gt;Open&lt;/span&gt;</p><p>&lt;div style="width:150px;"&gt;</p><p>&lt;div&gt;&lt;b&gt;Word&lt;/b&gt;&lt;/div&gt;</p><p>&lt;div&gt;Excel&lt;/div&gt;</p><p>&lt;div&gt;PowerPoint&lt;/div&gt;</p><p>&lt;/div&gt;</p><p>&lt;div icon="icon-save"&gt;Save&lt;/div&gt;</p><p>&lt;div class="menu-sep"&gt;&lt;/div&gt;</p><p>&lt;div&gt;Exit&lt;/div&gt;</p><p>&lt;/div&gt;</p><p>&lt;/div&gt;</p><p>easyui-menu创建后默认是隐藏的，用下述方法显示</p><p>$("mm").menu('show',{ left:200,top:100});</p><p>//上述范例可以看出来，这些插件通常都是两类方法处理，一类是通过html，一类是通过 $("id").插件名(....)</p><p>//html规则下，可以看出来，在标志了class为特定的插件类型时，其子空间下的标签，类似于&lt;div&gt;这类，会按照插件定义的规则来显示和处理（因为jQuery通过选择器要筛选子控件十分简单，所以这类实现很好处理，而且如果没猜测，这个机制也就意味着，很多控件，利用选择器以及对于子元素的理解，都是有办法修改控件样式元素样式的）</p><p>//列出来是想熟悉一下 style="width:100px;" 以及 iconCls="icon-cancel"这类写法，iconCls调用的这些图标，在做小项目或测试时可以省掉很多功夫；plain=“true”；$(selector).linkbutton('disable')；&lt;div class = "menu-sep" &gt;&lt;/div&gt;</p><p>//这一些在很多地方都是可以通用的</p><p><br></p><p>7.jQuery EasyUI布局</p><p>常用的插件主要有:</p><p>easyui-layout (布局)</p><p>easyui-panel (面板)</p><p>easyui-accordion (折叠面板)</p><p>easyui-tabs (标签页)</p><p>7.1 easyui-layout提供五个区域:easy,west,north,south,center，其中center是必须有的，其余的是可选的</p><p>范例：</p><p>&lt;div class="easyui-layout" style="width:400px;height:200px"&gt;</p><p>&lt;div region="west" split="true" title="Navigator" style="width:150px"&gt;</p><p>&lt;p style="padding:5px;margin:0;"&gt;Select language: &lt;/p&gt;</p><p>&lt;ul&gt;</p><p>&lt;li&gt;&lt;a href="javascript:void(0)" onclick="showcontent('java')"&gt;Java&lt;/a&gt;&lt;/li&gt;</p><p>&lt;li&gt;&lt;a href="#" onclick="showcontent('erlang')"&gt;Erlang&lt;/a&gt;&lt;/li&gt;</p><p>&lt;/ul&gt;</p><p>&lt;/div&gt;</p><p>&lt;div id="content" region="center" title="Language" style="padding:5px"&gt;&lt;/div&gt;</p><p>&lt;/div&gt;</p><p>function showcontent(lan){</p><p>$("#content").html('Introduction to'+language+" language");</p><p>}</p><p>//这里的要点有如下几个：</p><p>1.由region=“west”这里想到的，html元素自定义参数如何使用（JSP添加新标签好像是要通过TLD文件，html元素添加新标签，可以通过DOM自带的API来实现，对于拓展已有元素的方法需要再研究一下，暂时放着，后面单独单独章节来搞一搞）</p><p>2.split=“true”是允许通过拖拽边框改变区域大小的意思</p><p>3.&lt;ul&gt;和&lt;li&gt;标签无需结合table也可以使用</p><p>4.href值为“javascript:void(0)”与"#"的区别是什么,"#"相当于锚的写法，但是没有写ID，所以默认跳转到页面顶部，而且会在页面url后面出现一个#,而javascript：void(0)是一个空操作，也没有返回值，所以就是一个空链接</p><p>5.再就是 &lt;div .. class ="easyui-layout"&gt;...&lt;div .. region="center"..&gt;..&lt;/div&gt;...&lt;/div&gt; 这种插件用法。推测也支持jQuery写法，因为运行时编译的特性，所以对于center的检测应该是在显示环节</p><p>7.2 easyui-panel</p><p>范例：</p><p>&lt;div class="easyui-panel" title="Complex" iconCls="icon-search" collapsible="true" style="padding:5px;width:500px;height:250px;"&gt;</p><p>...</p><p>&lt;/div&gt;</p><p>//这里的要点有，自带的title和iconCls的标题属性；collapsible控制是否可折叠</p><p>7.3 easyui-accordion (折叠面板)</p><p>范例：</p><p>&lt;div class="easyui-accordion"...&gt;</p><p>&lt;div ..title="..."...&gt;&lt;/div&gt;...</p><p>&lt;/div&gt;</p><p>//easyui-accordion和easyui-panel collapsible的区别在于，easyui-accordion会自动把下述的第一级&lt;div&gt;处理成easyui-panel，而且实现了自动控制，一次只有一个下述一级easyui-panel展开的效果 （可以把easyui-accordion理解为更精细的easyui-panel封装）</p><p>7.4 easyui-tabs （标签页）</p><p>&lt;div class="easyui-tabs" ...&gt;</p><p>&lt;div ... title="xx"... closable="true"...&gt;</p><p>&lt;/div&gt;</p><p>//可以看出，easyui-tabs和easyui-accordion类似，也会把下述第一级的&lt;div&gt;解析成easyui-panel，而且它还添加了一些类似于closable的自定义参数，它的最终实现样式是标签页的形式</p><p>几个常用方法有：</p><p>$("tt").tabs('exists',title)</p><p>$("tt").tabs('add',{title:"abc",content:"&lt;iframe&gt;..." closable:true});</p><p>//这里有两个要点，一个是之前熟悉的 插件名('方法名','内容')这种用法</p><p>第二个是，添加插件对象时，参数是用{name1:va1,name2:va2}这种JSON方式传递的</p><p>7.5 easyui-tabs 自动播放的一种写法</p><p>var index=0;</p><p>var t = $('tt');</p><p>var tabs = t.tabs('tabs');</p><p>setInterval(function(){</p><p>t.tabs('select',tabs[index].panel('option').title);</p><p>index ++;</p><p>if(index &gt;= tabs.length){</p><p> index=0;</p><p>}</p><p>},3000);</p><p>//这里的要点有如下几个</p><p>1.$('tt').tabs('tabs') 为获取panel对象组</p><p>2. tabs[index].panel('option').title 语法为首先通过panel('option')拿到panel的option对象，title就是option对象的title属性。（title为easy-panel的第一级属性，但是值却是存在option中的，关于这一点，了解自定义元素属性后应该能更好的理解）</p><p>7.6自定义panel样式</p><p>CSS语法为</p><p>.panel-body{</p><p>...}</p><p>.panel-header{</p><p>...}</p><p>.panel-tool-collapse{</p><p>...}</p><p>// .xx 为类选择器语法，由此可以看出来，easyui控件在内部实现显示效果时，显示元素是定义了特定的类名的，类似于panel-header这种，通过给这些类添加样式可以达成修改样式的效果。但是目前怎么获知这些类名，对于我是黑盒。。。。</p><p><br></p><p>//今天先到这里了，</p><p>未完待续</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

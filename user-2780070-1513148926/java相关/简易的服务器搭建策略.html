@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>简易的服务器搭建策略</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">简易的服务器搭建策略</h1>
+        <div class="show-content">
+          <p>一直来都比较习惯于用struts搭建服务器。struts搭建服务器来处理请求的操作模式也很简单，基本步骤如下：</p><p>1.引入对应版本的jar（需要和spring以及配置方式对应，最好是直接找一个样板起搭）</p><p>2.配置容器入口web.xml中的struts加载配置</p><p>3.配置具体的struts.xml以及请求响应文件 *-struts.xml</p><p>配置中存在很多可以灵活调整的地方，核心做的事情是告诉web容器你要用struts，然后sturts处理的响应有哪一些，返回结果内容有哪些。</p><p>web项目一般是配置struts来请求网页，app或其他项目会经常用配置struts来进行行为操作或请求数据（这个时候一般返回json）</p><p><br></p><p>最近在起手做一个nyq的项目，服务器端都是我来，有比较高的自由度。登录服部分主体还是沿用旧代码，加新模块时在容器中没有找到显示配置struts映射文件的地方，推测估计是struts有默认读取策略，找YX去讨论时，他说他对于struts不太熟悉，而且做游戏开发的，其实是很少使用struts的。简易版的一般用jetty，还有另外一个流行的框架。（不是netty）</p><p>没有读过struts源码，推测可能是其内部机制相较于其他是比较复杂吧。今天也试着搭建了一下jetty的响应服务器，确实非常简单（我是基于一个现有封装包来做的，后续找个时间解析一下），步骤如下：</p><p>1.引入对应版本的jar</p><p>2.设置服务器启动服务，在启动服务中配置响应服务器的监听端口和请求前缀，对于特定的请求前缀注册处理的servlet类。</p><p>3.启动响应服务器</p><p>当前模式有一个问题是，jetty的服务器启动模式不能很好的和spring的注入结合（还不确定是公司的这层封装导致的还是说jetty的服务注册是基于反射），我当前采取的策略是用静态变量。（因为存在分服，现在公司对应项目的用户量负载并不重，所以暂时不存在性能问题。更优的方案应该是和工厂模式结合，数据库连接则用数据库池来管理）</p><p><br></p><p>总体而言，jetty的方式比struts的方式更简易。后续应该熟悉一些非web项目的常用架构。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

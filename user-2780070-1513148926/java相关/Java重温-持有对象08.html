@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-持有对象08</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-持有对象08</h1>
+        <div class="show-content">
+          <p>持有对象在这里的含义其实是对象容器。</p><p>1.Java容器类库的按照概念划分成Collection和Map两种。</p><p>2.容器支持打印方法，对于容器类的元素，依赖其toString方法打印</p><p>3.Collection有三类，List、Set、Queue。</p><p>4. List有两种基本类型，ArrayList和LinkedList。ArrayList通过数组实现，随机访问效率高，但是插入和删除相对较慢。LinkedList通过Node实现，顺序访问效率高，随机访问效率相对较低。插入和删除效率高。（所谓高只是相对的，两者其实速读都很快。在少量数据时效率差别不大）</p><p>5.Collection接口继承了Iterable接口，可以通过iterator尽量遍历。</p><p>6.LinkedList添加了可以使其作为栈（stack）、队列（queue）或双端队列的方法（这里指的是提供了pop、peek等方法）</p><p>7.Set接口与Collection接口内容一样，但是行为不同。</p><p>8.Queue（队列）是一个典型的先进先出（FIFO）容器。（与stack相反）</p><p>9.简单的容器分类</p><p><br></p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-d0bd3be510b0a9f3.gif?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-d0bd3be510b0a9f3.gif?imageMogr2/auto-orient/strip" data-image-slug="d0bd3be510b0a9f3" data-width="541" data-height="325"><br><div class="image-caption"></div>
+</div><p><br></p><p><br></p><p>第11章 持有对象</p><p>11.1 泛型和类型安全的容器</p><p>11.2 基本概念</p><p>11.3 添加一组元素</p><p>11.4 容器的打印</p><p>11.5 List</p><p>11.6 迭代器</p><p>11.7 LinkedList</p><p>11.8 Stack</p><p>11.9 Set</p><p>11.10 Map</p><p>11.11 Queue</p><p>11.12 Collection和Iterator</p><p>11.13 Foreach与迭代器</p><p>11.14 总结</p><p><br></p><p>这里介绍的只是简单的对象容器，对于高并非或多线程下的容器并没有介绍（后续我会补充进来）。</p><p>我之前的一个毛病是，比较喜欢用hashmap arraylist几个固定的，并未考虑实际使用场景（虽然在少量数据情况下差别不大）。</p><p>过程中<a href="https://github.com/RLin2015New/SimpleCollections" target="_blank">测试代码</a></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

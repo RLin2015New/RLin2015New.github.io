@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Objective-C之Block</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Objective-C之Block</h1>
+        <div class="show-content">
+          <p>最近在做项目重构，用了比较多的block块。用这个有一个好处就是减少了代码内的函数，让逻辑比较直观，而且可以比较好的定义代码执行的顺序。使用的时候有一个担心就是线程安全问题，也比较好奇block的本质是个什么东东。所以今晚就稍微看了一下。<br></p><p>相关问题可以关注<a href="https://www.zhihu.com/question/30779258/answer/49492783" target="_blank">OC中， block（块）的本质是什么？ - Joshua Shen 的回答</a></p><p>block定义</p><p>struct Block_descriptor {</p><p>unsigned long int reserved;</p><p>unsigned long int size;</p><p>void (*copy)(void *dst, void *src);</p><p>void (*dispose)(void *);</p><p>};</p><p>struct Block_layout {</p><p>void *isa;</p><p>int flags;</p><p>int reserved;</p><p>void (*invoke)(void *, ...);</p><p>struct Block_descriptor *descriptor;</p><p>/* Imported variables. */</p><p>};</p><p>定义block之后，实际是创造了一个static函数，在创造block结构体时把函数指针给block持有，所以之后可以调用。</p><p>有一个要注意的是，block的参数采取的是值传递，只有在采用__block前缀时才是对象传递。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

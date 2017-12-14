@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-容器14</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-容器14</h1>
+        <div class="show-content">
+          <p>包含数组和JavaSE标准的容器类。</p><p>数组部分：</p><p>  1.数组是一种效率最高的存储和随机访问对象引用序列的方式。当然，相较于现在SE提供的其他容器，数组硕果仅存的优势也只剩下效率。</p><p>  2.【】语法是访问数组对象唯一的方式</p><p>  3.数组和泛型不能很好结合。</p><p>  4.数组的工具类又Arrays。实用的工具方法有System.arraycopy (浅复制模式，不会自动拆箱和装箱)；Arrays.equals;Arrays.sort;Arrays.binarySearch等</p><p>  5.是否使用数组的推荐策略是，应该“优选容器而不是数组”，只有再已证明性能成为问题并且切换到数组对性能有所帮助时，才将程序重构为数组。（作者对于数组的观点是，认为数组应该当作一种内置实现内置再语言的内核中）</p><p>容器部分：</p><p>    1.</p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-a2929eab6f4572ef.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-a2929eab6f4572ef.png?imageMogr2/auto-orient/strip" data-image-slug="a2929eab6f4572ef" data-width="687" data-height="679"><br><div class="image-caption">java容器类库简图</div>
+</div><p>（回顾一下简单的UML标志。实心三角-继承（extends），空心三角-实现（implements），大虚线矩形-抽象类，小虚线矩形-接口）</p><p>     2.核心类型一般就是list、map、set（SE5后还加了一个queue）。自带工具集方法是Collections</p><p>     3.一种优秀的写法是，对于中间集对象，可以把参数定义成类似 public final K key 这种方式，用final来约束为只读</p><p>     4.享元模式可以解决过多重复对象的问题。核心的思维是，把对象实际存储于一个对象中，其他使用它的地方只记录索引或引用下标。这样实际需要存储的就只有一份对象以及N份标志。</p><p>     5.对于可选操作的思考。Collection中定义了remove、add等接口，但是实际实现类并不一定为这些方法提供了功能定义。对于这种设计的理论支持是放置再设计中出现接口爆炸的情况，避免因为各种变体引入各种特定接口引发接口爆炸~（接口爆炸这个问题其实在日常工作做设计时也是需要思考的。大部分情况，我们设计的类，总是会因为各种原因而产生过多的接口）</p><p>    6.覆盖equals方法时，最好也同时覆盖hashCode方法</p><p>    7.性能是映射表中的一个重要问题，在get中使用线性搜搜时，执行速读会很慢，而这正是hashmap提高速读的地方。</p><p>    8.散列和散列值。对于散列个人认为概念上可以当作“类别编号”来理解。通过一个散列算法（通常是hashCode方法）可以得出该对象的“类别编号”；比对对象时，可以先比对“类别编号”来搜小实际需要比对的对象范围。获取对象时，同样也可以先获取“类别编号”组，然后再从这组中去找。（可以看一下hashMap的实现，其实现和这种理解是契合的。那么该如何设计hash算法呢，个人认为思路是根据业务以及分类的概念，去尽量让类别不至于太多，而每个类别组又不至于太大。因为分类思想极大的提高了搜索效率，对于一些极端情况，如果hash性能吃紧时，甚至于可以考虑添加多层类别的处理。用复杂度设计来换取读取效率。）</p><p>    9.对于接口的不同选择。Hashtable、Vector、Stack是遗留类别，尽量避免使用。</p><p>       不同类型Queue只在接受和产生数值的方式上有所差异（这句话的意思是存储上没有差异么~）</p><p>       ArrayList底层由数组支持（所以读取效率高）；LinkedList由双向链表实现（所以add和remove快）</p><p>       HashSet最常用，查询快；LinkedHashSet保持元素插入的次序，TreeSet基于TreeMap，生成一个总是处于排序状态的Set。</p><p>    10.一种性能测试框架范例</p><p>    11.Java提供了一个分析器（应该是javap）</p><p>    12.Java容器的快速报错机制</p><p>    13.如果想蚩尤对象的引用，希望能访问到该对象，又希望垃圾回收器可以回收它，就可以使用Reference对象。（如果这种回收可以设置条件，那么这是一个极佳的缓存容器对象）</p><p>    SoftReference用以实现内存敏感的高速缓存（内存敏感的含义是内存吃紧就可以回收么~，可以一睹）</p><p>    WeakReference为实现“规范映射”而设计</p><p>    PhantomReference用以调度回收前的清理工作</p><p>    14.BitSet。如果想高效率的存储大量“开/关”信息，BItSet是很好的选择。但是BitSet的高效是针对存储而言，对于访问，它的效率比本地数组(这是神马~)要慢。（有一个很牛逼的想法，就是把需要存储的信息转译成type值然后按位来存储。通过翻译器存储或读取。思路和BitSet是类似的。个人认为这种实现对于某些结构固定而又数据庞大的情景，是一种核弹级的解决方案。可以考虑做一个model）</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3DTouch、Peek &amp; Pop</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">3DTouch、Peek &amp; Pop</h1>
+        <div class="show-content">
+          <p>原文地址：http://www.cocoachina.com/ios/20161114/18071.html</p><p> ios系统3DTouch全解析</p><p><br></p><p><br></p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-74ea6daa8577f5f3.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-74ea6daa8577f5f3.png?imageMogr2/auto-orient/strip" data-image-slug="74ea6daa8577f5f3" data-width="292" data-height="416"><br><div class="image-caption"></div>
+</div><p>实现效果如上图，是IOS9带来的一个新特性</p><p>核心其实就是一个ShortcutItem控件，分为静态添加和动态添加两种方法，静态添加是通过info.plist配置初始化需要的关键字属性；动态添加是通过代码添加。（这个环节可以接触到系统提供的很多图标，自定义图标建议尺寸是35*35的镂空图）</p><p>回调监测是通过Appdelegate中的下述方法</p><blockquote><p>- (void)application:(UIApplication *)application performActionForShortcutItem:(UIApplicationShortcutItem *)shortcutItem completionHandler:(void (^)(BOOL))completionHandler</p></blockquote><p>注: 在支持3D Touch的设备上,用户可以在程序运行期间通过设置 -&gt; 通用 -&gt; 辅助功能 -&gt; 3D Touch来关闭3D Touch功能,所以我们有必要通过重写-traitCollectionDidChange:方法随时处理<br></p><p><br></p><p>Peek &amp; Pop<br></p><p>Peek和Pop是应用内的一种全新交互模式,当用户不断增加力量在控件上按压,会依次进入四个阶段<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

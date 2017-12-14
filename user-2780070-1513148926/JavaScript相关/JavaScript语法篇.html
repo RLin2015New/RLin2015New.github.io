@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript语法篇</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">JavaScript语法篇</h1>
+        <div class="show-content">
+          <p>1.是web编程语言，由浏览器执行<br></p><p>2.DOM(document object model是用于访问html元素的正式w3c标准)</p><p>3.JavaScript是脚本语言（为了缩短传统的编写-编译-链接-运行过程而创建的计算机编程语言，在被调用时进行解释或编译，可以理解为短语或代称）。</p><p>4.JavaScript可以做的事情有，1.直接写入html输入流，2.对事件进行反应，3.改写html内容，4.改变html图像，5.改变html样式，6.验证输入 等</p><p>5.用法，必须位于标签之间，可以被放置在html页面的和部分中</p><p>6.JavaScript输出数据，window.alert(),document.write(),innerHTML,console.log()/console.info()</p><p>7.JavaScript语法规则</p><p>  默认数字类型Number，可以是整数、小数或科学计数</p><p>  默认字符串String，可以是单引号，也可以用双引号</p><p>  表达式字面值可以用于计算，比如5+6，这种</p><p>  数组Array定义数组，[40,100,1]</p><p>  对象Object定义一个对象，{firstName:“Roger”,lastName:”Sense”}</p><p>  函数定义 function funca(paramA,paramB){return paramA+paramB;}</p><p>  运算符 = + - * /  ，逻辑运算符 == != &lt; &gt;</p><p>  N多保留关键字，基本都是语言的通用标准字</p><p>  注释方式：// ， /* */</p><p>  存在默认类型转换</p><p>  对大小写敏感</p><p>  使用Unicode字符集</p><p>  可以使用 \ 进行代码换行</p><p>  支持  var a,b,c=0;这种写法，其中a，b为undefined类型，布尔值true，false</p><p>  null为object类型，undefined为undefined类型 （可参见<a href="http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html" target="_blank">http://www.ruanyifeng.com/blog/2014/03/undefined-vs-null.html</a>，可用 !x 来判定非null或非未定义）</p><p>8.JavaScript中的对象：</p><p>JavaScript和Java的不同之一在于没有类的概念，而直接是对象的概念。对象定义如下：</p><p>var car = {type:”Flat”,model:500};   //声明的过程同时是定义的过程</p><p>对象的访问，car.type 或 car[“type”];</p><p>对象方法的定义</p><p>var car={type:”Flat”,getType:function(){ return this.type;}};</p><p>  几个关键点，1.语法上有点类似于，定义了一个变量，但是这个变量是一个函数的感觉。调用是采用 car.getType()；这种函数访问方式 。 2.也有this的关键字。 总体感觉JavaSctip中的对象感觉有点怪。（使用时，貌似可以申明一个初始化的，但是对象貌似只适合单次使用，如何能实现像类那样的多次复用呢？ 推测可能有几个思路，一看JavaScript中有无类似new这样的关键字，二是看是否有复制或克隆的方法，三是通过一个函数，把对象声明封装在内，每次需要使用对象时，用函数来获取一个新的对象，用以取代new关键字.  测试了一下，第三种思路是可行的，但是貌似比较少看见。可以考虑通过js文件来定义一些通用类来做一些事情，但是因为源码是暴露的，这样做可能会存在一些不安全。）</p><p>9.JavaScript脚本执行。貌似是函数声明会有前置性，但是中的内容以及html内容是平齐的。 （可参见<a href="http://blog.csdn.net/u014787301/article/details/51649876" target="_blank">http://blog.csdn.net/u014787301/article/details/51649876</a>）</p><p>10.把值赋值给没有声明的对象，会被默认声明为全局变量（window对象）。</p><p>11.常见的html事件,onchange ,onclick, onmouseover,onmouseout,onkeydown,onload (可参见<a href="http://www.runoob.com/jsref/dom-obj-event.html" target="_blank">http://www.runoob.com/jsref/dom-obj-event.html</a>)</p><p>12.JavaScript字符串，使用索引访问字符，</p><blockquote>
+<p>var str = “abc\'def”;</p>
+<p>var char = str[2];</p>
+<p>var length = str.length;</p>
+</blockquote><p>13.转义字符，\’  \”  \\  \n 换行  \r 回车   \t 制表符  \b 退格符  \f 换页符</p><blockquote><p>var str = new String(“Hoh”);   (由此知，JavaScript中有new关键字可以用来声明对象)</p></blockquote><p>（字符串为html的核心，更多方法可参见<a href="http://www.runoob.com/js/js-strings.html" target="_blank">http://www.runoob.com/js/js-strings.html</a>）</p><p>14.JavaScript循环种类</p><blockquote><p>for  for/in  while  do/while</p></blockquote><p>15.typeof x;  typeof null 为object ，typeof undefined 为undefined</p><blockquote><p>null == undefined  null !== undefined</p></blockquote><p>16.JavaScript中5种数据类型，string number boolean object function；3种对象类型，Object，Date，Array 2种不包含值得数据类型 null  undefined。</p><p>NaN是Number类型，Array，Date，null是Object类型</p><p>17.constructor属性返回JavaScript变量的构造函数，“Hoh”.constructor ;(3.14).constructor; (这个属性有神马用？)</p><p>18.类型转换函数  String(x) , x.toString()</p><p>19.Number的有 toExponential();//指数计数法</p><p>toFixed();//数字转字符串，小数点后有指定位数的数字</p><p>toPrecision(); //把数字格式化成指定的长度</p><p>20.JavaScript支持异常处理</p><p>21.JavaScript支持调试</p><p>22.JavaScript有变量提升的特性，也就是把函数声明和变量声明提升到方法最顶端，但是注意，初始化不会提升，类似于  var y = 7； 其中y = 7的内容是不会提升的，所以y依旧是undefined</p><blockquote><p>use strict</p></blockquote><p>使用误区，==是忽略类型的；switch(x) 在判定case时，采取的是 ===的恒等式比较；运算时，注意可能有类型转换；JavaScript都是以64位浮点数（float）来存储的，对于精度很难定义。（所以类似于 var x = 0.1,y=0.2;var z = x+y; if(z ==0.3) 将返回false。一个解决方案是放大到整数，var z = (x*10+y*10)/10;  由此可见，误差产生于 z=x+y这一步，x=0.1这种设定可能是设定 x=0.100000003类似这种实际存储，但是这个误差可以被忽略，而x+y后，两个误差叠加，有可能到刚好无法被忽略的精度，所以会导致不精确。经过测试，这种误差是不稳定出现的，比如如果x,y都是0.2相加，结果却恰好是0.4。而且一个很有意思的是，每次0.1+0.2的误差，貌似是恒定的）</p><p>23.在 JavaScript 中,<b>对象</b>使用<b>名字作为索引</b>。</p><p>如果你使用名字作为索引，当访问数组时，JavaScript 会把数组重新定义为标准对象。</p><p><b>执行这样操作后，数组的方法及属性将不能再使用，否则会产生错误:</b></p><p>24.javascript获取表单数据的方法 document.forms[“formname”][“inputname”].value ;</p><p>25.html约束验证关键字，disabled max min patternrequired type 配合 checkValidity</p><p>26.json语法规则</p><p>key-value方式，数据用“，”分隔，大括号保存对象，方括号保存数组</p><p>一种初始化方式：</p><blockquote>
+<p>var text = ‘{“a”:[{“b”:”c”},{“d”:”e”}]}’;</p>
+<p>var obj = JSON.parse(text);  // 相对的有JSON.stringify()</p>
+</blockquote><blockquote>
+<p>void function()   javascript:void function()</p>
+<p>void (funciton())  javascript:void(function())</p>
+</blockquote><p>26.void的意思是计算表达式，但是不返回值</p><p>javascript:void(0)//用在href 中代表死链接， #则一般代表一个锚值，比如#top //top为某个控件的id</p><p>javascript:void(alert(1))//弹出框</p><h4>27.javascript函数</h4><p>特殊用法</p><blockquote>
+<p>var h = function (a,b) {return a*b;};</p>
+<p> var z = h(3,4); //用变量存储函数</p>
+</blockquote><blockquote><p>var myfunction = new Function(“a”,”b”,”return a*b”);//构造函数，</p></blockquote><p>28.Function是一个object，所以用new~，而且其格式是 参数，参数...m，内容的方式。从这里也可以看出来，函数的实质是对象。用toString()方法可以将函数以字符串方式返回</p><p>29.函数声明默认会被提升，通变量声明。</p><p>30.如果函数表达式后面紧跟()，则是一个自调用函数，类似</p><blockquote><p>(function(){ var x = “say”;})() ;//格式是 (函数体)()</p></blockquote><p>31.javascript函数有个内置对象 arguments，包含了函数调用时的参数数组，用这个可以获取没有命名但是带在调用体里的参数值</p><blockquote>
+<p>x = findX（1，2，3，4）；</p>
+<p>function findX(){</p>
+<p>var i,max = arguments[0];</p>
+<p>if (argument.length &lt; 2) return arguments[1];</p>
+<p>...</p>
+<p>}</p>
+</blockquote><p>32.arguments的参数值为隐式参数，为值传递，修改其值不会影响到原值</p><p>定义时给出的参数为显示参数，为对象传递，修改其值会影响到原值</p><p>33.在javascript中，一般而言，this是指向函数执行时的当前对象</p><p>默认会是全局对象，html页面中默认的全局对象是html页面本身，在浏览器的页面对象中是浏览器窗口（window对象），默认申明的全局对象归属于页面对象</p><p>所以，我们申明  function a(){…}  ,这个函数对象归属于页面对象，调用时，a(); 等效于 this.a()；或者window.a();</p><p>34.要理解javascript中函数的实质为对象，</p><blockquote>
+<p>var obj = {first:”H” , last:”D” ,run:function(){return this.first + this.last;}};</p>
+<p>obj.run();</p>
+</blockquote><p>35.函数还可以通过构造函数调用：</p><blockquote><p> function my(a,b){ this.H = a;this.D = b;};  var x = new my(1,3); x.H;</p></blockquote><p>36.javascript中函数还有2个内置方法call()和apply()。</p><blockquote>
+<p>function a(b,c){return a*b;};</p>
+<p>a.call(myObject,10,2);</p>
+<p>myArray = [10,2]; a.apply(myObject,myArray);</p>
+</blockquote><p>37.javascript一个用来保证访问安全的解决方案是，内嵌函数</p><blockquote><p>function add(){  var count = 0 ; function jia(){ count++;} jia(); return count;};</p></blockquote><p>38.函数闭包 </p><blockquote><p>var add = (function(){ var count = 0; return function(){return count+=1;}  })();</p></blockquote><p>39.（有一个猜想，从全局对象以及函数的特性来看，整个html其实都有对象的特性。下述的html dom树其实也验证了这种想法。最终展示时，执行顺序为，先执行被提升的属性，然后按顺序执行）</p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-a74ffb80156065c8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-a74ffb80156065c8.png?imageMogr2/auto-orient/strip"><br><div class="image-caption"></div>
+</div><p>40.</p><blockquote>
+<p>document.getElementById(“id”)</p>
+<p>document.getElementByTag(“p”)</p>
+<p>document.getElementByClassName(“classname")</p>
+</blockquote><p>41.css只是控件对象的一个属性对象，所以改变很easy</p><blockquote><p>document.getElementById(“id”).style.color = “blue”;</p></blockquote><p>42.因为函数的实质也是对象，而事件的实质就是函数，所以可以通过javascript来动态指定事件。</p><blockquote><p>document.getElementById(“id”).onclick=function(){alert(1);};</p></blockquote><p>43.onload 和onunload是默认进入和离开页面的方法。onload可以被用来检验浏览器版本和类型，这两个方法也被用来处理cookie</p><p>onchange 一般用来做校验 ，onmouseover onmouseout，移入或移出元素时触发a</p><p>onmousedown onmouseup onclick 分别对应 点击、释放鼠标 以及完成点击时的事件</p><p>44.可以统一通过addEventListener来添加 </p><blockquote><p>document.getElementById(“id”).addEventListener(“onclick”,displayDate);</p></blockquote><p>addEventListener并不会产生覆盖，所以可以添加多个事件，可以向任何dom对象添加事件，并不限于html元素，包括window对象都可以添加。</p><p>45.对应的移除为 removeEventListener</p><blockquote><p>window.addEventListener(“resize”,function(){document.getElementById(“id”)  …. });</p></blockquote><p>46.事件冒泡或事件捕获；</p><p>冒泡的概念是类似于oc中的事件处理，从内部元素的事件先执行，然后传递给上一层对象。。</p><p>事件捕获的概念是从最外层开始执行，然后传递给内部</p><p>可以通过useCapture来设置，true为捕获，false为冒泡</p><blockquote><p>addEventListener(event,function,useCapture);</p></blockquote><p>// addEventListener 从 ie9开始支持。</p><p>47.dom对象的完整事件<a href="http://www.runoob.com/jsref/dom-obj-event.html" target="_blank">http://www.runoob.com/jsref/dom-obj-event.html</a></p><p>48.动态处理dom元素</p><blockquote>
+<p>var para = document.createElement(“p”);</p>
+<p>var node = document.createTextNode(“段落”)；</p>
+<p>para.appendChild(node);</p>
+<p>para.removeChild(node);</p>
+</blockquote>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

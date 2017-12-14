@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java重温-一切都是对象02</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Java重温-一切都是对象02</h1>
+        <div class="show-content">
+          <p>1.先分享一个源码中的字符缓存的实现，是通过包装器Character的静态内部类实现的。这种静态内部类的写法可以用于一些轻量级缓存。</p><blockquote>
+<p>...</p>
+<p>private static class CharacterCache{<br></p>
+<p>private CharacterCache(){}</p>
+<p>static final Character cache[] = new Character[127+1];</p>
+<div>static{</div>
+<div>for(int i = 0 ;i &lt; cache.length;i++)</div>
+<div>cache[i] = new Character((char)i);</div>
+<div>}</div>
+<div>}</div>
+<div>....</div>
+<div>//使用</div>
+<div>if(c &lt;= 127){</div>
+<div>return CharacterCache.cache[(int)c];</div>
+<div>...</div>
+</blockquote><p>2.Java源码中应该还有一个字符串池是针对基础数据提供缓存服务，对于这个池的分析放到后面。（对于字符串池的描述是，所有字面常量字符串和具有字符串值的常量表达式都自动是内存限定的，并且会置于特殊的静态存储区中） 囧，看了一下String的源码，没发现字符串池。String的内容是通过char[]来存储的，一个offset记录实际用到的偏移位置，一个count记录长度，一个int类型的hash。</p><p>3.打印运行环境常量的一种方法</p><blockquote><p>System.getProperties().list(System.out);<br></p></blockquote><p>这里很有意思的是，list的参数是PrintStream。打印出的信息很多，包括硬件信息、环境信息、版本信息等</p><p>4.关于程序运行时的存储。当前主要有5个地方能存储。</p><p>   寄存器：最快的存储区，它位于处理器内部。但是寄存器数量是非常有限的。Java不提供操作这块的方法（汇编貌似可以）。</p><p>   堆栈：位于RAM（随机访问存储器）中，<a href="http://blog.csdn.net/jingle_2/article/details/3959571" target="_blank">RAM是内存的主要容器</a>。（囧，计算机原理的知识都快还给老师了）.堆栈指针向下移动就是分配新内存，向上移动就是释放那些内容。创建程序时，Java系统必须知道存储在堆栈内所有项的确切生命周期，以便上下移动堆栈指针。Java中某些数据存储于堆栈中-特别是对象引用，但Java对象并不存储再其中。（结合“运行时”这一概念来理解）</p><p>   堆：一种通用的内存池（也位于RAM区），用于存放所有的Java对象。堆不同于堆栈的好处是，编译器不需要知道存储的数据在堆里存活多长时间。当然，这种灵活性要付出相应的代价：用堆进行存储分配和清理可能比用堆栈进行存储分配需要更多的时间。（由垃圾回收器来统一回收）</p><p>   常量存储：常量值通常直接存放在程序代码内部。有时，嵌入式系统中，常量本身会和其他部分隔离开，所以在这种情况下，可以选择将其存放在ROM（只读存储器）中。（因为常量本身就是只读，而分离这一特性让其放入只读变得可能。这里发散一下，如果能指定某些部分放在ROM中，那么可以考虑把一些不变动的，需要预加载的素材放入ROM中以方便提速）</p><p>   非RAM存储：如果数据完全存活于程序之外，那么它可以不受程序影响的人和控制，再程序没有运行时也可以存在。两个基本例子就是流对象和持久化对象。流对象中，对象转化为字节流，发送给其他机器。持久化对象中，对象被存放于磁盘上。这种存储技巧在于：把对象转化成可以存放在其他媒介上的事物，在需要时，可以恢复成常规的、基于RAM的对象。</p><p>更多关于<a href="http://www.cnblogs.com/whgw/archive/2011/09/29/2194997.html" target="_blank">堆栈</a>，总结来说就是栈一般存基本数据类型以及指针，堆则存对象和数组。栈里存的内容过了作用域分配的内存就会回收，而堆中存的内容，是由垃圾回收期来统一回收的。这里应该还需要阅读以下关于虚拟机的内容才能了解更准确。因为java中除了堆栈，还引入了方法区的概念。</p><p>5.Java基本类型的长度</p><p> byte 1字节8位 ，1个符号位，然后2^7=128（-128到-1，0到127）</p><p>char 2字节，16位</p><p>short 2字节，16位<br></p><p>int 4字节，32位</p><p>long 8字节，64位</p><p>float 4字节，IEEE754标准</p><p>double 8字节，IEEE754标准</p><p>void,boolean</p><p>另外有两个高精度计算类BigInteger 和 BigDecimal，都支持任意精度。用速度换精度。（都继承了抽象类Number）</p><p>6.ant相关文件build.xml</p><p>7.javadoc，一种可选的自动化文档的策略。</p><p><br></p><p>一切都是对象，这一章节讲述的主要内容是</p><p><br></p><p>2.1 用引用操作对象</p><p> *Java的一个特性,字符串可以用带引号的文本初始化</p><p><br></p><p>2.2必须由你创建所有对象</p><p>2.2.1存储到什么地方</p><p>介绍了5中存储位置</p><p>2.2.2 特例：基本类型</p><p>基本类型存于栈区，栈区是共享空间</p><p>2.2.3 Java中的数组</p><p>以空间和时间为代价换取了越界检测</p><p><br></p><p>2.3 永远不需要销毁对象</p><p>2.3.1 作用域</p><p>scope，栈内对象过了作用域内存就回收了</p><p>2.3.2 对象的作用域</p><p>因为是存于堆中，由垃圾回收期回收，所以生命周期会超出于作用域</p><p><br></p><p>2.4创建新的数据类型：类</p><p>2.4.1 字段和方法</p><p>类的两种基本元素。全局对象会有默认初始化值而局部变量没有。</p><p><br></p><p>2.5方法、参数和返回值</p><p>2.5.1 参数列表</p><p>引用传递</p><p><br></p><p>2.6构建一个Java程序</p><p>2.6.1名字可见性</p><p>命名空间的问题</p><p>2.6.2运用其他构建</p><p>import</p><p>2.6.3static关键字</p><p>声明static关键字意味着这个域或方法不会与包含它的那个类的人和对象实例关联在一起（这里也说明了其存储应该不是在堆中的对象空间内）</p><p><br></p><p>2.7 你的第一个Java程序（吗？ 囧~）</p><p>2.7.1编译和运行</p><p>重温一下，编译是把代码转变成JVM可以理解的字节码，运行是把字节码放到JVM中去运行。</p><p><br></p><p>2.8 注释和嵌入式文档（这里其实是应该好好看一下）</p><p>2.8.1注释文档</p><p>javadoc</p><p>2.8.2语法<br></p><p>2.8.3嵌入式HTML</p><p>2.8.4一些标签示例</p><p>2.8.5文档示例</p><p><br></p><p>2.9编码风格</p><p><br></p><p>2.10总结。<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

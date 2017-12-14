@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>iOS整体回顾（18天前</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">iOS整体回顾（18天前</h1>
+        <div class="show-content">
+          <p>概述（仅代表个人理解）<br></p><p>没有从最底层的角度写过太多自定义的内容，对于常规使用，最普通的模式其实是调取。IOS开发是使用objective-C，基于Xcode来实现的运行于IOS系统中的程序（mac就先不考虑，ipad本质也是基于ios）。所以我们如果考虑运行环境是iphone，那么在apple开放权限的基础下，有以下几个是可以使用的资源点</p><p>1.ios系统底层（这里指类似ios 10.1 这种），iOS系统所开放的所有api都是可用资源。而且，因为ios系统集成支持了objective-c和swift，这也就意味着只要编译通过， objective-c和swift所支持的功能，也是可用的。如果有办法让ios支持java，或者支持其他语言（也许已经支持，从项目创建文件可以推断，c和c++应该是已经支持了的。但是从检索到的信息得知，iphone sdk都是要用oc语法调用，不能完全不用oc。apple封闭了这道门），也就能用对应的其他语言。</p><p>（这里更多的是指底层的基本功能）</p><p>2.xcode工程默认集成的sdk。这里其实是指uikit.framework，foundation.framework这些。因为使用Xcode创建项目时，会自动集成这几个系统sok，而这些系统sdk是iOS为了统一界面，简化实现提供的各类控件。他们的实现其实也是基于oc或c的。而日常开发大部分时间其实都是在根据需求来使用这些系统控件。</p><p>3.外部sdk 。其实和系统sdk 思路一样，只是说是由很多个人开发者或其他公司写的。集成进去一样可以使用。但是可能有一个问题就是，因为很多时候，这些控件实现也需要基于系统sdk ，但是系统sdk会出现更迭，而这些外部sdk由于不一定会继续或第一时间维护，所以可能会跟随着系统版本更迭出现一些问题。（举个简单的例子，假如引入某基于asset的相册控件使用，随着系统更迭，apple提供了一个phasset来调取相册以应对各种云端或支持iphone相机新功能的实现。这个时候如果还使用该控件，虽然依旧能用，但是相册处理云相关照片时就会出现严重bug。）</p><p>4.</p><p>ios开发的理想状态应该是这样子的，拿到UI后（这里是从拿到UI开始的，有时候可能是从拿到需求开始的），分析一下UI界面的结构和功能。把结构分解成一个一个的系统控件，对于少部分没法分解成系统控件的，就是需要自己实现的（这里从提高效率角度看的话可以优先找一下有无外部控件），对于能分解成系统控件的，可以留意一下是否有能组装或考虑复用来实现成自定义控件。到这里的话，UI的实现基本就有底了。再考虑一下有需要额外实现的后台功能。真正实现前，结合动画要求验证一下选定的系统控件是否能满足所有需求。</p><p>上面这里说的是拿到制定UI后要做的。真正项目开始时，还有一个点是要先考虑的。项目开始时，我们需要考虑好该项目需要哪些公共模块。比如，该项目是否存在网络通讯，如果有，则项目开始时要选定好怎么实现网络通讯（通常都是选用外部sdk，因为这个公共模块太普及了，所以外部sdk已经很成熟而且能保证更迭）。公告模块可能有很多种，比如某个特定样式的弹窗提示，数据持久化方法等等。都是开始就应该考虑好的。</p><p>说到这里，想吐槽一下，其实ios这种 ui-选定控件 的开发模式决定了，开发者在设计模式上可发挥的余地不大。因为很多时候，后端实现都需要受控于前端ui，所以设计模式上很难有太多发挥。不过也有几种设计模式在ios开发上适用很广，比如观察者模式这类的。</p><p>而且，开发时还有一个需要衡量利弊的地方。就是页面是否应该考虑复用。就是说某几个UI界面，可能存在一定的共性。在这种情况下是否应该把这几个UI界面复用成一个呢。我在做颜图开发时，采取的策略基本就是能复用的尽量复用。但是后期发现一个问题，就是项目不同UI界面的变化趋势可能不一致。比如A1和A2界面，开始时可能大体类似，但是后期需求变更A1朝着B发展，A2朝着C发展。这种情况如果采取的是复用，那么基类A，可能就需要兼容B和C两种情况。这种实现更容易引发错误，而且会导致A的实现类很庞大。所以有另外一种思路是，尽管开始时A1和A2有共性，但是实现时就实现成A1和A2两个控制器。这样后期即便变动也是各自变各自的，不会互相干扰。而且从开发经验来开，除非说真的多个界面存在很强的共享，否则，尽量还是采取分离的方式好一点。分离开，调试和定错也会更容易一些。</p><p>实践</p><p>写在前面：最主要的文档入口是 自带的documents，然后自带还提供了很多sample。</p><p>遇到疑难问题google比百度靠谱，查英文比查中文靠谱</p><p>项目层次</p><p>几个相关点</p><p>开发者网站，project和targets配置，x.plist文件，xcode，x.xcassets</p><p>开发者网站：配置bundle ID，和证书管理。证书包括开发、发布以及推送证书</p><p>project配置包含了主项目的通用配置，本地化支持和部署版本，还有就是底层包版本以及一些编译控制项等</p><p>targets配置（这里的targets的概念，我感觉是 “一套实现和编译方案”的意思，项目下有代码，这些代码可能有多个targets，也就是多套编译和实现思路？不确定这么理解对不对）包含了项目具体信息，项目是否要对其他项目开放支持，以及具体的编译规则等等</p><p>x.plist文件，这个更像是启动配置的感觉。就是ios设置了很多启动配置方案，然后在这里可以配置。</p><p>xcode，这里列出来是想说一下，xcode本身提供了联网的错误收集，以及集成了用于发布的application loader，还有做内存调试分析的instrument等</p><p>x.xcassets 存放资源文件，存放在这里的资源文件，打包后不会直接流出。</p><p>推测的编译流程应该是：</p><p>从x.plist开始读取基础配置，然后依次找到project和targets的对应的配置文件读取配置信息，再进行文件编译。</p><p>运行流程大概是：</p><p>读取编译后的配置文件，然后找到入口文件开始。</p><p>实现层次</p><p>主要是各种系统控件</p><p>对于控件，首先要关注一下其实现的父类有哪些，比如UIView，UIViewController或者其他，父类基本能反映出控件是本质特性。</p><p>其次，再关注一下控件头文件中暴露在外的属性和方法有哪些。（这里其实可以用反推，比如你用的是一个文本显示控件，那么其文本内容肯定会有一个载体，然后你就去找对外开放的属性或方法，有哪些是设置这个载体的。用这种反推的方法，可以快速的学习使用控件，但是弊端是没有系统学习，容易出纰漏。所以比较好的方法是，拿到后先大体过一遍再来反推）</p><p>或者也可以通过一些范例来学习如何使用。xcode自带的documents里面有大量的实例。</p><p>用过的系统控件有 (做整理的话，就只列出自己现在能想起用过的)</p><p>UIView:(基本都在UIKit.framework中)</p><p>UILabel</p><p>UIButton(支持NSAttributedString)</p><p>UIImageView(注意设置.image = nil 来方便资源回收)</p><p>UIDatePicker</p><p>UIScrollView(注意同页面中多UIScrollView触控事件冲突的问题)</p><p>UITableView</p><p>UITableViewCell</p><p>UIWebView（网页容器）</p><p>UITextView（多行，不能设置提醒文字，可以滚动）</p><p>UITextField (一行，可以设置提醒文字)</p><p>UITextInput</p><p>UISwitch（开关）</p><p>UISlider（滑块）</p><p>UIWebView</p><p>UICollectionView(多行列表)</p><p>UICollectionViewCell</p><p>UIProgressView（进度条）</p><p>UISearchBar(搜索栏)</p><p>UIAlertView(已废弃)</p><p>UIActionSheet(已废弃)</p><p>UIPickerController</p><p>...</p><p>UIViewController:</p><p>UIAlertController （ios9开始替代UIAlertView和UIActionSheet的解决方案）</p><p>貌似更多时候是自定义一些内容</p><p>...</p><p>NSObject:</p><p>UIColor</p><p>UIFont</p><p>NSAttributedString</p><p>UIAlertAction(配合UIAlertController的内容定制)</p><p>...</p><p>UINavigator的相关使用</p><p>手势识别</p><p>xib和storyboard</p><p>自动布局autolayout</p><p>动画 Animation、CALayer</p><p>核心动画CAAnimation CATransaction</p><p>轻量级本地数据存储 NSUserDefaults（之前解析好像这个的数据是以plist的方式明文存储在沙箱路径下的）</p><p>持久化策略：sqlite 和 core data</p><p>推送通知：</p><p>本地推送 和 APNs</p><p>APNs流程：</p><p>app获取token-》server-》APNs服务器-》IOS推送</p><p>IOS推送到app后调取特定的方法执行。</p><p>相册：ALAsset 和 PHAsset，后者是当前推荐的 （这里可以看做是app使用iPhone自带开放的手机端功能的一个代表）</p><p>IOS内存管理</p><p>iPhone对于app的内存使用有限制（根据机器型号会有不同），内存使用过量会导致闪退（很难准确定义过量这个词，所以采取的策略是能优化的地方尽量优化，所有优化做完后如果还是因为内存崩溃，那么就要从设计和运行机制上考虑优化）</p><p>一般是牵扯图片、视频或文件的时候，内存比较容易出问题。</p><p>后两者没怎么接触过，对于图片类的，内存使用的几个要点是，一是选择合适像素比例的图片显示，因为受限于iphone屏幕分辨率，一些极度清晰的图片在iphone上是没法很好的体现效果的。对于超过屏幕分辨率的过大图片，可以先做压缩再使用。另外，对于不在界面范围内的图片，要根据情况来做回收（所谓根据情况是，看它是否容易被再次显示在界面范围内），回收的方法，即便是在arc体系下，设置image = nil;也是很重要的。（实践证明，不手动设置这个nil，很多时资源不会主动回收）。</p><p>还有一个就是列表等控制本身提供了复用机制，也是用来规避内存问题的。</p><p>xcode自带的instruments可以用来做内存调试。</p><p>IOS运行时机制(runtime机制)</p><p>java中也有类似的技术，可以在程序运行时动态改变类和对象的属性和方法。</p><p>“</p><p><b>什么是runtime（运行时机制）</b></p><p>Objective-C是基于C语言加入了面向对象特性和消息转发机制的动态语言，这意味着它不仅需要一个编译器，还需要Runtime系统来动态创建类和对象，进行消息发送和转发。</p><p>1.runtime是一套比较底层的纯C语言API, 属于1个C语言库, 包含了很多底层的C语言API。</p><p>2.平时编写的OC代码, 在程序运行过程中, 其实最终都是转成了runtime的C语言代码, runtime算是OC的幕后工作者</p><p><b>runtime的作用</b></p><p>runtime是属于OC的底层, 可以进行一些非常底层的操作(用OC是无法现实的, 不好实现)。</p><p>1.在程序运行过程中, 动态创建一个类(比如KVO的底层实现)</p><p>2.在程序运行过程中, 动态地为某个类添加属性\方法, 修改属性值\方法</p><p>3.遍历一个类的所有成员变量(属性)\所有方法</p><p><b>runtime相关应用</b></p><p>* NSCoding(归档和解档, 利用runtime遍历模型对象的所有属性)</p><p>* 字典 --&gt; 模型 (利用runtime遍历模型对象的所有属性, 根据属性名从字典中取出对应的值, 设置到模型的属性上)</p><p>* KVO(利用runtime动态产生一个类)</p><p>* 用于封装框架(想怎么改就怎么改)</p><p>”</p><p>RunLoop 参见<a href="http://www.cocoachina.com/ios/20150601/11970.html" target="_blank">深入理解RunLoop</a></p><p>多线程</p><p>再进一步</p><p>做ios开发本身没有太多技术难点，但是因为受控件和苹果的sdk限制，开发可能没有像其他语言那样的自由度，但是带来的好处就是开发相对简单。控件和苹果的sdk对于实现会有一些约束甚至bug，碰到这类问题时，有时可以想办法采用内置的其他方式实现，有时就只能自己想办法或者找一下有没有前人栽树的成果。（这一点，或许是真正做ios开发最难的地方吧）。对于很多UI相关的问题，记得大部分最终UI是通过一个个控件堆叠来形成的，大部分问题从这点出发就能找到原因。要说ios开发中有什么可能形成技术壁垒的地方吧，可能就是对于core相关以及画布相关的几个framework的掌握吧。这几个库的学习门槛比较高，而做显示时，如果真正需要跨越ios控件的限制实现更大的自由，就需要用它们，因为不好学，所以能形成一定的壁垒。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

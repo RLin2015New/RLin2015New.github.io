@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript BOM</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">JavaScript BOM</h1>
+        <div class="show-content">
+          <p>1.BOM: Browser Object Model<br></p><p>2.所有浏览器都支持 window对象，所有JavaScript的全局对象、函数和变量自动成为window对象的成员。</p><blockquote>
+<p>window.innerHeight</p>
+<p>window.innerWidth</p>
+<p>document.documentElement.clientHeight</p>
+<p>document.documentElement.clientWidth</p>
+<p>document.body.clientHeight</p>
+<p>document.body,clientWidth</p>
+</blockquote><p>3.其他window方法：</p><blockquote>
+<p>window.open()</p>
+<p>window.close()</p>
+<p>window.moveTo()</p>
+<p>window.resizeTo()</p>
+</blockquote><p>4.window.screen对象包含屏幕信息</p><blockquote>
+<p>screen.availWidth</p>
+<p>screen.availHeight</p>
+</blockquote><p>5.window.location的一些属性</p><blockquote>
+<p>location.hostname</p>
+<p>location.pathname</p>
+<p>location.port(貌似有一些不会暴露端口)</p>
+<p>location.protocol</p>
+<p>location.href (抓取子网页的一个可用办法，console.info(location.href));</p>
+<p>location.assign (替换网页内容的一种手法)</p>
+</blockquote><p>6.window.history</p><blockquote>
+<p>history.back() 等同于浏览器点击后退按钮</p>
+<p>history.forward() 等同于浏览器点击向前按钮 (一种简陋重做的实现方式，不过需要配合浏览器的回退机制)</p>
+</blockquote><p>  history.back()的实质貌似是加载历史列表中的前一个URL，但从含义上理解，也就意味着如果要通过history来做回退和恢复，相关的变化数据最好是存储在url中。</p><p>7.window.navigator,包含有关访问者浏览器的信息，类似于浏览器版本以及一些配置和代理信息</p><p>  要注意的是navigator信息可以被使用者修改，以及识别存在局限，带有误导性，所以不应该被用于浏览器版本检测 （一个引发问题，如何识别浏览器~~~）</p><p>8.JavaScript三种弹窗</p><blockquote>
+<p>alert(a) ;</p>
+<p>var answer1 = confirm(a); </p>
+<p>var answer2 = prompt(“text”,”default”);</p>
+</blockquote><p>9.JavaScript计时事件</p><blockquote>
+<p>window.setInterval(f,dis)     //间隔dis毫秒，执行f，然后循环</p>
+<p>window.setTimeout(f,dis)   //延迟dis毫秒后，执行f，然后结束</p>
+</blockquote><p>有这种计时事件，就可以做简单的动画效果了</p><p>例如<a href="http://www.runoob.com/js/js-timing.html" target="_blank">http://www.runoob.com/js/js-timing.html</a>中的时钟效果，就是</p><p>画板+指针点，通过每秒计算，指针点的坐标，不断刷新，理论上就可以实现。</p><p>10.对应的clearInterval(x) 和 clearTimeout(x) 就可以结束掉执行</p><p>11.JavaScript Cookie</p><p>是单独的Cookie对象，但是获取时是以字符串获取的</p><p>12.document.cookie 访问</p><blockquote>
+<p>function setCookie(cname,cvalue,exdays{</p>
+<p>  var d=newDate();</p>
+<p>  d.setTime(d.getTime()+(exdays*24*60*60*1000));</p>
+<p>  var expires="expires="+d.toGMTString();</p>
+<p>  document.cookie=cname+"="+cvalue+"; "+expires;</p>
+<p>}</p>
+</blockquote><blockquote>
+<p>function setCookie(cname,cvalue,exdays){</p>
+<p>  var d=newDate();</p>
+<p>  d.setTime(d.getTime()+(exdays*24*60*60*1000));</p>
+<p>  var expires="expires="+d.toGMTString();</p>
+<p>  document.cookie=cname+"="+cvalue+";"+expires;</p>
+<p>}</p>
+</blockquote>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

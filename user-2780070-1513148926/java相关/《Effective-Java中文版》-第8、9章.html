@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Effective Java中文版》-第8、9章</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《Effective Java中文版》-第8、9章</h1>
+        <div class="show-content">
+          <p>第8章 通用程序设计</p><p>第45条：将局部变量的作用域最小化</p><p>使局部变量的作用域最小化，最有力的方法就是在第一次使用它的地方声明。不容易出错。</p><p>第46条：for-each循环优先于传统的for循环</p><p>几种特殊情况是，过滤等涉及删除的使用显示迭代器；转换等涉及值修改的，使用便利；平行迭代的话也使用便利较好</p><p>第47条：了解和使用类库</p><p>这也是Java的语言优势。通常类库方法更专业且更高效。</p><p>第48条：如果需要精准的答案，避免使用float和double</p><p>float和double并没有提供精确的结果，尤其不适合与货币计算。货币计算可以根据情况使用int或float进位或者使用BigDecimal等专门为精确计算设计的方法。</p><p>第49条：基本类型优先于装箱基本类型</p><p>因为装箱基本类型实际是对象，==等的含义不一致了。自动装箱只是减少了使用基本类型的繁琐性</p><p>第50条：如果其他类型更合适，尽量避免使用字符串</p><p>字符串不适合用来代替枚举类型、聚集类型、能力表</p><p>第51条：当心字符串连接的性能</p><p>优先用StringBuilder（Builder模式？），因为string不可变性，拼接会牵扯到复制，拼接n个字符消耗n的平方级的时间</p><p>第52条：通过接口引用对象</p><p>类似于List、Map申明时，用接口引用的好处在于更换实现的成本低</p><p>第53条：接口优先于反射机制</p><p>反射并非是为了常规使用设计，当可以使用常规方式时，不一定要用反射</p><p>第54条：谨慎地使用本地方法</p><p>本地方法指用本地程序设计语言（比如C或者C++）编写的方法</p><p>本地方法在老版java中用于一些底层功能或提升性能，但是随着java的优化，适用场景越来越少了</p><p>第55条：谨慎地进行优化</p><p>好吧，众多大拿的意见是，尽量不要优化，不成熟的优化才是一切问题的根源</p><p>大概是因为优化会需要引入一种新的思路来实现程序，而且新实现还要面临旧代码的妨碍，所以难上加难。好的优化最好是先做性能评估（用工具），然后根据结果来优化。</p><p>除非有强烈的理由支持，否则不要轻易做优化（常做优化的我如是说~ ~ ~ ~ 囧囧囧囧）</p><p>第56条：遵守普遍接受的命名惯例</p><p>通用报名的规则是域名的倒叙+模块名，例如 com.google.inject（域名可以标志公司的唯一性）</p><p>惯用例子</p><p>包 com.google.inject</p><p>类或接口  Timer</p><p>方法或域 removeCapacity</p><p>常量域 MIN_VALUE</p><p>局部变量 houseNumber</p><p>类型参数 T，E，K</p><p>接触到的大部分公司采取驼峰命名规则，另外大部分都是要求详尽的英文描述名</p><p><br></p><p><br></p><p>第9章 异常</p><p>第57条：只针对异常的情况才使用异常</p><p>这里的意思是，不要使用异常来做设计，类似于当达成某个异常条件时才执行什么这一类的设计，因为违背了异常的设计初衷（违背初衷这类可能不算很有说服力的理由，但是很多时候一个东东的设计初衷觉得它的适用范围以及衍生方向，违背初衷的设计在它的发展过程中可能出现不可意料的变化，对于程序而言，通常是bad）</p><p>第58条：对可恢复的情况使用受检异常，对编程错误适用运行时异常</p><p>第59条：便面不必要地使用受检的异常</p><p>第60条：优先使用标准的异常</p><p>重用思想的一个实践</p><p>第61条：抛出与抽象相对应的异常</p><p>分层级处理的思想</p><p>第62条：每个方法抛出的异常都要有文档</p><p>第63条：在细节信息中包含能捕获失败的信息</p><p>这一点我需要好好反思下（囧囧囧，近来为了省事写了一大堆通用看不出所以然的捕获日志~~）</p><p>第64条：努力使失败保持原子性</p><p>不是只图省事的原则~~~，原子性能让程序更为准确</p><p>第65条：不要忽略异常</p><p>忽略异常是最傻逼的~~~~，等于浪费了Java提供的报错机制（报错机制辛辛苦苦给你报个错，然后被你吃掉了~~~，外边的吃瓜群众一脸懵逼~）</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

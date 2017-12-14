@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Junit基本使用</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">Junit基本使用</h1>
+        <div class="show-content">
+          <p>用Junit做单元测试非常简单。</p><p>1.<a href="http://mvnrepository.com/artifact/junit/junit/4.12" target="_blank">最近的junit依赖地址</a>，也可以引入环境自带的Junit4的依赖包。</p><p>2.通常而言，单元测试路径和源码路径是平级的，下述是一种可以参考的主路径设置方式</p><p>src/main/java</p><p>src/test/java</p><p>src/main/resources</p><p>src/test/resources</p><p>3.Junit新建类有两种Junit Test Caes和Junit Test suite，前者是单元测试单元后者是一套单元测试集合。</p><p>4.Junit创建时会有4个可选初始化类，static setUpBeforeClass,static tearDownAfterClass,setUp,tearDown</p><p>前两个为静态的，分别在类第一次使用时和结束使用时执行。后两个为类实例创建时和结束时执行的。Junit对于方法测试是的原理是，每次测试一个独立的方法时都会创建一个新实例。所以如果要做实例初始化，可以在setUp中做。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

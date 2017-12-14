@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RunLoop入门总结（读）</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">RunLoop入门总结（读）</h1>
+        <div class="show-content">
+          <p><a href="http://www.jianshu.com/p/2d3c8e084205" target="_blank">原文:RunLoop入门 看我就够了</a></p><p>感谢原博主的劳动，下面只是对原文的解读和理解：</p><p><br></p><p> RunLoop的概念有点像运行时循环的意思。很多程序需要类似于服务器那样提供持续的程序响应，经常采取的思路就是类似于做一个while循环，通过一遍一遍的轮询来进行响应。(*1) RunLoop的核心思路应该也是这种，即无限循环。采取这个思路做的事情主要是提供运行时的响应，如随时响应触控事件等。</p><p>是什么东西弄清楚了。那么再来看一下IOS是如何来做这个RunLoop，以及提供了什么工具给大家来操作这个RunLoop。</p><p>1.两个API，NSRunLoop（Foundation），CFRunLoopRef(Core Foundation)  （*2）</p><p>2.主线程RunLoop已创建，子线程要手动创建</p><p>3.获取RunLoop</p><blockquote>
+<p>Foundation:</p>
+<p>[NSRunLoop currentRunLoop]; //当前线程的RunLoop</p>
+<p>[NSRunLoop mainRunLoop];//主线程的RunLoop</p>
+<p>Core Foundation</p>
+<p>CFRunLoopGetCurrent();</p>
+<p>CFRunLoopGetMain();<br></p>
+</blockquote><p><br></p><p>4.相关类</p><blockquote>
+<p>Core Foundation中的相关类</p>
+<p>CFRunLoopRef</p>
+<p>CFRunLoopModeRef （这里纠正一下错误，貌似是CFRunLoopMode，没有Ref）</p>
+<p>CFRunLoopSourceRef</p>
+<p>CFRunLoopTimerRef</p>
+<p>CFRunLoopObserverRef</p>
+<p>注意，这5个为相关<b>类。</b>站在类的角度，结合下面的图就很好理解了<br></p>
+<p><br></p>
+</blockquote><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-4665b80e07c8ed99.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-4665b80e07c8ed99.png?imageMogr2/auto-orient/strip" data-height="189" data-width="246" data-image-slug="4665b80e07c8ed99"><br><div class="image-caption"></div>
+</div><p>要注意的是，每次调用RunLoop的主函数，只能指定一个Mode，即CurrentMode。要切换Mode，需要先退出Loop。</p><p>CFRunLoopMode:<br></p><p>系统默认注册了5个mode(*3)</p><blockquote>
+<p>kCFRunLoopDefaultMode //App默认的Mode，通常主线程就是在这个Mode运行</p>
+<p>UITrackingRunLoopMode//界面跟踪Mode，用于ScrollView追踪触摸滑动，保证滑动时不受到其他Mode影响 (*4)</p>
+<p>UIInitializationRunLoopMode//在刚启动app时进入的第一个mode，启动后不再使用</p>
+<p>GSEventReceiveRunLoopMode//接受系统事件的内部mode(*5)</p>
+<p>kCFRunLoopCommonModes//占位，貌似就是通用的意思<br></p>
+</blockquote><p>CFRunLoopSourceRef:</p><p>source0,非基于port的（自己写的方法响应）。</p><p>source1,基于port的（系统提供）</p><p>断点调试时，注意线程调用，貌似就是用的上面这两个东东（参见原文实验）</p><p>CFRunLoopObserverRef:</p><blockquote>
+<p>typedef CF_OPTIONS(CFOptionFlags, CFRunLoopActivity) {</p>
+<p>kCFRunLoopEntry = (1UL &lt;&lt; 0), //即将进入Runloop</p>
+<p>kCFRunLoopBeforeTimers = (1UL &lt;&lt; 1), //即将处理NSTimer</p>
+<p>kCFRunLoopBeforeSources = (1UL &lt;&lt; 2), //即将处理Sources<br></p>
+<p>kCFRunLoopBeforeWaiting = (1UL &lt;&lt; 5), //即将进入休眠</p>
+<p>kCFRunLoopAfterWaiting = (1UL &lt;&lt; 6), //刚从休眠中唤醒</p>
+<div>kCFRunLoopExit = (1UL &lt;&lt; 7), //即将退出runloop</div>
+<div>kCFRunLoopAllActivities = 0x0FFFFFFFU //所有状态改变};</div>
+</blockquote><p><br></p><p><br></p><p>实验:</p><p>main函数的调用可以认为是RunLoop的启动，然后运行时程序就一直在main函数中跑着，直到程序结束才返回main</p><p>RunLoop对象打印，貌似可以反应上面的RunLoop结构图</p><p>如果NSTimer是添加到了特定的mode下时，模式切换时可能导致NSTimer检测挂起，也就意味着误差。</p><p>CFRunLoopSourceRef可通过断点看到对象位置（也就意味着它的使用时机）</p><p>CFRunLoopObserverRef，有方法CFRunLoopAddObserver(... 可以为RunLoop添加监听者（推测实践篇时，会广泛用到这个）<br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p>(*1)（以前写网页游戏的比赛服务器时就是采取的这个思路，一个while循环，等待外部传入消息请求然后做响应。之前写服务器时碰到的一个问题是，如果直接用while循环，轮询速度太快了，会导致很高的cpu占用，而实际消息响应不需要那么灵敏。所以当时采取了类似于轮询一次，然后休眠500ms再轮询下一次的处理方式。休眠貌似需要记录状态，不清楚底层是否有比休眠更加节省资源的等待方式，如果有的话，所谓的无限循环应该会和更优的等待方式结合来实现）</p><p>(*2)(之前看 <a href="http://www.cocoachina.com/ios/20161114/18054.html" target="_blank">IOS从点击到启动</a> 知道了Core Foundation是属于CoreOS即核心架构层，而Foundation是属于Core Service层的。一目了然哪个更底层，哪个是封装）</p><p>(*3)(既然是类，那么系统默认注册的类是否就是CFRunLoopMode的父类？)</p><p>(*4)为什么ScrollView的触动这么特殊，需要一个单独的mode来处理呢？</p><p>(*5)系统内部事件是指什么？来电算么？<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

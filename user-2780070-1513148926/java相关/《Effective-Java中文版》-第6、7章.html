@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《Effective Java中文版》-第6、7章</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《Effective Java中文版》-第6、7章</h1>
+        <div class="show-content">
+          <p>这两张主要是枚举和方法部分，最近比较喜欢用枚举，契合本书不可变静态域的观点，性能较优。第6章还牵扯到了注解部分，这正是我前一段时间想实践却还没来得及实践的。</p><p>第6章 枚举和注解</p><p>第30条：用enum代替int变量</p><p>旧方法int枚举模式、string枚举模式</p><p>几种有意思的enum写法</p><p>enum TYPE{</p><p> A{</p><p>int test(){  return 1;}</p><p>};</p><p>abstract int test();</p><p>}</p><p>以及</p><p>interface B{ int test();}</p><p>enum TYPE implements B{</p><p>A{</p><p>int test(){return 1;}</p><p>};</p><p>}</p><p>上述两种都可以用于实现策略模式</p><p>第31条：用实例代替序数</p><p>就是最好不要用自带的默认计数，那玩意只是序数</p><p>第32条：用EnumSet代替位域</p><p>每个EnumSet内容都是位矢量，可以满足爱用位域者的极端要求。但是目前EnumSet不可创建不可变的。</p><p>第33条：用EnumMap代替序数索引</p><p>其实挺复杂的，大致意思是创建外层索引Enum然后在其内创建内部分类Enum。</p><p>第34条：用接口模拟可伸缩的枚举</p><p>一种很复杂的声明  &lt;T extends Enum&lt;T&gt; &amp; Operation &gt; Class&lt;T&gt;</p><p>这一条的含义是，虽然枚举类型本身不可扩展，但是可以通过接口来实现内容上的扩展</p><p>第35条：注解优先于命名模式</p><p>命名模式的含义是，一个类或接口没有具体实现，只是为了做类别标记而添加的。这种情况下，可以通过注解来达到同样效果。</p><p>注解的范例方法:</p><p>@Retention(RetentionPolicy.RUNTIME)</p><p>@Target(ElementType.METHOD)</p><p>注解是开发测试框架的主要技术之一。</p><p>标记接口的含义是类级和接口级注解，标记注解的含义是方法级注解</p><p>第36条：坚持使用Override注解</p><p>可以避免很多莫名其妙的错误（重写重要Object时最好严格执行）</p><p>第37条：用标记接口定义类型</p><p>这里其实和35条是有一点关联的。要根据情况来选择使用标记接口还是标记注解</p><p><br></p><p>第7章 方法</p><p>第38条：检查参数的有效性</p><p>推荐的原则是在方法入口把所有参数的有效性检查一遍，推荐用assert，assert失败时会抛AssertionError,而且和一般的有效性检查不一样，它们如果没有起作用，本质上不会有开销（除非开启特定模式-ea标记）</p><p>第39条：必要时进行保护性拷贝</p><p>保护性拷贝的意思是，构造函数时，拷贝外部传入的引用对象，让构造持有的对象引用与外部没有关联，所以它不会被外部再次修改。这里需要根据具体情况来使用。</p><p>第40条：谨慎设计方法签名</p><p>谨慎选择方法名词、避免过长的参数列表（最好是4个以下，解决方法有 参数bean或builder模式，protobuf就是用的builder模式）</p><p>第41条：慎用重载</p><p>类型重载有时候会造成一些运行时错误，而且要注意在牵扯到基本类型集合时，注意是否会被重载误导。比如remove(i)这种，如果i是基本类型，要考虑触发的是坐标删除还是触发的是对象删除。</p><p>第42条：慎用可变参数</p><p>可变参数的实质是参数数组，注意异常</p><p>第43条：返回零长度的数组或者集合，而不是null</p><p>返零长数组的一种性能优化方案是静态化返回对象，让其唯一化</p><p>第44条：为所有导出的API元素编写文档注释</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

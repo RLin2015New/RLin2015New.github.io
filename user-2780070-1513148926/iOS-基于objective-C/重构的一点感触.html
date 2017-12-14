@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重构的一点感触</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">重构的一点感触</h1>
+        <div class="show-content">
+          <p>最近做重构有一个感触是，有的时候容易出现为了做设计模式而设计的情况。比如，我做重构时，考虑byme的工作流程，有一点链式结构的感觉，所以首先想到的是工作链模式，但实际工作链模式是自动链式处理，这里不太契合。（其实这种线性环节，有点工作流的意思）。其次，因为有很多零散的小功能，所以想到的是组件化。（组件化最近看InfoQ上的文章有在讨论这个的，貌似这个是所有移动互联公司都在考虑的一个问题）当时最初始的想法是，用command模式，让一个command代表一个组件。实践之后发现不太契合，因为command的excute和unexcute没法携带参数，而组件处理是需要参数的，直接用command的设计结构没法完全契合。所以改成了一个变种，就是保留了excute和unexcute方法，通过成员变量传递参数。但是这么做就不具有通用性，因为excute和unexcute执行需要先设置成员变量，所以没法做很好的抽离。<br></p><p>那么什么样的设计模式适合做组件化呢？</p><p>实际操作时其实并不要求组件的插拔一定非得是几行代码来搞定。因为组件的插拔大部分情况下并不是一个高频率的事件，事实恰恰相反，组件的插拔应该是一个很慎重的事件。所以接口并不一定要抽离成一样的模式。</p><p>组件化要求的应该是低耦合，可以插拔意味着随时去掉或添加。</p><p>另外一个，如果牵扯到参数传递又要求低耦合的话，那么最好是设定参数为一个通用类型。所以想到了有两种方式，</p><p>1.设计系统时直接设定一个全局数据对象，也就是这个对象可以包含所有处理过程中需要的参数信息。这样做意味着所有组件都以这个对象为参数就可以拿到自己需要的信息。添加新类型组件时，为这个对象添加新类型组件的参数就可以了。</p><p>2.设计一个get和set参数的组件协议，通过协议来获取参数。新增组件时，实现这个协议就可以了。（可以测试下）</p><p>重构过程中遇到的另外一个情景是，需要保存工作状态。说到保存，其实容易联想到的是备忘录模式。（明天测试一下试试，今天做设计时直观的想法是没有采用这个方案）。</p><p>暂时就这么多吧，重构到现在，</p><p>1.最大的改动是框架，采取了非标准的MVVC模式，引入了viewModel旨在减少viewcontroller的代码量。（可还是存在几个大爷级的类，不过代码结构确实清晰了很多）<br></p><p>2.其次是做的组件化的事情。</p><p><br></p><p>（这篇感触是由 面向超类编程 那篇读后引发的感想，真正重构的事情还没弄完，也还没系统化的整理，后续还会专门写一篇重构的历程）<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

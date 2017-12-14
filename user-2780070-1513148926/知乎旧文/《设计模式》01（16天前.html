@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>《设计模式》01（16天前</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">《设计模式》01（16天前</h1>
+        <div class="show-content">
+          <p>全书的目录是<br></p><p>引言</p><p>实例研究：设计一个文档编辑器</p><p>创建型模式</p><p>结构型模式</p><p>行为模式</p><p>结论</p><p>大致思路是，第一章 先说明设计模式是什么，是怎么用的，约定描述设计模式的方法，抛出本书总结的23个设计模式，说明本书组织介绍这个23个模式的思路（创建型 结构型 行为型），再从理论上说怎么选择和使用设计模式。 第二章提供一个例子说明到底是怎么做的。第三章就是介绍 创造性的5个设计模式。</p><p>第一章 引言</p><p>设计应该对手头的问题有针对性，同时对将来的问题和需求有足够的通用性。本书中的设计模式是对被用来再特定场景下解决一般设计问题的类和相互通信的对象的描述。</p><p>怎么描述一个设计模式呢</p><p>模式名和分类，意图，别名，动机，适用性，结构，参与者，协作，效果，实现，代码示范，已知应用，相关模式</p><p>面向对象设计的原则</p><p>1.针对接口编程，而不是针对实现编程</p><p>2.优先使用对象组合，而不是类继承</p><p>第二章 实例研究：设计一个文档编辑器</p><p>（重点体会处理思路，不要太纠结于细节，因为单作者提供的这些细节，根本设计不出一个完整的文档编辑器，而且，没有仔细调研和考虑需求的话，是没办法推测出太多细节的，参考一下自己写的前一篇 关于学习的文章）</p><p>第三章 创建型模式</p><p>抽象工厂（Abstract Factory）</p><p>核心是，创造一个工厂的抽象类，提取所需的创建方法接口，对于不同版本可以通过实现抽象类来达成不同的初始化。对于多个产品系列的情况特别适用。这么做可以分离具体的类（封装实现），易于交换产品系列，易于产品的一致性，但是难以支持新种类的产品。</p><p>Builder（对象创建型模式）</p><p>核心是，创建一个builder的父类定义基础实现，然后通过它的子类，来一步步完成具体创建。这么做可以改变一个产品的内部表示，并且将构造代码和表示代码分开。（它其实和抽象工厂很像，区别在于它是一步步构建一个对象，也就是说需要用子类实现，再最后一步才返回产品。而抽象工厂是侧重于多个系列的产品对象，是直接返回产品）</p><p>工厂方法（Factory Mehod）</p><p>核心是，如果知道产品的接口，提供一个抽象的工厂方法，子类通过实现这个工厂方法来确定产品的具体实现类。缺点在于，为了床i按一个特定的实现就要创建一个子类。抽象工厂好像经常采取的就是这种实现。（现在还并木有体会到这种方法的好处，或许要站在封装和厂商合作的角度探究一下）</p><p>PROTOTYPE（对象创建型模式）</p><p>大致意思是，每个产品提供clone方法，创建时通过调用clone方法来创建。（也没搞清楚这种方式的具体好处和适用）</p><p>单例模式（Singleton）</p><p>这个就是提供一个全局唯一访问点。</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

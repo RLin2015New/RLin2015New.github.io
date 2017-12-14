@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>memcached</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">memcached</h1>
+        <div class="show-content">
+          <p>学习资料：http://www.runoob.com/memcached/java-memcached.html</p><p>查询资料 http://www.ttlsa.com/memcache/memcache-list-all-keys/</p><p>包依赖：</p><p><br></p><p>进程 memcached.exe</p><p><br></p><p>memcached与redis对比</p><p>http://blog.csdn.net/tonysz126/article/details/8280696/</p><p><br></p><p>明天补一个memCachedTools到glist上。</p><p>MemCached的原理非常简单，就是用一个独立进程在内存中占一个区域，这个进程提供对外的访问地址和端口，并约定数据存储的方式。外部程序可以通过第三方包（或自定义包）来访问memcached的进程。这么做有什么好处呢？1.存储的数据不依赖于Jvm，这也就意味着即便宕机数据依然可恢复，而这些数据又不需要做持久化。2.高效的读写速度，以及可控的数据管理。相较于数据库而言，肯定是高速的，因为数据都是直接存储在内存区，而用独立进程约定存储格式，又让存储的数据相较于直接用Jvm存储而言更便于管理。3.可对多个服务器提供服务，用来保证数据一致性。<br></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

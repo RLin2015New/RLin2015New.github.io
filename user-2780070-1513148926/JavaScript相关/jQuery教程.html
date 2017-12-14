@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jQuery教程</title>
+    <style type="text/css" media="all">
+      body {
+        margin: 0;
+        font-family: "Helvetica Neue", Helvetica, Arial, "Hiragino Sans GB", sans-serif;
+        font-size: 14px;
+        line-height: 20px;
+        color: #777;
+        background-color: white;
+      }
+      .container {
+        width: 700px;
+        margin-right: auto;
+        margin-left: auto;
+      }
+
+      .post {
+        font-family: Georgia, "Times New Roman", Times, "SimSun", serif;
+        position: relative;
+        padding: 70px;
+        bottom: 0;
+        overflow-y: auto;
+        font-size: 16px;
+        font-weight: normal;
+        line-height: 25px;
+        color: #515151;
+      }
+
+      .post h1{
+        font-size: 50px;
+        font-weight: 500;
+        line-height: 60px;
+        margin-bottom: 40px;
+        color: inherit;
+      }
+
+      .post p {
+        margin: 0 0 35px 0;
+      }
+
+      .post img {
+        border: 1px solid #D9D9D9;
+      }
+
+      .post a {
+        color: #28A1C5;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="post">
+        <h1 class="title">jQuery教程</h1>
+        <div class="show-content">
+          <p>补一下在家看的jQuery内容</p><p>1.jQuery是一个JavaScript库</p><p>2.jQuery库的主要功能又：</p><blockquote>
+<p>HTML元素选取</p>
+<p>HTML元素操作</p>
+<p>CSS操作</p>
+<p>HTML事件函数</p>
+<p>JavaScript特效和动画</p>
+<p>HTML DOM遍历和修改</p>
+<p>AJAX</p>
+<p>Utilities</p>
+<p>另外，jQuery还有一些自带插件</p>
+</blockquote><p>3.jQuery需要引入<a href="http://www.runoob.com/jquery/jquery-install.html" target="_blank">文件</a></p><p>4.jQuery基本语法</p><blockquote><p>$(selector).action()</p></blockquote><p>其中selector是css选择器语法加jQuery自定义的部分语法，action为jQuery定义的函数</p><blockquote>
+<p>$(document).ready(function(){ ...});</p>
+<p>等效于 $(function(){});</p>
+</blockquote><p>实现文档就绪后执行jQuery方法。（注意，这里说的是文档，是否为一个html页面可以理解为一个文档呢？）</p><p>5.选择器</p><p>jQuery中，所有的选择器以 $() 开头，基于css选择器的提供了类、id、类型、属性、属性值等选择器以“查找”元素</p><p>常用的有：</p><blockquote>
+<p>$("*")    //选取所有元素</p>
+<p>$(this)  //选取当前HTML元素</p>
+<p>$("p.intro")  //选取p下所有class为intro的元素</p>
+<p>$("p:first")  //选取第一个p元素</p>
+<p>$("ul li:first") //选取第一个ul下的第一个li元素</p>
+<p>$("ul li:first-child") //选取每个ul下的第一个li元素</p>
+<p>$("[href]") //选取带有href属性的元素</p>
+<p>$("a[target='_blank']") //选取所有target=_blank的a元素</p>
+<p>$(":button") //选取所有类型为button或本身为button的元素</p>
+<p>$("tr:even") //选取所有偶数位置的tr元素</p>
+<p>$("tr:odd") //选取所有基数位置的tr元素</p>
+</blockquote><p>6.为了易于维护jQuery，最好是把它的引用放到一个独立文件中，这样子便于修改jQuery版本信息</p><p>7.jQuery事件(也就是之前说的action,jQuery语法$()选择出来的是jQuery对象，应该使用jQuery事件)</p><p>常见的jQuery事件：</p><blockquote>
+<p>鼠标事件：click dblclick mouseenter mouseleave hover（鼠标悬停）</p>
+<p>键盘事件：keypress keydown keyup</p>
+<p>表单事件：submit change focus blur</p>
+<p>文档/窗口事件 load resize scroll unload</p>
+<p>jQuery事件使用方法： $("p").click(function(){...}); ($("p").click()为调用一次)</p>
+</blockquote><p>8.hover的一个特殊写法</p><blockquote><p>$("p").hover(function(){alert("进入p")}，function(){alert("离开p")} );</p></blockquote><p>//可以模拟mouseenter 和mouseleave的效果，</p><p>//这里的特殊性是，一个方法体内定义了两个以“，”分隔的方法，进入悬停和离开悬停状态时依次调用，这里有可能是依赖于hover方法的特殊定义实现方式，也有可能是依赖于jQuery对于方法体，函数队列的处理方式</p><p>//做了两个测试，一个是在click中加入多个function实现体，定义了两个num++和两个alert，结果为无论定义多少个function实现体，执行且只执行第二个 （这里应该可以作为复写控件click事件的一种黑科技，但是是生化武器，小心使用，不要被自伤）</p><p>第二个测试是在hover中添加了三个方法体，只有第一个和第二个有效</p><p>9.jQuery效果方法</p><p>隐藏/显示</p><blockquote>
+<p>$(selector).hide(speed,callback);</p>
+<p>$(selector).show(speed,callback);</p>
+<p>$(selector).toggle(speed,callback); //开关隐藏显示</p>
+</blockquote><p>淡入/淡出</p><blockquote>
+<p>$(selector).fadeIn(speed,callback);</p>
+<p>$(selector).fadeOut(speed,callback);</p>
+<p>$(selector).fadeToggle(speed,callback);</p>
+<p>$(selector).fadeTo(speed,opacity,callback);</p>
+</blockquote><p>滑动</p><blockquote>
+<p>$(selector).slideDown(speed,callback);</p>
+<p>$(selector).slideUp(speed,callback);</p>
+<p>$(selector).slideToggle(speed,callback);</p>
+</blockquote><p>其中speed为速度，可以用“show”和“fast”的预设值或者自定义的毫秒数</p><p>callback为回调函数,opacity为透明度（0-1）</p><p>10.jQuery动画</p><p>10.1  </p><blockquote><p>语法：$(selector).animate({params},speed,callback);</p></blockquote><p>   必须的params参数定义形成动画的css属性。</p><p>10.2默认情况下，所有html元素都有一个静态位置，且无法移动。如需要对位置进行操作，需要把元素的CSS position属性设置为relative、fixed或absolute</p><p>10.3animate()方法几乎可以操作所有的CSS属性，但是需要使用Camel标记法书写所有属性名（what is Camel标记法？），比如使用paddingLeft而不是padding-left等等</p><p>10.4另外，色彩动画不包含在核心jQuery库中，如果需要用颜色动画，需要下载<a href="http://plugins.jquery.com/color/" target="_blank">颜色动画插件</a></p><p>10.5 animate()的params可以使用相对值 ，类似于</p><blockquote><p>$("p").animate({left:'+=100px'})</p></blockquote><p>10.6 animate()使用预定义值 "show","hide"或“toggle”</p><blockquote><p>$("div").animate({height:'toggle'});</p></blockquote><p>10.7 animate()使用队列功能</p><p>同一元素的多个animate会自定形成队列（这让连续复杂动画成为可能）</p><p>10.8 停止动画</p><blockquote><p>$(selector).stop(stopAll,goToEnd);</p></blockquote><p>stopAll参数规定是否应该清除动画队列，默认为false</p><p>goToEnd参数规定是否立即完成当前动画，默认为false</p><p>10.9 callback函数在动画100%完成时执行</p><p>10.10 jQuery链（Chaining）</p><blockquote><p>类似于 $("p").css("color","red").slideUp(2000).slideDown(2000);</p></blockquote><p>//核心原理应该是 这些方法执行完都是返回this</p><p><br></p><p>11.JQuery HTML</p><p>11.1 获取元素内容</p><blockquote>
+<p>text()   //设置或返回所选元素的文本内容</p>
+<p>html()  //设置或返回所选元素的内容</p>
+<p>val()  //设置或返回表单字段的值</p>
+</blockquote><p>这三个jQuery方法的回调函数有两个参数：被选元素列表中当前元素的下标，以及原始（旧的）值。</p><p>范例：</p><blockquote>
+<p>$("p").html(function(i,origText){</p>
+<p>alert(i+" : "+origText);</p>
+<p>return origText+":被修改";</p>
+<p>});</p>
+</blockquote><p>//这三个方法的调用，如果带有参数或回调，作用其实主要在于设置和处理值</p><p>11.2 获取属性</p><blockquote><p>attr()  </p></blockquote><p>范例:</p><blockquote><p> $("#lik").attr("href");</p></blockquote><p>回调函数同样带有两个参数，一个是被选元素列表中当前元素的下标，第二个是旧值，而返回值代表的是希望返回的新值。</p><p>11.3添加元素</p><blockquote>
+<p>append()  //被选元素的结尾插入内容，&lt;p&gt;和&lt;/p&gt;中间的最后位置</p>
+<p>prepend() //被选元素的开头插入内容,&lt;p&gt;和&lt;/p&gt;中间的起始位置</p>
+<p>after() //被选元素之后插入内容,&lt;p&gt;和&lt;/p&gt;之后插入</p>
+<p>before() //被选元素之前插入,&lt;p&gt;和&lt;/p&gt;之前插入</p>
+</blockquote><p>所以jQuery语法中要实现DOM中的appendChild的效果，可以有两种方式，第一种是获取子元素中最后一个，使用after()；第二种是直接用父级，使用append();</p><p>11.4 删除元素</p><blockquote>
+<p>remove()  //删除被选的元素以及其子元素</p>
+<p>empty() //删除被选元素的子元素</p>
+</blockquote><p>这两个方法可以带过滤，比如</p><p>$("p").remove(".italic")  //删除所有class为italic的p元素</p><p>11.5 CSS类</p><p>常用的操作CSS的方法：</p><blockquote>
+<p>addClass()   //向被选元素添加一个或多个类</p>
+<p>removeClass() //从被选元素中删除一个或多个类</p>
+<p>toggleClass()  //对被选元素的进行添加、删除类的切换</p>
+<p>css() //设置或返回样式属性</p>
+</blockquote><p>这里默认用到了一个CSS的类选择器概念。</p><p>.impo{ font-weight:bold; font-size:xx-large; }  //这个CSS选择器设置所有impo类元素样式，通过addClass等可以给元素设置或删除类属性，设置完成后，CSS的类样式会实时生效。正是通过实时生效这个特性，使得jQuery可以通过Class来设置元素样式</p><p>11.6 css()方法</p><blockquote>
+<p>get语法为： css("propertyname")</p>
+<p>set语法为： css("propertyname","value") 或 css("propertyname":"value","propertyname":"value")</p>
+</blockquote><p>12.jQuery尺寸</p><p>常用方法：</p><blockquote><p>width() height() innerWidth() innerHeight() outerWidth() outerHeight()</p></blockquote><p><br></p><div class="image-package">
+<img src="http://upload-images.jianshu.io/upload_images/2780070-451013c71f2c1b81.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" data-original-src="http://upload-images.jianshu.io/upload_images/2780070-451013c71f2c1b81.png?imageMogr2/auto-orient/strip" data-image-slug="451013c71f2c1b81" data-width="713" data-height="396"><br><div class="image-caption"></div>
+</div><p><br></p><p>13.jQuery遍历</p><p>（应该是基于html中元素的文档结构实现的）</p><p>13.1祖先</p><blockquote>
+<p> parent()  //直接父元素</p>
+<p> parents()  //所有祖先元素</p>
+<p> parentsUntil() //介于指定两个元素间的所有祖先元素，开区间（开区间=不包含，闭区间=包含，半闭半开区间=只包含一半）</p>
+</blockquote><p>注：parents()是支持过滤语法的</p><p>13.2后代</p><blockquote>
+<p>children()  //所有后代元素，支持过滤语法</p>
+<p>find()</p>
+</blockquote><p>13.1同胞（sibling）</p><blockquote>
+<p>siblings()</p>
+<p>next()</p>
+<p>nextAll()</p>
+<p>nextUntil()</p>
+<p>prev()</p>
+<p>prevAll()</p>
+<p>prevUntil()</p>
+</blockquote><p>14.过滤</p><p>常用过滤方法 </p><blockquote>
+<p>first()</p>
+<p>last()   //一个等效于append的last写法 $("ol").children().last().after("&lt;p&gt;xxx&lt;/p&gt;");</p>
+<p>eq() //返回被选元素中带有指定索引号的元素</p>
+<p>filter()  //过滤选择出匹配选择器语法的元素</p>
+<p>not() //过滤选择出不匹配选择器语法的元素</p>
+</blockquote><p>15.AJAX(Asynchronous JavaScript and XML,异步的JavaScript和XML)</p><p>15.1 AJAX是与服务器交换数据的技术，它在不重载全部页面的情况下，实现对部分网页的更新</p><p>15.2 jQuery提供多个与AJAX有关的方法，通过使用jQuery AJAX方法，可以使用HTTP Get和HTTP Post从远程服务器请求文本、HTML、XML或JSON，同时能够把这些外部数据直接载入网页的被选元素中。</p><p>15.3 load()方法</p><p>load方法从服务器加载数据，并把返回的数据放入被选元素中</p><blockquote><p>$(selector).load(URL,data,callback);</p></blockquote><p>URL必需的希望加载的URL</p><p>data参数可选规定一同发送的查询字符串键/值对集合</p><p>callback是load完成后的回调，回调参数为 responseTxt，statusTXT，xhr</p><p>responseTxt包含调用成功时的结果内容</p><p>statusTXT包含调用的状态</p><p>xhr包含XMLHttpRequest对象</p><p>15.4  get() 和post()方法</p><p>GET，从指定的资源请求数据（可能返回缓存数据）</p><p>POST，向指定的资源提交要处理的数据（POST不会缓存数据，常用于连同请求一起发送数据）</p><blockquote>
+<p>$.get(URL,callback);</p>
+<p>$.post(URL,callback);</p>
+</blockquote><p>16.noConflict()方法</p><p>noConflict()方法会释放$标识符的控制，这样其他脚本就可以使用它。</p><p>范例：</p><blockquote>
+<p>$.noConflict();</p>
+<p>jQuery(document).ready(function(){</p>
+<p>...</p>
+<p>});</p>
+</blockquote><p>或</p><blockquote>
+<p>var jq = $.noConflict();</p>
+<p>jq(document).ready(function($){</p>
+<p>$("p").html("abc");</p>
+<p>});</p>
+</blockquote><p>17.JSONP(JSON with Padding，跨域读取数据)</p><p> - -！ 没看太明白这个东东  0 0！</p><p>对于核心要解决的跨域问题没有一个很好的认识（看了一下，大致意思是，出于同源策略的限制，服务器1的网页A无法访问非同域名或端口下的网页B，为了解决这种跨域访问问题，利用JS文件可以跨域访问的特性，结合服务器的语法配合，来实现A访问B中的内容。核心实现策略是，在A中建立一个外壳方法，把方法名传递给B，B通过语法拼接，直接把数据结合写成外壳方法调用的方式，A获取B的内容后，自动执行，这样就达成了A访问B的目的）  - -！，说是这么一说，但是没想到这种处理的应用场景 （还木接触过需要跨域的场景~~~~~~~~~~~~）</p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
